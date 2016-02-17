@@ -51,14 +51,14 @@
     <!-- The abbreviated title is used in the page header - it is only necessary if the 
          full title is longer than 39 characters -->
 
-    <title abbrev="Network Time Protocol BCP">Network Time Protocol Best Current Practices</title>
+    <title abbrev="Network Time Protocol BCP">Network Time Protocol Best
+    Current Practices</title>
 
     <!-- add 'role="editor"' below for the editors if appropriate -->
 
     <!-- Another author who claims to be an editor -->
 
-    <author fullname="Denis Reilly" initials="D."
-            surname="Reilly">
+    <author fullname="Denis Reilly" initials="D." surname="Reilly">
       <organization>Spectracom Corporation</organization>
 
       <address>
@@ -69,14 +69,14 @@
 
           <city>Rochester, NY</city>
 
-          <region></region>
+          <region/>
 
           <code>14623</code>
 
           <country>US</country>
         </postal>
 
-        <phone></phone>
+        <phone/>
 
         <email>denis.reilly@spectracom.orolia.com</email>
 
@@ -84,8 +84,9 @@
       </address>
     </author>
 
-<!-- Leave Harlan as a ghost contributor for the moment  -->
-<!--
+    <!-- Leave Harlan as a ghost contributor for the moment  -->
+
+    <!--
     <author fullname="Harlan Stenn" initials="H."
             surname="Stenn">
       <organization>Network Time Foundation</organization>
@@ -111,8 +112,9 @@
     </author>
 -->
 
-<!-- Leave Sam as a ghost contributor for the moment  -->
-<!--    <author fullname="Samuel Weiler" initials="H."
+    <!-- Leave Sam as a ghost contributor for the moment  -->
+
+    <!--    <author fullname="Samuel Weiler" initials="H."
             surname="Weiler">
       <organization></organization>
 
@@ -130,8 +132,7 @@
     </author>
 -->
 
-
-    <date month="September" year="2015" />
+    <date month="September" year="2015"/>
 
     <!-- If the month and year are both specified and are the current ones, xml2rfc will fill 
          in the current day for you. If only the current year is specified, xml2rfc will fill 
@@ -159,17 +160,17 @@
          keywords will be used for the search engine. -->
 
     <abstract>
-      <t>NTP Version 4 (NTPv4) has been widely used since its publication as 
-         <xref target="RFC5905">RFC 5905</xref>. This documentation is a collection of Best Practices from 
-         across the NTP community. </t>
+      <t>NTP Version 4 (NTPv4) has been widely used since its publication as
+      <xref target="RFC5905">RFC 5905</xref>. This documentation is a
+      collection of Best Practices from across the NTP community.</t>
     </abstract>
   </front>
 
   <middle>
     <section title="Introduction">
-      <t>NTP Version 4 (NTPv4) has been widely used since its publication as 
-         <xref target="RFC5905">RFC 5905</xref>. This documentation is a collection of Best Practices from 
-         across the NTP community. </t>
+      <t>NTP Version 4 (NTPv4) has been widely used since its publication as
+      <xref target="RFC5905">RFC 5905</xref>. This documentation is a
+      collection of Best Practices from across the NTP community.</t>
 
       <section title="Requirements Language">
         <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -180,184 +181,220 @@
     </section>
 
     <section title="Keeping NTP up to date">
-      <t>No software (not even NTP) is perfect. 
-      Bugs can be present in any software. As software 
-      is widely deployed, users find more bugs. And even if software is 
-      thoroughly tested and "all" the bugs are wrung out, users continuously 
-      find new ways to use software that their authors did not conceive 
-      of, which can uncover more bugs. Thousands of individual bugs have 
-      been found and fixed in the NTPv4 reference implementation since the 
-      first release in 1997.</t>
+      <t>No software (not even NTP) is perfect. Bugs can be present in any
+      software. As software is widely deployed, users find more bugs. And even
+      if software is thoroughly tested and "all" the bugs are wrung out, users
+      continuously find new ways to use software that their authors did not
+      conceive of, which can uncover more bugs. Thousands of individual bugs
+      have been found and fixed in the NTPv4 reference implementation since
+      the first release in 1997.</t>
+
       <!-- I got that from http://queue.acm.org/detail.cfm?id=2717320 . -->
 
-      <t>In addition, there are always new ideas about security on the Internet, 
-      and an application which is secure today could be insecure tomorrow once 
-      an unknown bug (or a known behavior) is exploited in the right way. Many 
-      security mechanisms rely on time, either directly or indirectly, as part 
-      of their operation. If an attacker can spoof the time, they may be able to 
-      bypass or neutralize other security elements. </t>
+      <t>In addition, there are always new ideas about security on the
+      Internet, and an application which is secure today could be insecure
+      tomorrow once an unknown bug (or a known behavior) is exploited in the
+      right way. Many security mechanisms rely on time, either directly or
+      indirectly, as part of their operation. If an attacker can spoof the
+      time, they may be able to bypass or neutralize other security
+      elements.</t>
 
-      <t>In general, the best way to protect yourself and your networks against 
-      these bugs and security threats is to make sure that you keep your NTP 
-      implementation up to date. The NTP protocol has many different 
-      implementations on many different platforms. It is advised that NTP users 
-      actively monitor wherever they get their software to find out when updates 
-      are available, and deploy them as soon as practical. </t>
+      <t>In general, the best way to protect yourself and your networks
+      against these bugs and security threats is to make sure that you keep
+      your NTP implementation up to date. The NTP protocol has many different
+      implementations on many different platforms. It is advised that NTP
+      users actively monitor wherever they get their software to find out when
+      updates are available, and deploy them as soon as practical.</t>
 
-      <t>The original implementation of NTP Version 4 is still actively 
-      maintained and being developed by Network Time Foundation with help from 
-      volunteers. The Network Time Foundation currently maintains the reference 
-      implementation for NTP at http://www.ntp.org/downloads.html and also at 
-      https://github.com/ntp-project/ntp .</t>
-
+      <t>The original implementation of NTP Version 4 is still actively
+      maintained and being developed by Network Time Foundation with help from
+      volunteers. The Network Time Foundation currently maintains the
+      reference implementation for NTP at http://www.ntp.org/downloads.html
+      and also at https://github.com/ntp-project/ntp .</t>
     </section>
 
     <section title="General Network Security Best Prectices">
-      <t>NTP deployments are only as secure as the network they are running on.</t>
-      <section title="BCP 38">
-          <t>Many network attacks rely on modifying the IP source address of a 
-          packet to point to a different IP address than the computer which 
-          originated it. This behavior has been known for quite some time, and 
-          <xref target="RFC2827">BCP 38</xref> was approved to address this in 2000. 
-          This document calls for filtering incoming traffic to make sure that the 
-          source IP address is consistent with the networks that are connected to 
-          that interface. It's recommended that all large networks (and ISP's of 
-          any size) implement this. More information is availavle at 
-          http://www.bcp38.info . </t>
-        </section>
+      <t>NTP deployments are only as secure as the network they are running
+      on.</t>
+
+      <section anchor="bcp38" title="BCP 38">
+        <t>Many network attacks rely on modifying the IP source address of a
+        packet to point to a different IP address than the computer which
+        originated it. This behavior has been known for quite some time, and
+        <xref target="RFC2827">BCP 38</xref> was approved to address this in
+        2000. This document calls for filtering incoming traffic to make sure
+        that the source IP address is consistent with the networks that are
+        connected to that interface. It's recommended that all large networks
+        (and ISP's of any size) implement this. More information is available
+        at http://www.bcp38.info .</t>
+      </section>
     </section>
 
     <section title="NTP Configuration Best Practices">
-    <t>NTP can be made more secure by making a few simple changes to the 
-       ntp.conf file.</t>
-      <section title="Mode 7">
-        <t>NTP Mode 7 packets can be used as a vehicle for a Denial of Service 
-           Attack. Users can prevent their NTP servers from participating by adding 
-           the following to their ntp.conf file:</t>
+      <t>NTP can be made more secure by making a few simple changes to the
+      ntp.conf file.</t>
+
+      <section anchor="mode67" title="Mode 6 and 7">
+        <t>NTP Mode 6 and 7 packets can be used as a vehicle for a Denial of
+        Service (DoS) Attack. Users can prevent their NTP servers from
+        participating by adding the following to their ntp.conf file:</t>
+
         <t>restrict default kod nomodify notrap nopeer noquery</t>
-        <t>restrict -6 default kod nomodify notrap nopeer noquery </t>
+
+        <t>restrict -6 default kod nomodify notrap nopeer noquery</t>
+      </section>
+
+      <section title="Monitoring">
+        <t>The reference implementation of NTP allows remote monitoring. The
+        access to this service is controlled by the restrict statement in
+        NTP's configuration file (ntp.conf). The syntax reads:</t>
+
+        <figure>
+          <artwork><![CDATA[restrict address mask nomodify]]></artwork>
+        </figure>
+
+        <t>Note that the requesting node is identified by its IP address only.
+        An attacker might forge this address in order to achieve confidential
+        information or abuse the NTP service for a DoS attack. It is therefore
+        recommended to only activate this feature only if the NTP server's
+        network comply to BCP 38 (see also <xref target="bcp38"/>).</t>
       </section>
 
       <section title="Autokey">
-      <t>Editor's Note: Someone who is smarter than I am will have to write this one.</t>
+        <t>Editor's Note: Someone who is smarter than I am will have to write
+        this one.</t>
       </section>
 
       <section title="Using Pool Servers">
-            <t>It only takes a small amount of bandwidth to synchronize one NTP
+        <t>It only takes a small amount of bandwidth to synchronize one NTP
         client, but NTP servers that can service tens of thousands of clients
         can take considerable resources to run. Users who want to synchronize
-        their computers should only synchronize to servers that they have 
+        their computers should only synchronize to servers that they have
         permission to use.</t>
-            <t>The NTP pool project is a collection of volunteers who
-        have donated their compting and bandwidth resources to provide
-        time on the Internet for free. The time is generally of good
-        quality, but comes with no guarantee whatsoever. If you are
-        interested in using the pool, please review their instrutions
-        at http://www.pool.ntp.org/en/use.html .</t>
-            <t>If you want to synchronize multiple computers using the pool,
+
+        <t>The NTP pool project is a collection of volunteers who have donated
+        their computing and bandwidth resources to provide time on the
+        Internet for free. The time is generally of good quality, but comes
+        with no guarantee whatsoever. If you are interested in using the pool,
+        please review their instrutions at http://www.pool.ntp.org/en/use.html
+        .</t>
+
+        <t>If you want to synchronize multiple computers using the pool,
         consider running your own NTP server, synchronizing that to the pool,
-        and synchronizing your clients to your in-house NTP server. 
-        This reduces the load on the pool.</t>
+        and synchronizing your clients to your in-house NTP server. This
+        reduces the load on the pool.</t>
       </section>
 
       <section title="Starting, Cold-Starting, and Re-Starting NTP">
-      <t>Only use -g on cold-start. Other things TBD.</t>
-      <t>Editor's Note: I think I'd like to expand this a bit to cover how to deal with 
-      NTP stopping, when to restart it, and under what circumstances to not restart it!</t>
-      </section>
+        <t>Only use -g on cold-start. Other things TBD.</t>
 
+        <t>Editor's Note: I think I'd like to expand this a bit to cover how
+        to deal with NTP stopping, when to restart it, and under what
+        circumstances to not restart it!</t>
+      </section>
     </section>
 
     <section title="NTP in Embedded Devices">
-
-      <t>Readers of this BCP already understand how important accurate time is 
-      for network computing. And as computing becomes more ubiquitous, there 
-      will be many small "Internet of Things" devices that require accurate 
-      time. These embedded devices may not have a traditional user interface, 
-      but if they connect to the Internet they will be subject to the same 
+      <t>Readers of this BCP already understand how important accurate time is
+      for network computing. And as computing becomes more ubiquitous, there
+      will be many small "Internet of Things" devices that require accurate
+      time. These embedded devices may not have a traditional user interface,
+      but if they connect to the Internet they will be subject to the same
       security threats as traditional deployments.</t>
 
-        <section title="Updating Embedded Devices">
-            <t>Vendors of embedded devices have a special responsibility to pay 
-        attention to the current state of NTP bugs and security issues, because 
-        their customers usually don't have the ability to update their NTP 
-        implementation on their own. Those devices may have a single firmware 
-        upgrade, provided by the manufacturer, that updates all capabilities at 
-        once. This means that the vendor essentially assumes the responsibility 
-        of making sure their devices have the latest NTP updates applied.</t> 
-            <t>This should also include the ability to update the NTP server address.</t>
-            <t>(Note: do we find specific historical instances of devices behaving badly and cite them here?)</t>
-        </section>
+      <section title="Updating Embedded Devices">
+        <t>Vendors of embedded devices have a special responsibility to pay
+        attention to the current state of NTP bugs and security issues,
+        because their customers usually don't have the ability to update their
+        NTP implementation on their own. Those devices may have a single
+        firmware upgrade, provided by the manufacturer, that updates all
+        capabilities at once. This means that the vendor essentially assumes
+        the responsibility of making sure their devices have the latest NTP
+        updates applied.</t>
 
-        <section title="KISS Packets">
-            <t>The "Kiss-o'-Death" packet is a rate limiting mechanism where a
-        server can tell a misbehaving client to "back off" its query rate. It is
-        important for all NTP devices to respect these packets and back off when 
-        asked to do so by a server. It is even more important for an embedded 
-        device, which may not have exposed a control interface for NTP. </t>
-        </section>
+        <t>This should also include the ability to update the NTP server
+        address.</t>
 
-        <section title="Server configuration">
-            <t>Vendors of embedded devices that need time synchronization should
-        also carefully consider where they get their time from. There are several
-        public-facing NTP servers available, but they may not be prepared to 
-        service requests from thousands of new devices on the Internet.</t>
-            <t>Vendors are encouraged to invest resources into providing their 
-        own time servers for their devices.</t>
+        <t>(Note: do we find specific historical instances of devices behaving
+        badly and cite them here?)</t>
+      </section>
 
-          <section title="Get a vendor subdomain for pool.ntp.org">
-            <t>The NTP Pool Project offers a program where vendors can obtain their
-            own subdomain that is part of the NTP Pool. This offers vendors the
-            ability to safely make use of the time distributed by the Pool for their
-            devices. Vendors are encouraged to support the pool if they participate. 
-            For more information, visit http://www.pool.ntp.org/en/vendors.html .</t>
-          </section>
+      <section title="KISS Packets">
+        <t>The "Kiss-o'-Death" packet is a rate limiting mechanism where a
+        server can tell a misbehaving client to "back off" its query rate. It
+        is important for all NTP devices to respect these packets and back off
+        when asked to do so by a server. It is even more important for an
+        embedded device, which may not have exposed a control interface for
+        NTP.</t>
+      </section>
+
+      <section title="Server configuration">
+        <t>Vendors of embedded devices that need time synchronization should
+        also carefully consider where they get their time from. There are
+        several public-facing NTP servers available, but they may not be
+        prepared to service requests from thousands of new devices on the
+        Internet.</t>
+
+        <t>Vendors are encouraged to invest resources into providing their own
+        time servers for their devices.</t>
+
+        <section title="Get a vendor subdomain for pool.ntp.org">
+          <t>The NTP Pool Project offers a program where vendors can obtain
+          their own subdomain that is part of the NTP Pool. This offers
+          vendors the ability to safely make use of the time distributed by
+          the Pool for their devices. Vendors are encouraged to support the
+          pool if they participate. For more information, visit
+          http://www.pool.ntp.org/en/vendors.html .</t>
         </section>
+      </section>
     </section>
 
     <section title="NTP Deployment Examples">
       <t>A few examples of interesting NTP Deployments</t>
-        <section title="Client-Only configuration">
-            <t>TBD</t>
-        </section>
 
-        <section title="Server-Only Configuration">
-            <t>TBD</t>
-        </section>
+      <section title="Client-Only configuration">
+        <t>TBD</t>
+      </section>
 
-        <section title="Anycast">
-            <t>Anycast is described in <xref target="RFC4786">BCP 126</xref>. 
-       (Also see <xref target="RFC7094">RFC 7094</xref>). 
-        With anycast, a single IP address is assigned to multiple interfaces,
-        and routers direct packets to the closest active interface.</t>
-            <t>Anycast is often used for Internet services at known IP addresses,
-        such as DNS. Anycast can also be used in large organizations to simplify 
-        configuration of a large number of NTP clients. Each client can be 
-        configured to the same IP address, and a pool of anycast servers can be 
-        deployed to service those requests. New servers can be added to or taken
-        from the pool, and other than a temporary loss of service while a server
-        is taken down, these additions can be transparent to the clients.</t>
-            <t>While clients are connected to an NTP server via
-        anycast, the client does not know which particular server they
-        are connected to. And as anycast servers enter and leave the
-        network, the server a particular client is connected to may
-        change, which can cause temporary problems on the client.  It
-        is recommended that anycast is deployed in environments where
-        precision synchronization is not required. </t>
-            <t> A client also may not have any way to diagnose if an
-        anycast server is not functioning properly. It is recommended
-        that any anycast NTP implementation include multiple
-        interfaces with at least one Unicast address. These Unicast
-        addresses should be monitored (perhaps in a peering
-        arrangement) so that if one server's reference goes bad, it
+      <section title="Server-Only Configuration">
+        <t>TBD</t>
+      </section>
+
+      <section title="Anycast">
+        <t>Anycast is described in <xref target="RFC4786">BCP 126</xref>.
+        (Also see <xref target="RFC7094">RFC 7094</xref>). With anycast, a
+        single IP address is assigned to multiple interfaces, and routers
+        direct packets to the closest active interface.</t>
+
+        <t>Anycast is often used for Internet services at known IP addresses,
+        such as DNS. Anycast can also be used in large organizations to
+        simplify configuration of a large number of NTP clients. Each client
+        can be configured to the same IP address, and a pool of anycast
+        servers can be deployed to service those requests. New servers can be
+        added to or taken from the pool, and other than a temporary loss of
+        service while a server is taken down, these additions can be
+        transparent to the clients.</t>
+
+        <t>While clients are connected to an NTP server via anycast, the
+        client does not know which particular server they are connected to.
+        And as anycast servers enter and leave the network, the server a
+        particular client is connected to may change, which can cause
+        temporary problems on the client. It is recommended that anycast is
+        deployed in environments where precision synchronization is not
+        required.</t>
+
+        <t>A client also may not have any way to diagnose if an anycast server
+        is not functioning properly. It is recommended that any anycast NTP
+        implementation include multiple interfaces with at least one Unicast
+        address. These Unicast addresses should be monitored (perhaps in a
+        peering arrangement) so that if one server's reference goes bad, it
         can use the other servers to validate the correct time.</t>
-        </section>
+      </section>
     </section>
 
     <section anchor="Acknowledgements" title="Acknowledgements">
-      <t>
-	The author wishes to acknowledge the contributions of Harlan
-	Stenn, Sue Graves, Samuel Weiler, and Karen O'Donoghue.</t>
+      <t>The author wishes to acknowledge the contributions of Harlan Stenn,
+      Sue Graves, Samuel Weiler, and Karen O'Donoghue.</t>
     </section>
 
     <!-- Possibly a 'Contributors' section ... -->
@@ -368,8 +405,10 @@
 
     <section anchor="Security" title="Security Considerations">
       <t>TBD</t>
+
       <!--This entire document is one big Security Consideration. Do we 
           just reference the appropriate sections? -->
+
       <!-- SW: We need to also say that 1) NTP security
 	    considerations, in general, are discussed in RFC XXX; and
 	    2) the suggestions in this doc do not have security
@@ -395,20 +434,29 @@
 
     <references title="Normative References">
       <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
-      &RFC2119;
-      <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5905.xml"?-->
-      &RFC5905;
-      <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2827.xml"?-->
-      &RFC2827;
-      <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2827.xml"?-->
-      &RFC4786;
-      <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2827.xml"?-->
-      &RFC7094;
 
+      &RFC2119;
+
+      <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5905.xml"?-->
+
+      &RFC5905;
+
+      <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2827.xml"?-->
+
+      &RFC2827;
+
+      <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2827.xml"?-->
+
+      &RFC4786;
+
+      <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2827.xml"?-->
+
+      &RFC7094;
     </references>
 
-      <!-- Here we use entities that we defined at the beginning. -->
-      <!-- SW: Except that we're not really using these...
+    <!-- Here we use entities that we defined at the beginning. -->
+
+    <!-- SW: Except that we're not really using these...
 
     <references title="Informative References">
       &RFC3552;
@@ -418,20 +466,15 @@
     </references> 
      -->
 
-<!--
+    <!--
     <section anchor="app-additional" title="Additional Stuff">
       <t>This becomes an Appendix.</t>
     </section>
 -->
+
     <!-- Change Log
 
 v00 2015-09-18  DPR Initial Submission   
                                                                                         -->
-
-
   </back>
-
-
 </rfc>
-
-
