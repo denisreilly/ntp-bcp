@@ -111,7 +111,33 @@
       </address>
     </author>
 -->
+    <!-- Dieter's Info -->
+    <!--
+    <author fullname="Dieter Sibold" initials="D." surname="Sibold">
+      <organization abbrev="PTB">Physikalisch-Technische
+      Bundesanstalt</organization>
 
+      <address>
+        <postal>
+          <street>Bundesallee 100</street>
+
+          <city>Braunschweig</city>
+
+          <code>D-38116</code>
+
+          <region/>
+
+          <country>Germany</country>
+        </postal>
+
+        <phone>+49-(0)531-592-8420</phone>
+
+        <facsimile>+49-531-592-698420</facsimile>
+
+        <email>dieter.sibold@ptb.de</email>
+      </address>
+    </author>
+-->
     <!-- Leave Sam as a ghost contributor for the moment  -->
 
     <!--    <author fullname="Samuel Weiler" initials="H."
@@ -132,7 +158,7 @@
     </author>
 -->
 
-    <date month="September" year="2015"/>
+    <date month="March" year="2016"/>
 
     <!-- If the month and year are both specified and are the current ones, xml2rfc will fill 
          in the current day for you. If only the current year is specified, xml2rfc will fill 
@@ -463,7 +489,7 @@
       </section>
 
         <section title="External Security Means">
-          <t/>
+          <t>TBD</t>
         </section>
 
       </section>
@@ -606,7 +632,7 @@
 
     <section anchor="Acknowledgements" title="Acknowledgements">
       <t>The author wishes to acknowledge the contributions of Harlan Stenn,
-      Sue Graves, Samuel Weiler, and Karen O'Donoghue.</t>
+      Sue Graves, Samuel Weiler, Dieter Sibold, and Karen O'Donoghue.</t>
     </section>
 
     <!-- Possibly a 'Contributors' section ... -->
