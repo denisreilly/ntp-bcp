@@ -260,9 +260,72 @@
         network comply to BCP 38 (see also <xref target="bcp38"/>).</t>
       </section>
 
-      <section title="Autokey">
-        <t>Editor's Note: Someone who is smarter than I am will have to write
-        this one.</t>
+      <section title="Security">
+        <t>In the standard configuration NTP packets are exchanged unprotected
+        between client and server. An adversary is therefore able to drop,
+        replay or modify the content of the NTP packet, which leads to
+        degradation of the time synchronization or the transmission of false
+        time information. A profound threat analysis for time synchronization
+        protocols are given in <xref target="RFC7384">RFC 7384</xref>. NTP
+        provides two security measures to protect authenticity and integrity
+        of the NTP packets. Both measures protect the NTP packet by means of a
+        Message Authentication Code (MAC). Neither of them encrypts the NTP's
+        payload, because it is not considered to be confidential.</t>
+
+        <section title="Pre-Shared Key Approach">
+          <t>This approach applies a symmetric key for the calculation of the
+          MAC, which protects authenticity and integrity of the exchanged
+          packets for a association. NTP does not provide a mechanism for the
+          exchange of the keys between the associated nodes. Therefore, for
+          each association, keys have to be exchanged securely by external
+          means. It is recommended that each association is protected by an
+          own unique key. NTP does not provide a mechanism to automatically
+          refresh the applied keys. It is therefore recommended that the
+          participants periodically agree on a refresh key. The calculation of
+          the MAC is based on an MD5 hash. If the NTP daemon is build against
+          an openssl library, NTP can also base the calculation of the MAC
+          upon a SHA-1 hash algorithm.</t>
+
+          <t>To use this approach the communication partners have to exchange
+          the key with an associated key number the keyid and a label, which
+          indicates the chosen hash algorithm. Each communication partner add
+          this information in a key file in the form:</t>
+
+          <figure>
+            <artwork><![CDATA[keyid label key]]></artwork>
+          </figure>
+
+          <t>The key file contains the key in clear text. Therefore it should
+          only be readable by the NTP process. Different keys are added line
+          by line to the key file.</t>
+
+          <t>A NTP client establishes a protected association by appending the
+          option "key keyid" to the server statement in the NTP configuration
+          file:</t>
+
+          <figure>
+            <artwork><![CDATA[server address key keyid]]></artwork>
+          </figure>
+
+          <t>Note that the NTP process has to trust the applied key. An NTP
+          process explicitly has to add each key it want to trust to a list of
+          trusted keys by the "trustedkey" statement in the NTP configuration
+          file.</t>
+
+          <figure>
+            <artwork><![CDATA[trustedkey keyid_1 keyid_2 ... keyid_n]]></artwork>
+          </figure>
+
+          <t/>
+        </section>
+
+        <section title="Autokey">
+          <t/>
+        </section>
+
+        <section title="External Security Means">
+          <t/>
+        </section>
       </section>
 
       <section title="Using Pool Servers">
@@ -276,8 +339,8 @@
         their computing and bandwidth resources to provide time on the
         Internet for free. The time is generally of good quality, but comes
         with no guarantee whatsoever. If you are interested in using the pool,
-        please review their instrutions at http://www.pool.ntp.org/en/use.html
-        .</t>
+        please review their instructions at
+        http://www.pool.ntp.org/en/use.html .</t>
 
         <t>If you want to synchronize multiple computers using the pool,
         consider running your own NTP server, synchronizing that to the pool,
@@ -452,6 +515,8 @@
       <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2827.xml"?-->
 
       &RFC7094;
+
+      <?rfc include='reference.RFC.7384'?>
     </references>
 
     <!-- Here we use entities that we defined at the beginning. -->
