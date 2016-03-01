@@ -111,7 +111,9 @@
       </address>
     </author>
 -->
+
     <!-- Dieter's Info -->
+
     <!--
     <author fullname="Dieter Sibold" initials="D." surname="Sibold">
       <organization abbrev="PTB">Physikalisch-Technische
@@ -138,6 +140,7 @@
       </address>
     </author>
 -->
+
     <!-- Leave Sam as a ghost contributor for the moment  -->
 
     <!--    <author fullname="Samuel Weiler" initials="H."
@@ -208,38 +211,37 @@
 
     <section title="Keeping NTP up to date">
       <t>No software (not even NTP) is perfect. Bugs can be present in any
-      software. As software is widely deployed, users find more bugs. And
-      even if software is thoroughly tested and "all" the bugs are wrung
-      out, users continuously find new ways to use software that their
-      authors did not conceive of, which can uncover more bugs. Thousands of
-      individual bugs have been found and fixed in the NTP Project's
-      reference implementation since the first NTPv4 release in 1997.</t>
+      software. As software is widely deployed, users find more bugs. And even
+      if software is thoroughly tested and "all" the bugs are wrung out, users
+      continuously find new ways to use software that their authors did not
+      conceive of, which can uncover more bugs. Thousands of individual bugs
+      have been found and fixed in the NTP Project's reference implementation
+      since the first NTPv4 release in 1997.</t>
 
       <t>In addition, there are always new ideas about security on the
       Internet, and an application which is secure today could be insecure
       tomorrow once an unknown bug (or a known behavior) is exploited in the
       right way. Many security mechanisms rely on time, either directly or
       indirectly, as part of their operation. If an attacker can spoof the
-      time, they may be able to bypass or neutralize other security
-      elements.  It will certainly disrupt the ability to reconcile logfile
-      entries on the affected box with events on other systems.</t>
+      time, they may be able to bypass or neutralize other security elements.
+      It will certainly disrupt the ability to reconcile logfile entries on
+      the affected box with events on other systems.</t>
 
       <t>In general, the best way to protect yourself and your networks
       against these bugs and security threats is to make sure that you keep
       your NTP implementation up-to-date. There are multiple versions of the
       NTP protocol in use and multiple implementations and versions of NTP
       software also in use, on many different platforms. It is advised that
-      NTP users actively monitor wherever they get their software to find
-      out if their versions are vulnerable to any known attacks, when
-      updates are available, and deploy updates containing security fixes as
-      soon as practical.</t>
+      NTP users actively monitor wherever they get their software to find out
+      if their versions are vulnerable to any known attacks, when updates are
+      available, and deploy updates containing security fixes as soon as
+      practical.</t>
 
       <t>The reference implementation of NTP Version 4 from Network Time
       Foundation (NTF) continues to be actively maintained and developed by
-      NTF's NTP Project, with help from volunteers and NTF's supporters.
-      The NTP software can be downloaded from
-      http://www.ntp.org/downloads.html and also from
-      https://github.com/ntp-project/ntp .</t>
+      NTF's NTP Project, with help from volunteers and NTF's supporters. The
+      NTP software can be downloaded from http://www.ntp.org/downloads.html
+      and also from https://github.com/ntp-project/ntp .</t>
     </section>
 
     <section title="General Network Security Best Practices">
@@ -249,22 +251,21 @@
       <section anchor="bcp38" title="BCP 38">
         <t>Many network attacks rely on modifying the IP source address of a
         packet to point to a different IP address than the computer which
-        originated it. This modification/abuse vector has been known for
-        quite some time, and
-        <xref target="RFC2827">BCP 38</xref> was approved in 2000 to address
-        this. This document <!-- HMS: which document, BCP38 or this one? -->
+        originated it. This modification/abuse vector has been known for quite
+        some time, and <xref target="RFC2827">BCP 38</xref> was approved in
+        2000 to address this. This document <!-- HMS: which document, BCP38 or this one? -->
         calls for filtering outgoing and incoming traffic to make sure that
         the source and destination IP addresses are consistent with the
         expected flow of traffic on each network interface. It's recommended
-        that all networks (and ISP's of any size) implement this. If a
-        machine on your network is sending out packets claiming to be from
-        an address that is not on your network, this could be the first
-        indication that you have a machine that has been cracked, and is
-        being used abusively.  If packets are arriving on an external
-        interface with a source address that should only be seen on an
-        internal network, that's a strong indication that an attacker is
-        trying to inject spoofed packets into your network.  More
-        information is available at http://www.bcp38.info .</t>
+        that all networks (and ISP's of any size) implement this. If a machine
+        on your network is sending out packets claiming to be from an address
+        that is not on your network, this could be the first indication that
+        you have a machine that has been cracked, and is being used abusively.
+        If packets are arriving on an external interface with a source address
+        that should only be seen on an internal network, that's a strong
+        indication that an attacker is trying to inject spoofed packets into
+        your network. More information is available at http://www.bcp38.info
+        .</t>
       </section>
     </section>
 
@@ -275,94 +276,94 @@
       <!-- See https://support.ntp.org/bin/view/Support/ConfiguringNTP -->
 
       <section title="Use enough time sources">
-	<t>NTP takes the available sources of time and submits their timing
-	data to intersection and clustering algorithms, looking for the best
-	idea of the correct time.  If there is only 1 source of time, the
-	answer is obvious.  It may not be a good source of time, but it's
-	the only one.  If there are 2 sources of time and they agree well
-	enough, that's good.  But if they don't, then ntpd has no way to
-	know which source to believe.  This gets easier if there are 3
-	sources of time.  But if one of those 3 sources becomes unreachable
-	or unusable, we're back to only having 2 time sources.  4 sources of
-	time is another interesting choice, assuming things go well.  If one
-	of these sources develops a problem there are still 3 others.  Seems
-	good.  Until the leap-second we had in June of 2015, where several
-	operators decided to offer "leap smeared" time service, and people
-	discovered that two of their upstream servers were offering UTC time
-	while the other two were offering "leap smeared" time.  The net
-	effect of this was there was no clear majority to follow.</t>
+        <t>NTP takes the available sources of time and submits their timing
+        data to intersection and clustering algorithms, looking for the best
+        idea of the correct time. If there is only 1 source of time, the
+        answer is obvious. It may not be a good source of time, but it's the
+        only one. If there are 2 sources of time and they agree well enough,
+        that's good. But if they don't, then ntpd has no way to know which
+        source to believe. This gets easier if there are 3 sources of time.
+        But if one of those 3 sources becomes unreachable or unusable, we're
+        back to only having 2 time sources. 4 sources of time is another
+        interesting choice, assuming things go well. If one of these sources
+        develops a problem there are still 3 others. Seems good. Until the
+        leap-second we had in June of 2015, where several operators decided to
+        offer "leap smeared" time service, and people discovered that two of
+        their upstream servers were offering UTC time while the other two were
+        offering "leap smeared" time. The net effect of this was there was no
+        clear majority to follow.</t>
 
-	<t>Starting with ntp-4.2.6, the 'pool' directive will spin up
-	"enough" associations to provide robust time service, and will
-	disconnect poor servers and add in new servers as-needed.</t>
+        <t>Starting with ntp-4.2.6, the 'pool' directive will spin up "enough"
+        associations to provide robust time service, and will disconnect poor
+        servers and add in new servers as-needed.</t>
 
-	<t>Monitor your ntpd instances.  If your times sources do not
-	generally agree, find out why and either correct the problems or
-	stop using defective servers.  See <xref target="Monitoring"/> for
-	more information.</t>
+        <t>Monitor your ntpd instances. If your times sources do not generally
+        agree, find out why and either correct the problems or stop using
+        defective servers. See <xref target="Monitoring"/> for more
+        information.</t>
       </section>
 
       <section title="Use a diversity of Reference Clocks">
-	<t>If you are using reference clocks, are they all from the same
-	vendor?  Are they using the same base chipset, regardless of whether
-	or not the finished products are from different vendors?  Are they
-	all running the same version of firmware?  A systemic problem with
-	time from any satellite navigation service is possible and has
-	happened.  Sunspot activity can render satellite or radio-based time
-	sources unusable.  A chipset problem can happen.  There may be a bug
-	in the vendor's firmware.</t>
+        <t>If you are using reference clocks, are they all from the same
+        vendor? Are they using the same base chipset, regardless of whether or
+        not the finished products are from different vendors? Are they all
+        running the same version of firmware? A systemic problem with time
+        from any satellite navigation service is possible and has happened.
+        Sunspot activity can render satellite or radio-based time sources
+        unusable. A chipset problem can happen. There may be a bug in the
+        vendor's firmware.</t>
       </section>
 
       <section anchor="mode67" title="Mode 6 and 7">
-	<t>NTP Mode 6 (ntpq) and Mode 7 (ntpdc) packets are designed to
-	permit monitoring and optional authenticated control of ntpd and its
-	configuration.  Used properly, these facilities provide vital
-	debugging and performance information and control.  Used improperly,
-	these facilities can be an abuse vector.</t>
+        <t>NTP Mode 6 (ntpq) and Mode 7 (ntpdc) packets are designed to permit
+        monitoring and optional authenticated control of ntpd and its
+        configuration. Used properly, these facilities provide vital debugging
+        and performance information and control. Used improperly, these
+        facilities can be an abuse vector.</t>
 
         <t>Mode 7 queries have been disabled by default since 4.2.7p230,
-        released on 2011/11/01.  Unless you have a good reason for using
-        ntpdc, do not enable Mode 7.</t>
+        released on 2011/11/01. Unless you have a good reason for using ntpdc,
+        do not enable Mode 7.</t>
 
-	<t>The ability to use Mode 6 beyond its basic monitoring
-	capabilities can be limited to authenticated sessions that provide a
-	'controlkey', and similarly, if Mode 7 has been explicitly enabled
-	its use for more than masic monitoring can be limited to
-	authenticated sessions that provide a 'requestkey'.</t>
+        <t>The ability to use Mode 6 beyond its basic monitoring capabilities
+        can be limited to authenticated sessions that provide a 'controlkey',
+        and similarly, if Mode 7 has been explicitly enabled its use for more
+        than masic monitoring can be limited to authenticated sessions that
+        provide a 'requestkey'.</t>
 
-	<t>Older versions of the reference implementation of NTP could be
-	abused to participate in high-bandwidth DDoS attacks.  Starting with
-	ntp-4.2.7p26, released in April of 2010, ntpd requires the use of a
-	nonce before replying with potentially large response packets.
-	  <!-- Cite relevant CVEs, NTP bug reports, and release notes? -->
-	</t>
+        <t>Older versions of the reference implementation of NTP could be
+        abused to participate in high-bandwidth DDoS attacks. Starting with
+        ntp-4.2.7p26, released in April of 2010, ntpd requires the use of a
+        nonce before replying with potentially large response packets. <!-- Cite relevant CVEs, NTP bug reports, and release notes? --></t>
 
-	<t>As mentioned above, there are two general ways to use Mode 6 and
-	Mode 7 requests.  One way is to query ntpd for information, and this
-	mode can be disabled with:</t>
+        <t>As mentioned above, there are two general ways to use Mode 6 and
+        Mode 7 requests. One way is to query ntpd for information, and this
+        mode can be disabled with:</t>
 
-	<t>restrict ... noquery</t>
+        <t>restrict ... noquery</t>
 
-	<t>The second way to use Mode 6 and Mode 7 requests is to modify ntpd's
-	behavior.  Modification of ntpd ordinarily requires an authenticated
-	session.  By default, if no authentication keys have been specified
-	no modifications can be made.  For additional protection, the
-	ability to perform these modifications can be controlled with:</t>
+        <t>The second way to use Mode 6 and Mode 7 requests is to modify
+        ntpd's behavior. Modification of ntpd ordinarily requires an
+        authenticated session. By default, if no authentication keys have been
+        specified no modifications can be made. For additional protection, the
+        ability to perform these modifications can be controlled with:</t>
 
-	<t>restrict ... nomodify</t>
+        <t>restrict ... nomodify</t>
 
-	<!-- Should we talk about notrap ? -->
+        <!-- Should we talk about notrap ? -->
 
-	<!-- the following ntp.conf fragment examples are version-specific.
+        <!-- the following ntp.conf fragment examples are version-specific.
 	     Which versions should we show examples for? -->
 
-	<t>Users can prevent their NTP servers from participating by adding
+        <t>Users can prevent their NTP servers from participating by adding
         the following to their ntp.conf file:</t>
 
         <t>restrict default -4 nomodify notrap nopeer noquery</t>
+
         <t>restrict default -6 nomodify notrap nopeer noquery</t>
-	<t>restrict source nomodify notrap noquery # nopeer is OK if you
-	don't use the 'pool' directive</t>
+
+        <t>restrict source nomodify notrap noquery # nopeer is OK if you don't
+        use the 'pool' directive</t>
       </section>
 
       <section anchor="Monitoring" title="Monitoring">
@@ -374,78 +375,75 @@
           <artwork><![CDATA[restrict address mask address_mask nomodify]]></artwork>
         </figure>
 
-	<t>Monitor your ntpd instances so machines that are "out of sync"
-	can be quickly identified.  Monitor your system logs for messages
-	from ntpd so abuse attempts can be quickly identified.</t>
+        <t>Monitor your ntpd instances so machines that are "out of sync" can
+        be quickly identified. Monitor your system logs for messages from ntpd
+        so abuse attempts can be quickly identified.</t>
 
-	<t>If your system starts getting unexpected time replies from its
-	time servers, that can be an indication that the IP address of your
-	server is being forged in requests to that time server, and these
-	abusers are trying to convince your time servers to stop serving
-	time to you.</t> <!-- Cite CVEs, BU paper, bug reports? -->
+        <t>If your system starts getting unexpected time replies from its time
+        servers, that can be an indication that the IP address of your server
+        is being forged in requests to that time server, and these abusers are
+        trying to convince your time servers to stop serving time to you.</t>
 
-	<t>If your system is a broadcast client and your syslog shows that
-	you are receiving "early" time messages from your server, that is an
-	indication that somebody may be forging packets from a broadcast
-	server.</t> <!-- Cite CVEs, BU paper, bug reports? -->
+        <!-- Cite CVEs, BU paper, bug reports? -->
 
-	<t>If your syslog shows messages that indicate you are receiving
-	timestamps that are earlier than the current system time, then
-	either your system clock is unusually fast or somebody is trying to
-	launch a replay attack against your server.</t> <!-- Cite CVEs, BU
+        <t>If your system is a broadcast client and your syslog shows that you
+        are receiving "early" time messages from your server, that is an
+        indication that somebody may be forging packets from a broadcast
+        server.</t>
+
+        <!-- Cite CVEs, BU paper, bug reports? -->
+
+        <t>If your syslog shows messages that indicate you are receiving
+        timestamps that are earlier than the current system time, then either
+        your system clock is unusually fast or somebody is trying to launch a
+        replay attack against your server.</t>
+
+        <!-- Cite CVEs, BU
 	paper, bug reports? -->
 
-	<t>If you are using broadcast mode and have ntp-4.2.8p6 or later,
-	use the 4th field of the ntp.keys file to identify the IPs of
-	machines that are allowed to serve time to the group.</t> <!-- Cite
+        <t>If you are using broadcast mode and have ntp-4.2.8p6 or later, use
+        the 4th field of the ntp.keys file to identify the IPs of machines
+        that are allowed to serve time to the group.</t>
+
+        <!-- Cite
 	CVEs, BU paper, bug reports? -->
 
-	<!-- HMS: I'm not so sure about this next paragraph -->
-
-        <t>Note that the requesting node is identified by its IP address only.
-        An attacker might forge this address in order to achieve confidential
-        information or abuse the NTP service for a DoS attack. It is therefore
-        recommended to only activate this feature only if the NTP server's
-        network comply with BCP 38 (see also <xref target="bcp38"/>).</t>
+        <t><xref target="bcp38"/>).</t>
       </section>
 
       <section title="Security">
         <t>In the standard configuration NTP packets are exchanged unprotected
-        between client and server. An adversary
-
-	  that is able to become a Man-In-The-Middle
-
-	is therefore able to drop,
-        replay or modify the content of the NTP packet, which leads to
-        degradation of the time synchronization or the transmission of false
-        time information. A profound threat analysis for time synchronization
-        protocols are given in <xref target="RFC7384">RFC 7384</xref>. NTP
-        provides two security measures to protect authenticity and integrity
-        of the NTP packets. Both measures protect the NTP packet by means of a
-        Message Authentication Code (MAC). Neither of them encrypts the NTP's
-        payload, because it is not considered to be confidential.</t>
+        between client and server. An adversary that is able to become a
+        Man-In-The-Middle is therefore able to drop, replay or modify the
+        content of the NTP packet, which leads to degradation of the time
+        synchronization or the transmission of false time information. A
+        profound threat analysis for time synchronization protocols are given
+        in <xref target="RFC7384">RFC 7384</xref>. NTP provides two security
+        measures to protect authenticity and integrity of the NTP packets.
+        Both measures protect the NTP packet by means of a Message
+        Authentication Code (MAC). Neither of them encrypts the NTP's payload,
+        because it is not considered to be confidential.</t>
 
         <section title="Pre-Shared Key Approach">
-          <t>This approach applies a symmetric key for the calculation of
-          the MAC, which protects authenticity and integrity of the
-          exchanged packets for a association. NTP does not provide a
-          mechanism for the exchange of the keys between the associated
-          nodes. Therefore, for each association, keys have to be exchanged
-          securely by external means. It is recommended that each
-          association is protected by an own unique key. NTP does not
-          provide a mechanism to automatically refresh the applied keys. It
-          is therefore recommended that the participants periodically agree
-          on a refresh key. The calculation of the MAC may always be based
-          on an MD5 hash. If the NTP daemon is built against an OpenSSL
-          library, NTP can also base the calculation of the MAC upon the
-          SHA-1 or any other digest algorithm supported by each side's
-          OpenSSL library.</t>
+          <t>This approach applies a symmetric key for the calculation of the
+          MAC, which protects authenticity and integrity of the exchanged
+          packets for a association. NTP does not provide a mechanism for the
+          exchange of the keys between the associated nodes. Therefore, for
+          each association, keys have to be exchanged securely by external
+          means. It is recommended that each association is protected by an
+          own unique key. NTP does not provide a mechanism to automatically
+          refresh the applied keys. It is therefore recommended that the
+          participants periodically agree on a refresh key. The calculation of
+          the MAC may always be based on an MD5 hash. If the NTP daemon is
+          built against an OpenSSL library, NTP can also base the calculation
+          of the MAC upon the SHA-1 or any other digest algorithm supported by
+          each side's OpenSSL library.</t>
 
-          <t>To use this approach the communication partners have to
-          exchange the key, which consists of a keyid with a value between 1
-          and 65534, inclusive, and a label which indicates the chosen
-          digest algorithm. Each communication partner adds this information
-          to their key file in the form:</t>
+          <t>To use this approach the communication partners have to exchange
+          the key, which consists of a keyid with a value between 1 and 65534,
+          inclusive, and a label which indicates the chosen digest algorithm.
+          Each communication partner adds this information to their key file
+          in the form:</t>
 
           <figure>
             <artwork><![CDATA[keyid label key]]></artwork>
@@ -475,34 +473,33 @@
           <t/>
         </section>
 
-      <section title="Autokey">
-	<t>Autokey was designed in 2003 to provide a means for clients to
-	authenticate servers.  By 2011, security researchers had identified
-	computational areas in the Autokey protocol that, while secure at
-	the time of its original design, were no longer secure.  Work was
-	begun on an enhanced replacement for Autokey, which was called
-	Network Time Security.
-	https://tools.ietf.org/html/draft-ietf-ntp-network-time-security-00
-	was published in the summer of 2013.  As of February 2016, this
-	effort was at draft #13, and about to begin 'final call'.  The first
-	unicast implementation of NTS was started in the summer of 2015 and
-	is expected to be released in the summer of 2016.</t>
+        <section title="Autokey">
+          <t>Autokey was designed in 2003 to provide a means for clients to
+          authenticate servers. By 2011, security researchers had identified
+          computational areas in the Autokey protocol that, while secure at
+          the time of its original design, were no longer secure. Work was
+          begun on an enhanced replacement for Autokey, which was called
+          Network Time Security.
+          https://tools.ietf.org/html/draft-ietf-ntp-network-time-security-00
+          was published in the summer of 2013. As of February 2016, this
+          effort was at draft #13, and about to begin 'final call'. The first
+          unicast implementation of NTS was started in the summer of 2015 and
+          is expected to be released in the summer of 2016.</t>
 
-	<t>We recommend that Autokey NOT BE USED.  Know that as of the fall
-	of 2011, a common(?) laptop computer could crack the security cookie
-	used in the Autokey protocol in 30 minutes' time.  If you must use
-	Autokey, know that your session keys should be set to expire in
-	under 30 minutes' time.  If you have reason to believe your
-	autokey-protected associations will be attacked, you should read
-	https://lists.ntp.org/pipermail/ntpwg/2011-August/001714.html and
-	decide what resources your attackers might be using, and adjust the
-	session key expiration time accordingly.</t>
-      </section>
+          <t>We recommend that Autokey NOT BE USED. Know that as of the fall
+          of 2011, a common(?) laptop computer could crack the security cookie
+          used in the Autokey protocol in 30 minutes' time. If you must use
+          Autokey, know that your session keys should be set to expire in
+          under 30 minutes' time. If you have reason to believe your
+          autokey-protected associations will be attacked, you should read
+          https://lists.ntp.org/pipermail/ntpwg/2011-August/001714.html and
+          decide what resources your attackers might be using, and adjust the
+          session key expiration time accordingly.</t>
+        </section>
 
         <section title="External Security Means">
           <t>TBD</t>
         </section>
-
       </section>
 
       <section title="Using Pool Servers">
@@ -512,19 +509,19 @@
         synchronize their computers should only synchronize to servers that
         they have permission to use.</t>
 
-        <t>The NTP pool project is a collection of volunteers who have
-        donated their computing and bandwidth resources to provide time on
-        the Internet for free. The time is generally of good quality, but
-        comes with no guarantee whatsoever. If you are interested in using
-        the pool, please review their instructions at
+        <t>The NTP pool project is a collection of volunteers who have donated
+        their computing and bandwidth resources to provide time on the
+        Internet for free. The time is generally of good quality, but comes
+        with no guarantee whatsoever. If you are interested in using the pool,
+        please review their instructions at
         http://www.pool.ntp.org/en/use.html .</t>
 
-        <t>If you want to synchronize many computers using the pool,
-        consider running your own NTP servers, synchronizing them to the
-        pool, and synchronizing your clients to your in-house NTP
-        servers. This reduces the load on the pool.</t>
+        <t>If you want to synchronize many computers using the pool, consider
+        running your own NTP servers, synchronizing them to the pool, and
+        synchronizing your clients to your in-house NTP servers. This reduces
+        the load on the pool.</t>
 
-	<t>Set up or sponsor one or more pool servers.</t>
+        <t>Set up or sponsor one or more pool servers.</t>
       </section>
 
       <section title="Starting, Cold-Starting, and Re-Starting NTP">
@@ -569,10 +566,9 @@
         embedded device, which may not have exposed a control interface for
         NTP.</t>
 
-	<!-- mixed blessing - can be used as a DoS vector.  Some
+        <!-- mixed blessing - can be used as a DoS vector.  Some
 	poorly-implemented clients will actually *increase* the rate at
 	which they poll a server if they are sent a KoD packet. -->
-
       </section>
 
       <section title="Server configuration">
@@ -582,8 +578,8 @@
         prepared to service requests from thousands of new devices on the
         Internet.</t>
 
-        <t>Vendors are encouraged to invest resources into providing their
-        own time servers for their devices.</t>
+        <t>Vendors are encouraged to invest resources into providing their own
+        time servers for their devices.</t>
 
         <section title="Get a vendor subdomain for pool.ntp.org">
           <t>The NTP Pool Project offers a program where vendors can obtain
@@ -625,12 +621,12 @@
         transparent to the clients.</t>
 
         <t>If clients are connected to an NTP server via anycast, the client
-        does not know which particular server they are connected to.  And as
+        does not know which particular server they are connected to. And as
         anycast servers may arbitrarily enter and leave the network, the
-        server a particular client is connected to may change, which can
-        cause temporary problems on the client. It is recommended that
-        anycast is avoided in environments where precision synchronization
-        is required.</t>
+        server a particular client is connected to may change, which can cause
+        temporary problems on the client. It is recommended that anycast is
+        avoided in environments where precision synchronization is
+        required.</t>
 
         <t>A client also may not have any way to diagnose if an anycast server
         is not functioning properly. It is recommended that any anycast NTP
