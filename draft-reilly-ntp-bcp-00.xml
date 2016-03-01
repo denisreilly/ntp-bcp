@@ -221,7 +221,8 @@
       right way. Many security mechanisms rely on time, either directly or
       indirectly, as part of their operation. If an attacker can spoof the
       time, they may be able to bypass or neutralize other security
-      elements.</t>
+      elements.  It will certainly disrupt the ability to reconcile logfile
+      entries on the affected box with events on other systems.</t>
 
       <t>In general, the best way to protect yourself and your networks
       against these bugs and security threats is to make sure that you keep
@@ -236,12 +237,12 @@
       <t>The reference implementation of NTP Version 4 from Network Time
       Foundation (NTF) continues to be actively maintained and developed by
       NTF's NTP Project, with help from volunteers and NTF's supporters.
-      The NTP software can be downloaded at
-      http://www.ntp.org/downloads.html and also at
+      The NTP software can be downloaded from
+      http://www.ntp.org/downloads.html and also from
       https://github.com/ntp-project/ntp .</t>
     </section>
 
-    <section title="General Network Security Best Prectices">
+    <section title="General Network Security Best Practices">
       <t>NTP deployments are only as secure as the networks they are running
       over.</t>
 
@@ -258,8 +259,8 @@
         that all networks (and ISP's of any size) implement this. If a
         machine on your network is sending out packets claiming to be from
         an address that is not on your network, this could be the first
-        indication you have that you have a machine that has been cracked,
-        and is being used abusively.  If packets are arriving on an external
+        indication that you have a machine that has been cracked, and is
+        being used abusively.  If packets are arriving on an external
         interface with a source address that should only be seen on an
         internal network, that's a strong indication that an attacker is
         trying to inject spoofed packets into your network.  More
@@ -297,7 +298,8 @@
 
 	<t>Monitor your ntpd instances.  If your times sources do not
 	generally agree, find out why and either correct the problems or
-	stop using defective servers.  See below for more information.</t>
+	stop using defective servers.  See <xref target="Monitoring"/> for
+	more information.</t>
       </section>
 
       <section title="Use a diversity of Reference Clocks">
@@ -323,10 +325,10 @@
         ntpdc, do not enable Mode 7.</t>
 
 	<t>The ability to use Mode 6 beyond its basic monitoring
-	capabilities can be limited to sessions that provide a 'controlkey',
-	and similarly, if Mode 7 has been explicitly enabled its use for
-	more than masic monitoring can be limited to sessions that provide a
-	'requestkey'.</t>
+	capabilities can be limited to authenticated sessions that provide a
+	'controlkey', and similarly, if Mode 7 has been explicitly enabled
+	its use for more than masic monitoring can be limited to
+	authenticated sessions that provide a 'requestkey'.</t>
 
 	<t>Older versions of the reference implementation of NTP could be
 	abused to participate in high-bandwidth DDoS attacks.  Starting with
@@ -363,13 +365,13 @@
 	don't use the 'pool' directive</t>
       </section>
 
-      <section title="Monitoring">
+      <section anchor="Monitoring" title="Monitoring">
         <t>The reference implementation of NTP allows remote monitoring. The
         access to this service is controlled by the restrict statement in
         NTP's configuration file (ntp.conf). The syntax reads:</t>
 
         <figure>
-          <artwork><![CDATA[restrict address mask nomodify]]></artwork>
+          <artwork><![CDATA[restrict address mask address_mask nomodify]]></artwork>
         </figure>
 
 	<t>Monitor your ntpd instances so machines that are "out of sync"
@@ -389,12 +391,14 @@
 
 	<t>If your syslog shows messages that indicate you are receiving
 	timestamps that are earlier than the current system time, then
-	either your system clock is fast or somebody is trying to launch a
-	replay attack against your server.</t> <!-- Cite CVEs, BU paper, bug reports? -->
+	either your system clock is unusually fast or somebody is trying to
+	launch a replay attack against your server.</t> <!-- Cite CVEs, BU
+	paper, bug reports? -->
 
 	<t>If you are using broadcast mode and have ntp-4.2.8p6 or later,
 	use the 4th field of the ntp.keys file to identify the IPs of
-	machines that are allowed to be time servers.</t> <!-- Cite CVEs, BU paper, bug reports? -->
+	machines that are allowed to serve time to the group.</t> <!-- Cite
+	CVEs, BU paper, bug reports? -->
 
 	<!-- HMS: I'm not so sure about this next paragraph -->
 
@@ -407,7 +411,11 @@
 
       <section title="Security">
         <t>In the standard configuration NTP packets are exchanged unprotected
-        between client and server. An adversary is therefore able to drop,
+        between client and server. An adversary
+
+	  that is able to become a Man-In-The-Middle
+
+	is therefore able to drop,
         replay or modify the content of the NTP packet, which leads to
         degradation of the time synchronization or the transmission of false
         time information. A profound threat analysis for time synchronization
@@ -418,23 +426,26 @@
         payload, because it is not considered to be confidential.</t>
 
         <section title="Pre-Shared Key Approach">
-          <t>This approach applies a symmetric key for the calculation of the
-          MAC, which protects authenticity and integrity of the exchanged
-          packets for a association. NTP does not provide a mechanism for the
-          exchange of the keys between the associated nodes. Therefore, for
-          each association, keys have to be exchanged securely by external
-          means. It is recommended that each association is protected by an
-          own unique key. NTP does not provide a mechanism to automatically
-          refresh the applied keys. It is therefore recommended that the
-          participants periodically agree on a refresh key. The calculation of
-          the MAC is based on an MD5 hash. If the NTP daemon is build against
-          an openssl library, NTP can also base the calculation of the MAC
-          upon a SHA-1 hash algorithm.</t>
+          <t>This approach applies a symmetric key for the calculation of
+          the MAC, which protects authenticity and integrity of the
+          exchanged packets for a association. NTP does not provide a
+          mechanism for the exchange of the keys between the associated
+          nodes. Therefore, for each association, keys have to be exchanged
+          securely by external means. It is recommended that each
+          association is protected by an own unique key. NTP does not
+          provide a mechanism to automatically refresh the applied keys. It
+          is therefore recommended that the participants periodically agree
+          on a refresh key. The calculation of the MAC may always be based
+          on an MD5 hash. If the NTP daemon is built against an OpenSSL
+          library, NTP can also base the calculation of the MAC upon the
+          SHA-1 or any other digest algorithm supported by each side's
+          OpenSSL library.</t>
 
-          <t>To use this approach the communication partners have to exchange
-          the key with an associated key number the keyid and a label, which
-          indicates the chosen hash algorithm. Each communication partner add
-          this information in a key file in the form:</t>
+          <t>To use this approach the communication partners have to
+          exchange the key, which consists of a keyid with a value between 1
+          and 65534, inclusive, and a label which indicates the chosen
+          digest algorithm. Each communication partner adds this information
+          to their key file in the form:</t>
 
           <figure>
             <artwork><![CDATA[keyid label key]]></artwork>
@@ -474,8 +485,8 @@
 	https://tools.ietf.org/html/draft-ietf-ntp-network-time-security-00
 	was published in the summer of 2013.  As of February 2016, this
 	effort was at draft #13, and about to begin 'final call'.  The first
-	Unicast implementation of NTS is expected to be released in the
-	summer of 2016.</t>
+	unicast implementation of NTS was started in the summer of 2015 and
+	is expected to be released in the summer of 2016.</t>
 
 	<t>We recommend that Autokey NOT BE USED.  Know that as of the fall
 	of 2011, a common(?) laptop computer could crack the security cookie
@@ -495,9 +506,9 @@
       </section>
 
       <section title="Using Pool Servers">
-        <t>It only takes a small amount of bandwidth to synchronize one NTP
-        client, but NTP servers that can service tens of thousands of
-        clients can take considerable resources to run. Users who want to
+        <t>It only takes a small amount of bandwidth and system resources to
+        synchronize one NTP client, but NTP servers that can service tens of
+        thousands of clients take more resources to run. Users who want to
         synchronize their computers should only synchronize to servers that
         they have permission to use.</t>
 
@@ -558,7 +569,7 @@
         embedded device, which may not have exposed a control interface for
         NTP.</t>
 
-<!-- mixed blessing - can be used as a DoS vector.  Some
+	<!-- mixed blessing - can be used as a DoS vector.  Some
 	poorly-implemented clients will actually *increase* the rate at
 	which they poll a server if they are sent a KoD packet. -->
 
@@ -571,8 +582,8 @@
         prepared to service requests from thousands of new devices on the
         Internet.</t>
 
-        <t>Vendors are encouraged to invest resources into providing their own
-        time servers for their devices.</t>
+        <t>Vendors are encouraged to invest resources into providing their
+        own time servers for their devices.</t>
 
         <section title="Get a vendor subdomain for pool.ntp.org">
           <t>The NTP Pool Project offers a program where vendors can obtain
