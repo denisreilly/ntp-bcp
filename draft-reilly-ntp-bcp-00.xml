@@ -408,7 +408,6 @@
         <!-- Cite
 	CVEs, BU paper, bug reports? -->
 
-        <t><xref target="bcp38"/>).</t>
       </section>
 
       <section title="Security">
@@ -530,6 +529,49 @@
         <t>Editor's Note: I think I'd like to expand this a bit to cover how
         to deal with NTP stopping, when to restart it, and under what
         circumstances to not restart it!</t>
+      </section>
+
+      <section title="Leap Second Handling">
+        <t>The UTC timescale is kept in sync with the rotation of the earth 
+        through the use of leap seconds. More details are available {here}. 
+        </t>
+
+        <t>NTP time is based on the UTC timescale, and the protocol has the 
+        capability to broadcast leap second information. GPS (and most other 
+        GNSS systems) broadcast leap second information as part of the satellite 
+        data, so if you have a Stratum-1 server synced to GPS (or you are synced 
+        to a lower stratum server that is ultimately synced to GPS), you will get 
+        advance notification of impending leap seconds automatically.</t>
+
+        <t>NIST maintains a leap second list for NTP users who are not receiving 
+        leap second information through an automatic source.  
+        [ftp://tycho.usno.navy.mil/pub/ntp/leap-seconds.list] 
+        After fetching the leap seconds file onto the server, add this line to 
+        ntpd.conf to apply the file:</t>
+
+        <t>leapfile "/path/to your/leap-file"</t>
+
+        <t>You will need to restart to apply the changes.</t>
+
+        <section title="Leap Smearing">
+          <t>Some NTP installations may instead make use of a technique called 
+          "Leap Smearing".  With this method, instead of introducing an extra 
+          second (or eliminating a second), NTP time will be slewed in small 
+          increments over a comparably large window of time around the leap 
+          second event. The amount of the slew should be small enough that 
+          clients will follow the smeared time without objecting. During the 
+          adjustment window, the NTP server's time may be offset from UTC by as 
+          much as .5 seconds.  This is done to enable software that doesn't deal
+          with minutes that have more or less than 60 seconds to function 
+          correctly, at the expense of fidelity to UTC during the smear window.</t> 
+          <!--find a reference, possibly Google or Meinberg -->
+
+          <t>When using NTP servers from across the Internet, users should be 
+          aware that some servers may smear the leap second, while others may 
+          jump (while a third, hopefully smaller, group may ignore it 
+          altogether). Users are advised to be aware of impending leap seconds 
+          and how the servers they are using deal with them. </t>
+        </section>
       </section>
     </section>
 
