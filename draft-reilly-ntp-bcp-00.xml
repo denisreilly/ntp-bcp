@@ -566,11 +566,18 @@
           correctly, at the expense of fidelity to UTC during the smear window.</t> 
           <!--find a reference, possibly Google or Meinberg -->
 
-          <t>When using NTP servers from across the Internet, users should be 
-          aware that some servers may smear the leap second, while others may 
-          jump (while a third, hopefully smaller, group may ignore it 
-          altogether). Users are advised to be aware of impending leap seconds 
-          and how the servers they are using deal with them. </t>
+          <t>Leap Smearing was introduced in ntpd versions 4.2.8.p3 and 4.3.47.
+          Support is not configured by default and must be added at compile 
+          time. In addition, no leap smearing will occur unless a leap smear 
+          interval is specified in ntpd.conf . For more information, refer to 
+          [http://bk1.ntp.org/ntp-stable/README.leapsmear?PAGE=anno]</t>
+
+          <t>Leap Smearing is not recommended for public-facing NTP servers,
+          as they will disagree with non-smearing servers during the leap smear
+          interval. However, some public-facing servers may be configured this 
+          way anyway. Users are advised to be aware of impending leap seconds 
+          and how the servers (inside and outside their organization) they are 
+          using deal with them. </t>
         </section>
       </section>
     </section>
