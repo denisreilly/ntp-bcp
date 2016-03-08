@@ -84,9 +84,6 @@
       </address>
     </author>
 
-    <!-- Leave Harlan as a ghost contributor for the moment  -->
-
-    <!--
     <author fullname="Harlan Stenn" initials="H."
             surname="Stenn">
       <organization>Network Time Foundation</organization>
@@ -110,11 +107,7 @@
 
       </address>
     </author>
--->
 
-    <!-- Dieter's Info -->
-
-    <!--
     <author fullname="Dieter Sibold" initials="D." surname="Sibold">
       <organization abbrev="PTB">Physikalisch-Technische
       Bundesanstalt</organization>
@@ -139,7 +132,7 @@
         <email>dieter.sibold@ptb.de</email>
       </address>
     </author>
--->
+
 
     <!-- Leave Sam as a ghost contributor for the moment  -->
 
@@ -211,37 +204,37 @@
 
     <section title="Keeping NTP up to date">
       <t>No software (not even NTP) is perfect. Bugs can be present in any
-      software. As software is widely deployed, users find more bugs. And even
-      if software is thoroughly tested and "all" the bugs are wrung out, users
-      continuously find new ways to use software that their authors did not
-      conceive of, which can uncover more bugs. Thousands of individual bugs
-      have been found and fixed in the NTP Project's reference implementation
-      since the first NTPv4 release in 1997.</t>
+      software. Even if software is thoroughly tested and "all" the bugs are 
+      discovered and fixed, users continuously find new ways to use software 
+      that their authors did not conceive of, which can uncover more bugs. 
+      Thousands of individual bugs have been found and fixed in the NTP 
+      Project's reference implementation since the first NTPv4 release in 1997.</t>
 
-      <t>In addition, there are always new ideas about security on the
-      Internet, and an application which is secure today could be insecure
-      tomorrow once an unknown bug (or a known behavior) is exploited in the
-      right way. Many security mechanisms rely on time, either directly or
-      indirectly, as part of their operation. If an attacker can spoof the
-      time, they may be able to bypass or neutralize other security elements.
-      It will certainly disrupt the ability to reconcile logfile entries on
-      the affected box with events on other systems.</t>
+      <t>There are always new ideas about security on the Internet, and an 
+      application which is secure today could be insecure tomorrow once an 
+      unknown bug (or a known behavior) is exploited in the right way. Many 
+      security mechanisms rely on time, either directly or indirectly, as part 
+      of their operation. If an attacker can spoof the time, they may be able 
+      to bypass or neutralize other security elements. For example, incorrect
+      time can disrupt the ability to reconcile logfile entries on the affected
+      system with events on other systems.</t>
 
       <t>In general, the best way to protect yourself and your networks
       against these bugs and security threats is to make sure that you keep
       your NTP implementation up-to-date. There are multiple versions of the
       NTP protocol in use and multiple implementations and versions of NTP
-      software also in use, on many different platforms. It is advised that
+      software also in use, on many different platforms. It is recommended that
       NTP users actively monitor wherever they get their software to find out
-      if their versions are vulnerable to any known attacks, when updates are
-      available, and deploy updates containing security fixes as soon as
-      practical.</t>
+      if their versions are vulnerable to any known attacks, and deploy updates 
+      containing security fixes as soon as practical.</t>
 
       <t>The reference implementation of NTP Version 4 from Network Time
       Foundation (NTF) continues to be actively maintained and developed by
       NTF's NTP Project, with help from volunteers and NTF's supporters. The
-      NTP software can be downloaded from http://www.ntp.org/downloads.html
-      and also from https://github.com/ntp-project/ntp .</t>
+      NTP software can be downloaded from 
+      <eref target="http://www.ntp.org/downloads.html">ntp.org</eref> and also 
+      from <eref target="https://github.com/ntp-project/ntp">NTF's github page
+      </eref>.</t>
     </section>
 
     <section title="General Network Security Best Practices">
@@ -253,10 +246,10 @@
         packet to point to a different IP address than the computer which
         originated it. This modification/abuse vector has been known for quite
         some time, and <xref target="RFC2827">BCP 38</xref> was approved in
-        2000 to address this. This document <!-- HMS: which document, BCP38 or this one? -->
+        2000 to address this. <xref target="RFC2827">BCP 38</xref>
         calls for filtering outgoing and incoming traffic to make sure that
         the source and destination IP addresses are consistent with the
-        expected flow of traffic on each network interface. It's recommended
+        expected flow of traffic on each network interface. It is recommended
         that all networks (and ISP's of any size) implement this. If a machine
         on your network is sending out packets claiming to be from an address
         that is not on your network, this could be the first indication that
@@ -287,11 +280,10 @@
         back to only having 2 time sources. 4 sources of time is another
         interesting choice, assuming things go well. If one of these sources
         develops a problem there are still 3 others. Seems good. Until the
-        leap-second we had in June of 2015, where several operators decided to
-        offer "leap smeared" time service, and people discovered that two of
-        their upstream servers were offering UTC time while the other two were
-        offering "leap smeared" time. The net effect of this was there was no
-        clear majority to follow.</t>
+        leap second we had in June of 2015, where several operators implemented
+        leap smearing while others did not. See <xref target="leap_smear" /> 
+        for more information.
+        </t>
 
         <t>Starting with ntp-4.2.6, the 'pool' directive will spin up "enough"
         associations to provide robust time service, and will disconnect poor
@@ -304,14 +296,16 @@
       </section>
 
       <section title="Use a diversity of Reference Clocks">
-        <t>If you are using reference clocks, are they all from the same
-        vendor? Are they using the same base chipset, regardless of whether or
-        not the finished products are from different vendors? Are they all
-        running the same version of firmware? A systemic problem with time
-        from any satellite navigation service is possible and has happened.
-        Sunspot activity can render satellite or radio-based time sources
-        unusable. A chipset problem can happen. There may be a bug in the
-        vendor's firmware.</t>
+        <t>If you are using reference clocks, it is recommended that you use 
+        several different types. Having a diversity of sources means that any 
+        one issue is less likely to cause a service interruption.</t>
+        <t>Are all your clocks from the same vendor? Are they using the same 
+        base chipset, regardless of whether or not the finished products are 
+        from different vendors? Are they all running the same version of 
+        firmware? A systemic problem with time from any satellite navigation 
+        service is possible and has happened. Sunspot activity can render 
+        satellite or radio-based time source unusable. A chipset problem can 
+        happen. There may be a bug in the vendor's firmware. </t>
       </section>
 
       <section anchor="mode67" title="Mode 6 and 7">
@@ -429,10 +423,10 @@
           packets for a association. NTP does not provide a mechanism for the
           exchange of the keys between the associated nodes. Therefore, for
           each association, keys have to be exchanged securely by external
-          means. It is recommended that each association is protected by an
+          means. It is recommended that each association is protected by its
           own unique key. NTP does not provide a mechanism to automatically
           refresh the applied keys. It is therefore recommended that the
-          participants periodically agree on a refresh key. The calculation of
+          participants periodically agree on a fresh key. The calculation of
           the MAC may always be based on an MD5 hash. If the NTP daemon is
           built against an OpenSSL library, NTP can also base the calculation
           of the MAC upon the SHA-1 or any other digest algorithm supported by
@@ -478,9 +472,9 @@
           computational areas in the Autokey protocol that, while secure at
           the time of its original design, were no longer secure. Work was
           begun on an enhanced replacement for Autokey, which was called
-          Network Time Security.
-          https://tools.ietf.org/html/draft-ietf-ntp-network-time-security-00
-          was published in the summer of 2013. As of February 2016, this
+          <eref target="https://tools.ietf.org/html/draft-ietf-ntp-network-time-security-00">
+          Network Time Security (NTS)</eref>.
+          NTS was published in the summer of 2013. As of February 2016, this
           effort was at draft #13, and about to begin 'final call'. The first
           unicast implementation of NTS was started in the summer of 2015 and
           is expected to be released in the summer of 2016.</t>
@@ -513,7 +507,8 @@
         Internet for free. The time is generally of good quality, but comes
         with no guarantee whatsoever. If you are interested in using the pool,
         please review their instructions at
-        http://www.pool.ntp.org/en/use.html .</t>
+        <eref target="http://www.pool.ntp.org/en/use.html">
+        http://www.pool.ntp.org/en/use.html</eref>.</t>
 
         <t>If you want to synchronize many computers using the pool, consider
         running your own NTP servers, synchronizing them to the pool, and
@@ -533,19 +528,18 @@
 
       <section title="Leap Second Handling">
         <t>The UTC timescale is kept in sync with the rotation of the earth 
-        through the use of leap seconds. More details are available {here}. 
-        </t>
+        through the use of leap seconds. NTP time is based on the UTC timescale, 
+        and the protocol has the capability to broadcast leap second 
+        information. Some GNSS systems (like GPS) broadcast leap second 
+        information, so if you have a Stratum-1 server synced to GNSS (or you 
+        are synced to a lower stratum server that is ultimately synced to GNSS), 
+        you will get advance notification of impending leap seconds automatically.</t>
 
-        <t>NTP time is based on the UTC timescale, and the protocol has the 
-        capability to broadcast leap second information. GPS (and most other 
-        GNSS systems) broadcast leap second information as part of the satellite 
-        data, so if you have a Stratum-1 server synced to GPS (or you are synced 
-        to a lower stratum server that is ultimately synced to GPS), you will get 
-        advance notification of impending leap seconds automatically.</t>
-
-        <t>NIST maintains a leap second list for NTP users who are not receiving 
+        <t>NIST maintains a 
+        <eref target="ftp://tycho.usno.navy.mil/pub/ntp/leap-seconds.list">
+        leap second list</eref> for NTP users who are not receiving 
         leap second information through an automatic source.  
-        [ftp://tycho.usno.navy.mil/pub/ntp/leap-seconds.list] 
+        
         After fetching the leap seconds file onto the server, add this line to 
         ntpd.conf to apply the file:</t>
 
@@ -553,7 +547,7 @@
 
         <t>You will need to restart to apply the changes.</t>
 
-        <section title="Leap Smearing">
+        <section title="Leap Smearing" anchor="leap_smear">
           <t>Some NTP installations may instead make use of a technique called 
           "Leap Smearing".  With this method, instead of introducing an extra 
           second (or eliminating a second), NTP time will be slewed in small 
@@ -570,7 +564,8 @@
           Support is not configured by default and must be added at compile 
           time. In addition, no leap smearing will occur unless a leap smear 
           interval is specified in ntpd.conf . For more information, refer to 
-          [http://bk1.ntp.org/ntp-stable/README.leapsmear?PAGE=anno]</t>
+          <eref target="http://bk1.ntp.org/ntp-stable/README.leapsmear?PAGE=anno">
+          http://bk1.ntp.org/ntp-stable/README.leapsmear?PAGE=anno</eref>.</t>
 
           <t>Leap Smearing is not recommended for public-facing NTP servers,
           as they will disagree with non-smearing servers during the leap smear
@@ -596,8 +591,8 @@
         because their customers usually don't have the ability to update their
         NTP implementation on their own. Those devices may have a single
         firmware upgrade, provided by the manufacturer, that updates all
-        capabilities at once. This means that the vendor essentially assumes
-        the responsibility of making sure their devices have the latest NTP
+        capabilities at once. This means that the vendor assumes the 
+        responsibility of making sure their devices have the latest NTP
         updates applied.</t>
 
         <t>This should also include the ability to update the NTP server
@@ -608,16 +603,19 @@
       </section>
 
       <section title="KISS Packets">
-        <t>The "Kiss-o'-Death" packet is a rate limiting mechanism where a
+        <t>The "Kiss-o'-Death" (KoD) packet is a rate limiting mechanism where a
         server can tell a misbehaving client to "back off" its query rate. It
         is important for all NTP devices to respect these packets and back off
         when asked to do so by a server. It is even more important for an
         embedded device, which may not have exposed a control interface for
         NTP.</t>
-
-        <!-- mixed blessing - can be used as a DoS vector.  Some
-	poorly-implemented clients will actually *increase* the rate at
-	which they poll a server if they are sent a KoD packet. -->
+        
+        <t>The KoD mechanism relies on clients behaving properly in order to be 
+        effective. Some clients ignore the KoD packet entirely, and other
+        poorly-implemented clients might unintentionally increase their poll 
+        rate and simulate a denial of service attack. Server administrators 
+        should be prepared for this and take measures outside of the NTP 
+        protocol to drop packets from misbehaving clients. </t>
       </section>
 
       <section title="Server configuration">
@@ -636,7 +634,8 @@
           vendors the ability to safely make use of the time distributed by
           the Pool for their devices. Vendors are encouraged to support the
           pool if they participate. For more information, visit
-          http://www.pool.ntp.org/en/vendors.html .</t>
+          <eref target="http://www.pool.ntp.org/en/vendors.html">
+          http://www.pool.ntp.org/en/vendors.html</eref> .</t>
         </section>
       </section>
     </section>
@@ -663,32 +662,49 @@
         <t>Anycast is often used for Internet services at known IP addresses,
         such as DNS. Anycast can also be used in large organizations to
         simplify configuration of a large number of NTP clients. Each client
-        can be configured to the same IP address, and a pool of anycast
-        servers can be deployed to service those requests. New servers can be
-        added to or taken from the pool, and other than a temporary loss of
-        service while a server is taken down, these additions can be
+        can be configured with the same NTP server IP address, and a pool of 
+        anycast servers can be deployed to service those requests. New servers 
+        can be added to or taken from the pool, and other than a temporary loss 
+        of service while a server is taken down, these additions can be
         transparent to the clients.</t>
 
         <t>If clients are connected to an NTP server via anycast, the client
-        does not know which particular server they are connected to. And as
+        does not know which particular server they are connected to. As
         anycast servers may arbitrarily enter and leave the network, the
-        server a particular client is connected to may change, which can cause
-        temporary problems on the client. It is recommended that anycast is
-        avoided in environments where precision synchronization is
-        required.</t>
+        server a particular client is connected to may change. This may cause a
+        small shift in time from the perspective of the client when the 
+        server it is connected to changes. It is recommended that anycast be 
+        deployed in environments where these small shifts can be tolerated. </t>
 
-        <t>A client also may not have any way to diagnose if an anycast server
-        is not functioning properly. It is recommended that any anycast NTP
-        implementation include multiple interfaces with at least one Unicast
-        address. These Unicast addresses should be monitored (perhaps in a
-        peering arrangement) so that if one server's reference goes bad, it
-        can use the other servers to validate the correct time.</t>
+        <t>Configuration of an anycast interface is independent of NTP. Clients
+        will always connect to the closest server, even if that server is
+        having NTP issues. It is recommended that anycast NTP implementations 
+        have an independent method of monitoring the performance of NTP on a 
+        server. In the event the server is not performing to specification,
+        it should remove itself from the Anycast network. It is also 
+        recommended that each Anycast NTP server have at least one Unicast 
+        interface, so its performance can be checked independently of the 
+        anycast routing scheme.</t>
+
+        <t>One useful application in large networks is to use a hybrid 
+        unicast/anycast approach. Stratum 1 NTP servers can be deployed with 
+        unicast interfaces at several sites. Each site may have several 
+        Stratum 2 servers with a unicast interface and an anycast interface 
+        (with a shared IP address per location). The unicast interfaces can be 
+        used to obtain time from the Stratum 1 servers globally (and perhaps 
+        peer with the other Stratum 2 servers at their site). Clients at each 
+        site can be configured to use the shared anycast address for
+        their site, simplifying their configuration. Keeping the anycast 
+        routing restricted on a per-site basis will minimize the disruption 
+        at the client if its closest anycast server changes. </t>
+
+        <!-- Should there be a diagram here? -->
       </section>
     </section>
 
     <section anchor="Acknowledgements" title="Acknowledgements">
-      <t>The author wishes to acknowledge the contributions of Harlan Stenn,
-      Sue Graves, Samuel Weiler, Dieter Sibold, and Karen O'Donoghue.</t>
+      <t>The author wishes to acknowledge the contributions of 
+      Sue Graves, Samuel Weiler, Lisa Perdue, and Karen O'Donoghue.</t>
     </section>
 
     <!-- Possibly a 'Contributors' section ... -->
