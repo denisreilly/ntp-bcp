@@ -108,6 +108,8 @@
       </address>
     </author>
 
+    <!-- Leave Dieter as a ghost contributor for now -->
+    <!--
     <author fullname="Dieter Sibold" initials="D." surname="Sibold">
       <organization abbrev="PTB">Physikalisch-Technische
       Bundesanstalt</organization>
@@ -132,6 +134,7 @@
         <email>dieter.sibold@ptb.de</email>
       </address>
     </author>
+    <-->
 
 
     <!-- Leave Sam as a ghost contributor for the moment  -->
@@ -704,7 +707,8 @@
 
     <section anchor="Acknowledgements" title="Acknowledgements">
       <t>The author wishes to acknowledge the contributions of 
-      Sue Graves, Samuel Weiler, Lisa Perdue, and Karen O'Donoghue.</t>
+      Sue Graves, Dieter Sibold, Samuel Weiler, Lisa Perdue, 
+      and Karen O'Donoghue.</t>
     </section>
 
     <!-- Possibly a 'Contributors' section ... -->
