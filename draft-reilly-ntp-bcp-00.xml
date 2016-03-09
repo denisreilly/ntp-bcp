@@ -39,7 +39,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="bcp" docName="draft-reilly-ntp-bcp-00" ipr="trust200902">
+<rfc category="bcp" docName="draft-reilly-ntp-bcp-01" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
      you can add the attributes updates="NNNN" and obsoletes="NNNN" 
@@ -790,6 +790,7 @@
     <!-- Change Log
 
 v00 2015-09-18  DPR Initial Submission   
+v01 2016-03-09  DPR 1st Rev after submissions from Harlan, Dieter
                                                                                         -->
   </back>
 </rfc>
