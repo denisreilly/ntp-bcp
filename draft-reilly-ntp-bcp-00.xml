@@ -207,10 +207,13 @@
       Thousands of individual bugs have been found and fixed in the NTP
       Project's reference implementation since the first NTPv4 release in
       1997.</t>
-
       <t>There are always new ideas about security on the Internet, and an
       application which is secure today could be insecure tomorrow once an
-      unknown bug (or a known behavior) is exploited in the right way. Many
+      unknown bug (or a known behavior) is exploited in the right way. 
+      Even our definition of what is secure has evolved over the years, so
+      code which was considered secure when it was written can be considered
+      insecure after some time.</t>
+      <t> Many
       security mechanisms rely on time, either directly or indirectly, as part
       of their operation. If an attacker can spoof the time, they may be able
       to bypass or neutralize other security elements. For example, incorrect
@@ -279,7 +282,8 @@
         develops a problem there are still 3 others. Seems good. Until the
         leap second we had in June of 2015, where several operators
         implemented leap smearing while others did not. See <xref
-        target="leap_smear"/> for more information.</t>
+        target="leap_smear"/> for more information.
+        </t> 
 
         <t>Starting with ntp-4.2.6, the 'pool' directive will spin up "enough"
         associations to provide robust time service, and will disconnect poor
@@ -292,8 +296,9 @@
       </section>
 
       <section title="Use a diversity of Reference Clocks">
-        <t>If you are using reference clocks, it is recommended that you use
-        several different types. Having a diversity of sources means that any
+        <t>If you are using servers with attached hardware reference
+        clocks, it is recommended that you use several different types of 
+        reference clocks. Having a diversity of sources means that any
         one issue is less likely to cause a service interruption.</t>
 
         <t>Are all your clocks from the same vendor? Are they using the same
@@ -532,19 +537,31 @@
         GNSS), you will get advance notification of impending leap seconds
         automatically.</t>
 
-        <!--NIST maintains a  leap second list (ftp://tycho.usno.navy.mil/pub/ntp/leap-seconds.list) for NTP users who are not receiving leap second information through an automatic source. After fetching the leap seconds file onto the server, add this line to ntpd.conf to apply the file:-->
+        <t>While earlier versions of NTP contained some ambiguity regarding when
+        leap seconds could occur, RFC 5905 is clear that leap seconds are 
+        processed at the end of a month. If an upstream server is broadcasting 
+        that a leap second is pending, RFC5905-compliant servers should apply
+        it at the end of the last minute of the last day of the month.</t>
 
-        <t>The International Earth Rotation and Reference Systems Service
-        (IERS) is responsible to announce the introduction of a leap second.
-        It maintains a leap second list at <eref
-        target="https://hpiers.obspm.fr/iers/bul/bulc/ntp/leap-seconds.list">https://hpiers.obspm.fr/iers/bul/bulc/ntp/leap-seconds.list</eref>
-        for NTP users who are not receiving leap second information through an
-        automatic source. After fetching the leap seconds file onto the
-        server, add this line to ntpd.conf to apply the file: </t>
+        <t>The IETF maintains a leap second list 
+        (https://www.ietf.org/timezones/data/leap-seconds.list) for NTP users who
+        are not receiving leap second information through an automatic source.
+        The use of leap second files requires ntpd 4.2.6 or later.  
+        After fetching the leap seconds file onto the server, add this line to
+        ntpd.conf to apply the file:</t>
 
         <t>leapfile "/path/to your/leap-file"</t>
 
         <t>You will need to restart to apply the changes.</t>
+
+        <t>Files are also available from other sources:</t>
+        <t>NIST: ftp://time.nist.gov/pub/leap-seconds.list</t>
+        <t>US Navy (maintains GPS Time): ftp://tycho.usno.navy.mil/pub/ntp/leap-seconds.list</t>
+        <t>IERS (announces leap seconds): https://hpiers.obspm.fr/iers/bul/bulc/ntp/leap-seconds.list</t>
+
+        <t>Servers with a manually configured leap second file will ignore
+        leap second information broadcast from upstream NTP servers until the 
+        leap second file expires.</t>
 
         <section anchor="leap_smear" title="Leap Smearing">
           <t>Some NTP installations may instead make use of a technique called
@@ -569,12 +586,18 @@
           target="http://bk1.ntp.org/ntp-stable/README.leapsmear?PAGE=anno">
           http://bk1.ntp.org/ntp-stable/README.leapsmear?PAGE=anno</eref>.</t>
 
-          <t>Leap Smearing is not recommended for public-facing NTP servers,
-          as they will disagree with non-smearing servers during the leap
-          smear interval. However, some public-facing servers may be
-          configured this way anyway. Users are advised to be aware of
-          impending leap seconds and how the servers (inside and outside their
-          organization) they are using deal with them.</t>
+          <t>Leap Smearing must not be used for 
+          public-facing NTP servers, as they will disagree with non-smearing 
+          servers (as well as UTC) during the leap smear interval. However, 
+          be aware that some public-facing servers may be configured this way 
+          anyway in spite of this guidance. </t>
+          
+          <t>System Administrators are advised to be 
+          aware of impending leap seconds and how the servers (inside and 
+          outside their organization) they are using deal with them. 
+          Individual clients must never be configured to use a mixture of 
+          smeared and non-smeared servers.</t>
+
         </section>
       </section>
     </section>
@@ -707,7 +730,7 @@
 
     <section anchor="Acknowledgements" title="Acknowledgements">
       <t>The author wishes to acknowledge the contributions of Sue Graves,
-      Samuel Weiler, Lisa Perdue, and Karen O'Donoghue.</t>
+      Samuel Weiler, Lisa Perdue, Karen O'Donoghue, and David Malone.</t>
     </section>
 
     <!-- Possibly a 'Contributors' section ... -->
