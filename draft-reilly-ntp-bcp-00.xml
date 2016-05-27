@@ -200,34 +200,34 @@
     </section>
 
     <section title="Keeping NTP up to date">
-      <t>No software (not even NTP) is perfect. Bugs can be present in any
-      software. Even if software is thoroughly tested and "all" the bugs are
-      discovered and fixed, users continuously find new ways to use software
-      that their authors did not conceive of, which can uncover more bugs.
-      Thousands of individual bugs have been found and fixed in the NTP
-      Project's reference implementation since the first NTPv4 release in
-      1997.</t>
+      <t>The best way to protect your computers and networks against 
+	  undefined behavior and security threats related to time is to keep 
+	  your NTP implementation current.</t>
+	  
       <t>There are always new ideas about security on the Internet, and an
       application which is secure today could be insecure tomorrow once an
       unknown bug (or a known behavior) is exploited in the right way. 
       Even our definition of what is secure has evolved over the years, so
       code which was considered secure when it was written can be considered
       insecure after some time.</t>
-      <t> Many
-      security mechanisms rely on time, either directly or indirectly, as part
-      of their operation. If an attacker can spoof the time, they may be able
-      to bypass or neutralize other security elements. For example, incorrect
-      time can disrupt the ability to reconcile logfile entries on the
-      affected system with events on other systems.</t>
+	  
+      <t> Many security mechanisms rely on time as part of their operation. 
+	  If an attacker can spoof the time, they may be able to bypass or 
+	  neutralize other security elements. For example, incorrect time can 
+	  disrupt the ability to reconcile logfile entries on the affected system 
+	  with events on other systems.</t>
+	  
+	  <t>Thousands of individual bugs have been found and fixed in the NTP
+      Project's reference implementation since the first NTPv4 release in
+      1997. Each version release contains at least a few bug fixes. The best 
+	  way to stay in front of these issues is to keep your NTP implementation 
+	  current.</t>
 
-      <t>In general, the best way to protect yourself and your networks
-      against these bugs and security threats is to make sure that you keep
-      your NTP implementation up-to-date. There are multiple versions of the
-      NTP protocol in use and multiple implementations and versions of NTP
-      software also in use, on many different platforms. It is recommended
-      that NTP users actively monitor wherever they get their software to find
-      out if their versions are vulnerable to any known attacks, and deploy
-      updates containing security fixes as soon as practical.</t>
+      <t>There are multiple versions of the NTP protocol in use, and multiple 
+	  implementations in use, on many different platforms. It is recommended 
+	  that NTP users actively monitor wherever they get their software to find
+	  out if their versions are vulnerable to any known attacks, and deploy 
+	  updates containing security fixes as soon as practical.</t>
 
       <t>The reference implementation of NTP Version 4 from Network Time
       Foundation (NTF) continues to be actively maintained and developed by
@@ -239,8 +239,8 @@
     </section>
 
     <section title="General Network Security Best Practices">
-      <t>NTP deployments are only as secure as the networks they are running
-      over.</t>
+      <t>NTP deployments are only as secure as the networks they are deployed
+	     on.</t>
 
       <section anchor="bcp38" title="BCP 38">
         <t>Many network attacks rely on modifying the IP source address of a
@@ -254,11 +254,11 @@
         (and ISP's of any size) implement this. If a machine on your network
         is sending out packets claiming to be from an address that is not on
         your network, this could be the first indication that you have a
-        machine that has been cracked, and is being used abusively. If packets
-        are arriving on an external interface with a source address that
-        should only be seen on an internal network, that's a strong indication
-        that an attacker is trying to inject spoofed packets into your
-        network. More information is available at http://www.bcp38.info .</t>
+        machine that has been compromised, and is being used abusively. If 
+		packets are arriving on an external interface with a source address 
+		that should only be seen on an internal network, that's a strong 
+		indication that an attacker is trying to inject spoofed packets into 
+		your network. More information is available at http://www.bcp38.info .</t>
       </section>
     </section>
 
@@ -300,14 +300,14 @@
         clocks, it is recommended that you use several different types of 
         reference clocks. Having a diversity of sources means that any
         one issue is less likely to cause a service interruption.</t>
-
         <t>Are all your clocks from the same vendor? Are they using the same
         base chipset, regardless of whether or not the finished products are
         from different vendors? Are they all running the same version of
-        firmware? A systemic problem with time from any satellite navigation
+        firmware?  Chipset and firmware bugs can happen, but is often more
+		difficult to diagnose than a standard software bug.</t>
+		<t>GA systemic problem with time from any satellite navigation
         service is possible and has happened. Sunspot activity can render
-        satellite or radio-based time source unusable. A chipset problem can
-        happen. There may be a bug in the vendor's firmware.</t>
+        satellite or radio-based time source unusable.</t>
       </section>
 
       <section anchor="mode67" title="Mode 6 and 7">
