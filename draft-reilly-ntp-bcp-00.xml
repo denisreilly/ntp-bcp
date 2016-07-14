@@ -39,7 +39,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="bcp" docName="draft-reilly-ntp-bcp-02" ipr="trust200902">
+<rfc category="bcp" docName="draft-ietf-ntp-bcp-00" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
      you can add the attributes updates="NNNN" and obsoletes="NNNN" 
@@ -151,7 +151,7 @@
     </author>
 -->
 
-    <date month="June" year="2016"/>
+    <date month="July" year="2016"/>
 
     <!-- If the month and year are both specified and are the current ones, xml2rfc will fill 
          in the current day for you. If only the current year is specified, xml2rfc will fill 
@@ -200,9 +200,9 @@
     </section>
 
     <section title="Keeping NTP up to date">
-      <t>The best way to protect your computers and networks against 
+      <t>The best way to protect computers and networks against 
           undefined behavior and security threats related to time is to keep 
-          your NTP implementation current.</t>
+          their NTP implementations current.</t>
           
       <t>There are always new ideas about security on the Internet, and an
       application which is secure today could be insecure tomorrow once an
@@ -212,16 +212,16 @@
       insecure after some time.</t>
           
       <t> Many security mechanisms rely on time as part of their operation. 
-          If an attacker can spoof the time, they may be able to bypass or 
-          neutralize other security elements. For example, incorrect time can 
-          disrupt the ability to reconcile logfile entries on the affected system 
-          with events on other systems.</t>
+      If an attacker can spoof the time, they may be able to bypass or 
+      neutralize other security elements. For example, incorrect time can 
+      disrupt the ability to reconcile logfile entries on the affected system 
+      with events on other systems.</t>
           
           <t>Thousands of individual bugs have been found and fixed in the NTP
       Project's reference implementation since the first NTPv4 release in
       1997. Each version release contains at least a few bug fixes. The best 
-          way to stay in front of these issues is to keep your NTP implementation 
-          current.</t>
+      way to stay in front of these issues is to keep your NTP implementation 
+      current.</t>
 
       <t>There are multiple versions of the NTP protocol in use, and multiple 
           implementations in use, on many different platforms. It is recommended 
@@ -251,20 +251,21 @@
         filtering outgoing and incoming traffic to make sure that the source
         and destination IP addresses are consistent with the expected flow of
         traffic on each network interface. It is recommended that all networks
-        (and ISP's of any size) implement this. If a machine on your network
+        (and ISP's of any size) implement this. If a machine on a network
         is sending out packets claiming to be from an address that is not on
-        your network, this could be the first indication that you have a
+        that network, this could be the first indication that there is a
         machine that has been compromised, and is being used abusively. If 
-                packets are arriving on an external interface with a source address 
-                that should only be seen on an internal network, that's a strong 
-                indication that an attacker is trying to inject spoofed packets into 
-                your network. More information is available at http://www.bcp38.info .</t>
+        packets are arriving on an external interface with a source address 
+        that should only be seen on an internal network, that's a strong 
+        indication that an attacker is trying to inject spoofed packets into 
+        the network. More information is available at http://www.bcp38.info .</t>
       </section>
     </section>
 
     <section title="NTP Configuration Best Practices">
-      <t>NTP can be made more secure by making a few simple changes to the
-      ntp.conf file.</t>
+      <t>These Best Practices, while based on the ntpd reference implementation
+      maintained by the Network Time Foundation, may be applicable to other 
+      implementations as well.</t>
 
       <!-- See https://support.ntp.org/bin/view/Support/ConfiguringNTP -->
 
@@ -279,10 +280,11 @@
         But if one of those 3 sources becomes unreachable or unusable, we're
         back to only having 2 time sources. 4 sources of time is another
         interesting choice, assuming things go well. If one of these sources
-        develops a problem there are still 3 others. Seems good. Until the
-        leap second we had in June of 2015, where several operators
-        implemented leap smearing while others did not. See <xref
-        target="leap_smear"/> for more information.
+        develops a problem there are still 3 others. Seems good. But during 
+        the leap second we had in June of 2015, several operators
+        implemented leap smearing while others did not, and many NTP end nodes
+        became very confused. See <xref target="leap_smear"/> for more 
+        information.
         </t> 
 
         <t>Starting with ntp-4.2.6, the 'pool' directive will spin up "enough"
@@ -296,18 +298,19 @@
       </section>
 
       <section title="Use a diversity of Reference Clocks">
-        <t>If you are using servers with attached hardware reference
-        clocks, it is recommended that you use several different types of 
-        reference clocks. Having a diversity of sources means that any
+        <t>When using servers with attached hardware reference
+        clocks, it is recommended that several different types of 
+        reference clocks be used. Having a diversity of sources means that any
         one issue is less likely to cause a service interruption.</t>
-        <t>Are all your clocks from the same vendor? Are they using the same
-        base chipset, regardless of whether or not the finished products are
+        <t>Are all clocks on a network from the same vendor? They may have the 
+        same bugs. Are they using the 
+        same base chipset, regardless of whether or not the finished products are
         from different vendors? Are they all running the same version of
-        firmware?  Chipset and firmware bugs can happen, but is often more
-                difficult to diagnose than a standard software bug.</t>
-                <t>GA systemic problem with time from any satellite navigation
+        firmware? Chipset and firmware bugs can happen, but is often more
+        difficult to diagnose than a standard software bug.</t>
+        <t>A systemic problem with time from any satellite navigation
         service is possible and has happened. Sunspot activity can render
-        satellite or radio-based time source unusable.</t>
+        satellite or radio-based time source unusable. </t>
       </section>
 
       <section anchor="mode67" title="Mode 6 and 7">
@@ -318,8 +321,8 @@
         facilities can be an abuse vector.</t>
 
         <t>Mode 7 queries have been disabled by default since 4.2.7p230,
-        released on 2011/11/01. Unless you have a good reason for using ntpdc,
-        do not enable Mode 7.</t>
+        released on 2011/11/01. Do not enable Mode 7 unless there is a compelling 
+        reason to do so.</t>
 
         <t>The ability to use Mode 6 beyond its basic monitoring capabilities
         can be limited to authenticated sessions that provide a 'controlkey',
@@ -371,33 +374,33 @@
           <artwork><![CDATA[restrict address mask address_mask nomodify]]></artwork>
         </figure>
 
-        <t>Monitor your ntpd instances so machines that are "out of sync" can
-        be quickly identified. Monitor your system logs for messages from ntpd
+        <t>Monitor ntpd instances so machines that are "out of sync" can
+        be quickly identified. Monitor system logs for messages from ntpd
         so abuse attempts can be quickly identified.</t>
 
-        <t>If your system starts getting unexpected time replies from its time
-        servers, that can be an indication that the IP address of your server
+        <t>If a system starts getting unexpected time replies from its time
+        servers, that can be an indication that the IP address of the server
         is being forged in requests to that time server, and these abusers are
-        trying to convince your time servers to stop serving time to you.</t>
+        trying to convince your time servers to stop serving time to the system.</t>
 
         <!-- Cite CVEs, BU paper, bug reports? -->
 
-        <t>If your system is a broadcast client and your syslog shows that you
-        are receiving "early" time messages from your server, that is an
+        <t>If a system is a broadcast client and its syslog shows that it
+        is receiving "early" time messages from its server, that is an
         indication that somebody may be forging packets from a broadcast
         server.</t>
 
         <!-- Cite CVEs, BU paper, bug reports? -->
 
-        <t>If your syslog shows messages that indicate you are receiving
+        <t>If a server's syslog shows messages that indicates it is receiving
         timestamps that are earlier than the current system time, then either
-        your system clock is unusually fast or somebody is trying to launch a
-        replay attack against your server.</t>
+        the system clock is unusually fast or somebody is trying to launch a
+        replay attack against that server.</t>
 
         <!-- Cite CVEs, BU
         paper, bug reports? -->
 
-        <t>If you are using broadcast mode and have ntp-4.2.8p6 or later, use
+        <t>If a system is using broadcast mode and is running ntp-4.2.8p6 or later, use
         the 4th field of the ntp.keys file to identify the IPs of machines
         that are allowed to serve time to the group.</t>
 
@@ -425,7 +428,10 @@
         synchronizing your clients to your in-house NTP servers. This reduces
         the load on the pool.</t>
 
-        <t>Set up or sponsor one or more pool servers.</t>
+        <t>If you would like to contribute a server with a static IP address 
+        and a permanent Internet conenction to the pool, please consult
+        the instructions at <eref target="http://www.pool.ntp.org/en/join.html">
+        pool.ntp.org</eref> .</t>
       </section>
 
       <section title="Leap Second Handling">
@@ -581,11 +587,13 @@
           of 2011, a common(?) laptop computer could crack the security cookie
           used in the Autokey protocol in 30 minutes' time. If you must use
           Autokey, know that your session keys should be set to expire in
-          under 30 minutes' time. If you have reason to believe your
+          under 30 minutes' time. </t>
+          <!--The following text goes to a link that doesn't seem to be working -->
+          <!--If you have reason to believe your
           autokey-protected associations will be attacked, you should read
           https://lists.ntp.org/pipermail/ntpwg/2011-August/001714.html and
           decide what resources your attackers might be using, and adjust the
-          session key expiration time accordingly.</t>
+          session key expiration time accordingly. -->
         </section>
 
         <section title="External Security Means">
@@ -766,8 +774,8 @@
         <t>This should also include the ability to update the NTP server
         address.</t>
 
-        <t>(Note: do we find specific historical instances of devices behaving
-        badly and cite them here?)</t>
+        <!--(Note: do we find specific historical instances of devices behaving
+        badly and cite them here?)-->
       </section>
 
       <section title="KISS Packets">
@@ -794,7 +802,7 @@
         Internet.</t>
 
         <t>Vendors are encouraged to invest resources into providing their own
-        time servers for their devices.</t>
+        time servers for their devices to connect to.</t>
 
         <section title="Get a vendor subdomain for pool.ntp.org">
           <t>The NTP Pool Project offers a program where vendors can obtain
@@ -808,20 +816,7 @@
       </section>
     </section>
 
-    <section title="NTP Deployment Examples">
-      <t>A few examples of interesting NTP Deployments</t>
-
-      <!-- These should likely be version-specific. -->
-
-      <section title="Client-Only configuration">
-        <t>TBD</t>
-      </section>
-
-      <section title="Server-Only Configuration">
-        <t>TBD</t>
-      </section>
-
-      <section title="Anycast">
+    <section title="NTP over Anycast">
         <t>Anycast is described in <xref target="RFC4786">BCP 126</xref>.
         (Also see <xref target="RFC7094">RFC 7094</xref>). With anycast, a
         single IP address is assigned to multiple interfaces, and routers
@@ -858,17 +853,18 @@
         <t>One useful application in large networks is to use a hybrid
         unicast/anycast approach. Stratum 1 NTP servers can be deployed with
         unicast interfaces at several sites. Each site may have several
-        Stratum 2 servers with a unicast interface and an anycast interface
+        Stratum 2 servers with two ethernet interfaces. One interface has a unique
+        unicast IP address. The second has an anycast IP interface
         (with a shared IP address per location). The unicast interfaces can be
         used to obtain time from the Stratum 1 servers globally (and perhaps
         peer with the other Stratum 2 servers at their site). Clients at each
         site can be configured to use the shared anycast address for their
         site, simplifying their configuration. Keeping the anycast routing
         restricted on a per-site basis will minimize the disruption at the
-        client if its closest anycast server changes.</t>
+        client if its closest anycast server changes. Each Stratum 2 server can be
+        uniquely identified on their unicast interface, to make monitoring easier.</t>
 
         <!-- Should there be a diagram here? -->
-      </section>
     </section>
 
     <section anchor="Acknowledgements" title="Acknowledgements">
