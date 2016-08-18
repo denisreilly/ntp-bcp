@@ -39,7 +39,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="bcp" docName="draft-ietf-ntp-bcp-00" ipr="trust200902">
+<rfc category="bcp" docName="draft-ietf-ntp-bcp-01" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
      you can add the attributes updates="NNNN" and obsoletes="NNNN" 
@@ -148,10 +148,10 @@
         <phone></phone>
         <email>weiler+ietf@watson.org</email>
       </address>
-    </author>
+    </author> 
 -->
 
-    <date month="July" year="2016"/>
+    <date month="August" year="2016"/>
 
     <!-- If the month and year are both specified and are the current ones, xml2rfc will fill 
          in the current day for you. If only the current year is specified, xml2rfc will fill 
@@ -469,22 +469,41 @@
         <t>US Navy (maintains GPS Time): ftp://tycho.usno.navy.mil/pub/ntp/leap-seconds.list</t>
         <t>IERS (announces leap seconds): https://hpiers.obspm.fr/iers/bul/bulc/ntp/leap-seconds.list</t>
 
-        <t>Servers with a manually configured leap second file will ignore
+        <t>ntpd servers with a manually configured leap second file will ignore
         leap second information broadcast from upstream NTP servers until the 
-        leap second file expires.</t>
+        leap second file expires. If no valid leap second file is available 
+		then a leap second notification from an attached reference clock is always 
+		accepted by ntpd.</t>
+		
+		<t>If no valid leap second file is available, a leap second notification 
+		may be accepted from upstream NTP servers. As of ntpd 4.2.6,  
+		a majority of servers must provide the notification before it is accepted. 
+		Before 4.2.6, a leap second notification would be accepted 
+		if only a single upstream server of a group of 
+		configured servers provided a leap second notification. This would lead to misbehavior 
+		if single NTP servers sent an invalid leap second warning, e.g. due to a 
+		faulty GPS receiver in one server.</t>
 
         <section anchor="leap_smear" title="Leap Smearing">
           <t>Some NTP installations may instead make use of a technique called
           "Leap Smearing". With this method, instead of introducing an extra
           second (or eliminating a second), NTP time will be slewed in small
-          increments over a comparably large window of time around the leap
-          second event. The amount of the slew should be small enough that
-          clients will follow the smeared time without objecting. During the
-          adjustment window, the NTP server's time may be offset from UTC by
-          as much as .5 seconds. This is done to enable software that doesn't
-          deal with minutes that have more or less than 60 seconds to function
+          increments over a comparably large window of time (called the smear 
+		  interval) around the leap
+          second event. The smear interval should be large enough to make the rate
+		  that the time is slewed small, so that 
+          clients will follow the smeared time without objecting. 
+		  (1 day / 86400s has been used sucessfully.) During the
+          adjustment window, all the NTP clients' times may be offset from UTC by
+          as much as a full second, depending on the implementation. But at least 
+		  all clients will agree on what time they think it is!</t>
+		  
+		  <t>The purpose of Leap Smearing is to enable software that doesn't
+          deal with the leap second event properly to function
           correctly, at the expense of fidelity to UTC during the smear
-          window.</t>
+          window. During a standard leap second event, that minute will have 61 
+		  or possibly 59) seconds in it, and some applications (and even 
+		  some OS's) are known to have problems with that. </t>
 
           <!--find a reference, possibly Google or Meinberg -->
 
@@ -496,12 +515,17 @@
           target="http://bk1.ntp.org/ntp-stable/README.leapsmear?PAGE=anno">
           http://bk1.ntp.org/ntp-stable/README.leapsmear?PAGE=anno</eref>.</t>
 
+		  <t>Clients that are connected to leap smearing servers must never 
+		  apply the "standard" NTP leap second handling. So if they are using ntpd, 
+		  these clients must never have a leap second file loaded, and the 
+		  smearing servers must never advertise a leap second is pending.</t>
+		  
           <t>Leap Smearing must not be used for 
           public-facing NTP servers, as they will disagree with non-smearing 
           servers (as well as UTC) during the leap smear interval. However, 
           be aware that some public-facing servers may be configured this way 
           anyway in spite of this guidance. </t>
-          
+		         
           <t>System Administrators are advised to be 
           aware of impending leap seconds and how the servers (inside and 
           outside their organization) they are using deal with them. 
