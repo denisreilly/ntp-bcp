@@ -438,10 +438,16 @@
       </section>
 
       <section title="Leap Second Handling">
-        <t>The UTC timescale is kept in sync with the rotation of the earth
-        through the use of leap seconds. NTP time is based on the UTC
-        timescale, and the protocol has the capability to broadcast leap
-        second information. Some GNSS systems (like GPS) broadcast leap second
+        <t>UTC is kept in agreement with the astronomical time UT1 to witin +0.9 
+        second (in absolute value) by the insertion of leap seconds. UTC is an 
+        atomic time scale whereas UT1 is based on the rotational rate of the earth.
+        Leaps seconds are not introduced at a fixed rate. Instead there insertion
+        are announced by the IERS (International Earth rotation and Reference 
+        systems Service) in its Bulletin C 
+        (https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html).
+        NTP time is based on the UTC timescale, and the protocol has the 
+        capability to broadcast leap second information. Some GNSS systems 
+        (like GPS) or radio transmitters (like DCF77) broadcast leap second
         information, so if you have a Stratum-1 server synced to GNSS (or you
         are synced to a lower stratum server that is ultimately synced to
         GNSS), you will get advance notification of impending leap seconds
