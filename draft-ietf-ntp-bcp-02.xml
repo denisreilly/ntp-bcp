@@ -443,7 +443,8 @@
 
       <section title="Leap Second Handling">
         <t>UTC is kept in agreement with the astronomical time 
-	<eref target="https://en.wikipedia.org/wiki/Solar_time#Mean_solar_time">UT1</eref> to witin +0.9 
+	<eref target="https://en.wikipedia.org/wiki/Solar_time#Mean_solar_time">UT1</eref> 
+	to within +0.9 
         second (in absolute value) by the insertion of leap seconds. UTC is an 
         atomic time scale whereas UT1 is based on the rotational rate of the earth.
         Leap seconds are not introduced at a fixed rate. They are announced when 
