@@ -300,7 +300,8 @@
         'maxclock' options of the 'tos' command to control how many servers 
         are discovered through the 'pool' directive.</t>
 
-        <t>Monitor your ntpd instances. If your times sources do not generally
+        <t>Monitoring of NTP instances is recommended. 
+        If your time sources do not generally
         agree, find out why and either correct the problems or stop using
         defective servers. See <xref target="Monitoring"/> for more
         information.</t>
@@ -315,7 +316,7 @@
         same bugs. Are they using the 
         same base chipset, regardless of whether or not the finished products are
         from different vendors? Are they all running the same version of
-        firmware? Chipset and firmware bugs can happen, but is often more
+        firmware? Chipset and firmware bugs can happen, but are often more
         difficult to diagnose than a standard software bug.</t>
         <t> A systemic problem with time from any satellite navigation
         service is possible and has happened. Sunspot activity can render
@@ -342,7 +343,7 @@
         than basic monitoring can be limited to authenticated sessions that
         provide a 'requestkey'.</t>
 
-        <t>Older versions of the reference implementation of NTP could be
+        <t>Older versions of ntpd can be
         abused to participate in high-bandwidth DDoS attacks, 
 		if the above restrictions are not applied. 
 		Starting with 
@@ -380,9 +381,9 @@
       </section>
 
       <section anchor="Monitoring" title="Monitoring">
-        <t>The reference implementation of NTP allows remote monitoring. The
+        <t>ntpd allows for remote monitoring. The
         access to this service is controlled by the restrict statement in
-        NTP's configuration file (ntp.conf). The syntax reads:</t>
+        ntpd's configuration file (ntp.conf). The syntax reads:</t>
 
         <figure>
           <artwork><![CDATA[restrict address mask address_mask nomodify]]></artwork>
@@ -475,14 +476,15 @@
 
         <t>The IETF maintains a 
         <eref target="https://www.ietf.org/timezones/data/leap-seconds.list">leap second list</eref> 
-	for NTP users who are not receiving leap second information through an automatic source.
+	for ntpd servers and clients that are not receiving leap second information 
+        through an automatic source.
         The use of leap second files requires ntpd 4.2.6 or later.  
         After fetching the leap seconds file onto the server, add this line to
         ntpd.conf to apply the file:</t>
 
         <t>leapfile "/path/to your/leap-file"</t>
 
-        <t>You will need to restart to apply the changes.</t>
+        <t>You will need to restart ntpd to apply the changes.</t>
 
         <t>Files are also available from other sources:</t>
         <t>NIST: ftp://time.nist.gov/pub/leap-seconds.list</t>
@@ -491,7 +493,9 @@
 
         <t>ntpd servers with a manually configured leap second file will ignore
         leap second information broadcast from upstream NTP servers until the 
-        leap second file expires. If no valid leap second file is available 
+        leap second file expires. </t>
+     
+        <t>If no valid leap second file is available 
 	then a leap second notification from an attached reference clock is always 
 	accepted by ntpd.</t>
 		
@@ -513,7 +517,8 @@
           second event. The smear interval should be large enough to make the rate
 	  that the time is slewed small, so that 
           clients will follow the smeared time without objecting. 
-	  (86400s, which is 1 day, has been used sucessfully.) During the
+	  (A smear interval of 86400 seconds, which is 1 day, 
+          has been used sucessfully.) During the
           adjustment window, all the NTP clients' times may be offset from UTC by
           as much as a full second, depending on the implementation. But at least 
 	  all clients will agree on what time they think it is!</t>
@@ -644,7 +649,7 @@
           <t> Work has
           begun on an enhanced replacement for Autokey, which is called 
           <xref target="NTS">Network Time Security (NTS)</xref>.
-		  NTS was published in the summer
+          NTS was first published as an Internet-Draft in the summer
           of 2013. As of October 2016, this effort was at draft #15, and
           about to begin 'final call'. The first unicast implementation of NTS
           was started in the summer of 2015 and is expected to be released in
@@ -886,9 +891,10 @@
         simplify configuration of a large number of NTP clients. Each client
         can be configured with the same NTP server IP address, and a pool of
         anycast servers can be deployed to service those requests. New servers
-        can be added to or taken from the pool, and other than a temporary
-        loss of service while a server is taken down, these additions can be
-        transparent to the clients.</t>
+        can be added to or taken from the pool, and other than a possible brief
+        loss of service immediately after server is taken down (and before 
+        packets are directed to a new server), these additions 
+        are transparent to the clients.</t>
 
         <t>If clients are connected to an NTP server via anycast, the client
         does not know which particular server they are connected to. As
