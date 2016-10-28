@@ -253,7 +253,7 @@
         that network, this could be the first indication that there is a
         machine that has been compromised, and is being used abusively. If 
         packets are arriving on an external interface with a source address 
-        that should only be seen on an internal network, that's a strong 
+        that is normally only be seen on an internal network, that's a strong 
         indication that an attacker is trying to inject spoofed packets into 
         the network. More information is available at the 
 		<eref target="http://www.bcp38.info">BCP38 Info page</eref> .</t>
@@ -271,7 +271,7 @@
         idea of the correct time. </t>
 		<t><list style="symbols">
              <t>If there is only 1 source of time, the answer is obvious.
-			 It may not be a good source of time, but it's the only one.</t>
+			 It might not be a good source of time, but it's the only one.</t>
 			 
              <t>If there are 2 sources of time and they agree well enough,
              that's good. But if they don't, then ntpd has no way to know which
@@ -312,7 +312,7 @@
         clocks, it is recommended that several different types of 
         reference clocks be used. Having a diversity of sources means that any
         one issue is less likely to cause a service interruption.</t>
-        <t>Are all clocks on a network from the same vendor? They may have the 
+        <t>Are all clocks on a network from the same vendor? They might have the 
         same bugs. Are they using the 
         same base chipset, regardless of whether or not the finished products are
         from different vendors? Are they all running the same version of
@@ -321,9 +321,9 @@
         <t> A systemic problem with time from any satellite navigation
         service is possible and has happened. Sunspot activity can render
         satellite or radio-based time source unusable. If the time on your network
-		must be correct close to 100% of the time, then even if you are using a 
-		satellite-based system, you must plan for those rare instances when the 
-		system is unavailable (or wrong!).</t>
+        needs to be correct close to 100% of the time, then even if you are using a 
+	satellite-based system, you must plan for those rare instances when the 
+	system is unavailable (or wrong!).</t>
       </section>
 
       <section anchor="mode67" title="Mode 6 and 7">
@@ -400,7 +400,7 @@
 
         <t>If a system is a broadcast client and its syslog shows that it
         is receiving "early" time messages from its server, that is an
-        indication that somebody may be forging packets from a broadcast
+        indication that somebody might be forging packets from a broadcast
         server.</t>
 
         <t>If a server's syslog shows messages that indicates it is receiving
@@ -464,12 +464,12 @@
 	all leap seconds that have been introduced since the practice started in 
 	1972 have been "positive" leap seconds, where a second is added to UTC. 
 	NTP also supports a "negative" leap second, where a second is removed 
-	from UTC, should that ever become necessary.</t>
+	from UTC, in the event that ever become necessary.</t>
 
         <t>While earlier versions of NTP contained some ambiguity regarding when
-        a leap second what is broadcast by a server should be applied by a client, 
+        a leap second what is broadcast by a server is applied by a client, 
         RFC 5905 is clear that leap seconds are only applied on the last day of a 
-        month. However, because some older clients may apply it at the end of the 
+        month. However, because some older clients might apply it at the end of the 
         current day, it is recommended that NTP servers wait until the last day 
         of the month before broadcasting leap seconds. Doing this will prevent
         older clients from applying a leap second at the wrong time.</t>
@@ -519,7 +519,7 @@
           clients will follow the smeared time without objecting. 
 	  (A smear interval of 86400 seconds, which is 1 day, 
           has been used sucessfully.) During the
-          adjustment window, all the NTP clients' times may be offset from UTC by
+          adjustment window, all the NTP clients' times could be offset from UTC by
           as much as a full second, depending on the implementation. But at least 
 	  all clients will agree on what time they think it is!</t>
 		  
@@ -531,28 +531,28 @@
 	  some OS's) are known to have problems with that. </t>
 
           <t>Leap Smearing was introduced in ntpd versions 4.2.8.p3 and
-          4.3.47. Support is not configured by default and must be added at
+          4.3.47. Support is not configured by default and has to be added at
           compile time. In addition, no leap smearing will occur unless a leap
           smear interval is specified in ntpd.conf . For more information,
           refer to <eref
           target="http://bk1.ntp.org/ntp-stable/README.leapsmear?PAGE=anno">
           http://bk1.ntp.org/ntp-stable/README.leapsmear?PAGE=anno</eref>.</t>
 
-	  <t>Clients that are connected to leap smearing servers must never 
+	  <t>Clients that are connected to leap smearing servers must not 
 	  apply the "standard" NTP leap second handling. So if they are using ntpd, 
-	  these clients must never have a leap second file loaded, and the 
-	  smearing servers must never advertise a leap second is pending.</t>
+	  these clients must not have a leap second file loaded, and the 
+	  smearing servers must not advertise a leap second is pending.</t>
 		  
           <t>Leap Smearing must not be used for 
           public-facing NTP servers, as they will disagree with non-smearing 
           servers (as well as UTC) during the leap smear interval. However, 
-          be aware that some public-facing servers may be configured this way 
+          be aware that some public-facing servers might be configured this way 
           anyway in spite of this guidance. </t>
 		         
           <t>System Administrators are advised to be 
           aware of impending leap seconds and how the servers (inside and 
           outside their organization) they are using deal with them. 
-          Individual clients must never be configured to use a mixture of 
+          Individual clients must not be configured to use a mixture of 
           smeared and non-smeared servers. If a client uses smeared servers,
           the servers it uses must all have the same leap smear configuration.</t>
 
@@ -634,7 +634,7 @@
           the time of its original design, were no longer secure. </t>
           <t>We recommend that Autokey NOT BE USED. Know that as of the fall
           of 2011, a common(?) laptop computer could crack the security cookie
-          used in the Autokey protocol in 30 minutes' time. If you must use
+          used in the Autokey protocol in 30 minutes' time. If you want to use
           Autokey, know that your session keys should be set to expire in
           under 30 minutes' time. </t>
           <!--The following text goes to a link that doesn't seem to be working -->
@@ -696,7 +696,7 @@
           <t><xref target="RFC5905"></xref> says NTP clients should not accept 
           time shifts greater than the panic threshold. Specifically, RFC5905 
           says "PANIC means the offset is greater than the panic threshold 
-          PANICT (1000 s) and SHOULD cause the program to exit with a diagnostic 
+          PANICT (1000 s) and should cause the program to exit with a diagnostic 
           message to the system log.</t>
 
           <t>However, this behavior can be exploited by attackers 
@@ -775,12 +775,12 @@
         authentication code (MAC) to the broadcast packets it sends.</t>
 
         <t>Importantly, all broadcast clients that listen to this server 
-        must know the cryptographic key. This mean that any client can use this 
+        need to know the cryptographic key. This mean that any client can use this 
         key to send valid broadcast messages that look like they come from the 
         broadcast server. Thus, a rogue broadcast client can use its knowledge 
         of this key to attack the other broadcast clients.</t>
 
-        <t>For this reason, an NTP broadcast server and all its client must 
+        <t>For this reason, an NTP broadcast server and all its client need to 
         trust each other.  Broadcast mode should only be run from within a 
         trusted network. </t>
       </section>
@@ -820,7 +820,7 @@
       <t>Readers of this BCP already understand how important accurate time is
       for network computing. And as computing becomes more ubiquitous, there
       will be many small "Internet of Things" devices that require accurate
-      time. These embedded devices may not have a traditional user interface,
+      time. These embedded devices might not have a traditional user interface,
       but if they connect to the Internet they will be subject to the same
       security threats as traditional deployments.</t>
 
@@ -828,7 +828,7 @@
         <t>Vendors of embedded devices have a special responsibility to pay
         attention to the current state of NTP bugs and security issues,
         because their customers don't have the ability to update their
-        NTP implementation on their own. Those devices may have a single
+        NTP implementation on their own. Those devices might have a single
         firmware upgrade, provided by the manufacturer, that updates all
         capabilities at once. This means that the vendor assumes the
         responsibility of making sure their devices have the latest NTP
@@ -847,7 +847,7 @@
         a server can tell a misbehaving client to "back off" its query rate.
         It is important for all NTP devices to respect these packets and back
         off when asked to do so by a server. It is even more important for an
-        embedded device, which may not have exposed a control interface for
+        embedded device, which might not have exposed a control interface for
         NTP.</t>
 
         <t>The KoD mechanism relies on clients behaving properly in order to
@@ -861,7 +861,7 @@
       <section title="Server configuration">
         <t>Vendors of embedded devices that need time synchronization should
         also carefully consider where they get their time from. There are
-        several public-facing NTP servers available, but they may not be
+        several public-facing NTP servers available, but they might not be
         prepared to service requests from thousands of new devices on the
         Internet.</t>
 
@@ -898,8 +898,8 @@
 
         <t>If clients are connected to an NTP server via anycast, the client
         does not know which particular server they are connected to. As
-        anycast servers may arbitrarily enter and leave the network, the
-        server a particular client is connected to may change. This may cause
+        anycast servers are allowed to arbitrarily enter and leave the network, the
+        server a particular client is connected to could change. This could cause
         a small shift in time from the perspective of the client when the
         server it is connected to changes. It is recommended that anycast be
         deployed in environments where these small shifts can be
@@ -917,7 +917,7 @@
 
         <t>One useful application in large networks is to use a hybrid
         unicast/anycast approach. Stratum 1 NTP servers can be deployed with
-        unicast interfaces at several sites. Each site may have several
+        unicast interfaces at several sites. Each site could have several
         Stratum 2 servers with two ethernet interfaces. One interface has a unique
         unicast IP address. The second has an anycast IP interface
         (with a shared IP address per location). The unicast interfaces can be
@@ -948,8 +948,8 @@
       <t>Time is a fundamental component of security on the internet. 
 	  Credentials and certificates can expire. Logins and other forms 
 	  of access can be revoked after a period of time, or at a scheduled 
-	  time. And some applications may assume that system time cannot be 
-	  changed and is always monotonic, and vulnerabilites may be exposed 
+	  time. And some applications might assume that system time cannot be 
+	  changed and is always monotonic, and vulnerabilites could be exposed 
 	  if a time in the past is forced into a system. Therefore, any system
 	  adminstrator concerned with security should be concerned with how the
 	  current time gets into their system. </t>
