@@ -259,8 +259,8 @@
           network, this could be the first indication that there is a
           machine that has been compromised, and is being used abusively.
           If packets are arriving on an external interface with a source
-          address that should only be seen on an internal network, that's a
-          strong indication that an attacker is trying to inject spoofed
+          address that is normally only seen on an internal network, that's
+          a strong indication that an attacker is trying to inject spoofed
           packets into the network.  More information is available at
           the <eref target="http://www.bcp38.info">BCP38 Info page</eref>
           .</t>
@@ -278,7 +278,7 @@
           best idea of the correct time.</t>
 	<t><list style="symbols">
             <t>If there is only 1 source of time, the answer is obvious.  It
-	      may not be a good source of time, but it's the only one.</t>
+	      might not be a good source of time, but it's the only one.</t>
 			 
              <t>If there are 2 sources of time and they agree well enough,
                that's good.  But if they don't, then ntpd has no way to know
@@ -304,8 +304,8 @@
         <t>Starting with ntp-4.2.6, the 'pool' directive will spin up
           "enough" associations to provide robust time service, and will
           disconnect poor servers and add in new servers as-needed.  The
-          default values built in to ntpd SHOULD be correct.  If you have
-          good reasons, you MAY use the 'minclock' and 'maxclock' options of
+          default values built in to ntpd should be correct.  If you have
+          good reasons, you may use the 'minclock' and 'maxclock' options of
           the 'tos' command to override the default values of how many
           servers are discovered and used through the 'pool' directive.</t>
 
@@ -321,7 +321,7 @@
           used.  Having a diversity of sources means that any one issue is
           less likely to cause a service interruption.</t>
 
-        <t>Are all clocks on a network from the same vendor?  They may have
+        <t>Are all clocks on a network from the same vendor?  They might have
           the same bugs.  Are they using the same base chipset, regardless
           of whether or not the finished products are from different
           vendors?  Are they all running the same version of firmware?
@@ -331,7 +331,7 @@
         <t>A systemic problem with time from any satellite navigation
           service is possible and has happened.  Sunspot activity can render
           satellite or radio-based time source unusable.  If the time on
-          your network must be correct close to 100% of the time, then even
+          your network needs to be correct close to 100% of the time, then even
           if you are using a satellite-based time source you must plan for
           those rare instances when the time source is unavailable or
           wrong.</t>
@@ -418,7 +418,7 @@
         <t>If a system is a broadcast client and its syslog shows that it is
           receiving "early" time messages from its server, that is an
           indication that somebody might be forging packets from a broadcast
-          server.  Broadcast time SHOULD only be used in trusted
+          server.  Broadcast time should only be used in trusted
           networks.</t>
 
         <t>If a server's syslog shows messages that indicates it is
@@ -486,10 +486,10 @@
           been introduced since the practice started in 1972 have been
           "positive" leap seconds, where a second is added to UTC.  NTP also
           supports a "negative" leap second, where a second is removed from
-          UTC, in the event that ever become necessary.</t>
+          UTC, in the event that the IERS announces one.</t>
 
         <t>While earlier versions of NTP contained some ambiguity regarding
-          when a leap second that is broadcast by a server should be applied
+          when a leap second that is broadcast by a server is applied
           by a client, RFC 5905 is clear that leap seconds are only applied
           on the last day of a month.  However, because some older clients
           might apply it at the end of the current day, it is recommended
@@ -569,7 +569,7 @@
             some OSes) are known to have problems with that.</t>
 
           <t>Leap Smearing was introduced in ntpd versions 4.2.8.p3 and
-            4.3.47.  Support is not availabled by default and must be
+            4.3.47.  Support is not availabled by default and has to be
             specifically added at compile time.  In addition, no leap
             smearing will occur unless a leap smear interval is specified in
             ntpd.conf .  For more information, refer
@@ -578,11 +578,11 @@
 
 	  <t>Clients that are connected to leap smearing servers must not
 	    apply the "standard" NTP leap second handling.  So if they are
-	    using ntpd, these clients MUST NOT have a leap second file
-	    loaded, and the smearing servers MUST NOT advertise that a leap
+	    using ntpd, these clients must not have a leap second file
+	    loaded, and the smearing servers must not advertise that a leap
 	    second is pending.</t>
 		  
-          <t>Leap Smearing MUST NOT be used for public-facing NTP servers,
+          <t>Leap Smearing must not be used for public-facing NTP servers,
             as they will disagree with non-smearing servers (as well as UTC)
             during the leap smear interval.  However, be aware that some
             public-facing servers might be configured this way anyway in
@@ -591,7 +591,7 @@
           <t>System Administrators are advised to be aware of impending leap
             seconds and how the servers (inside and outside their
             organization) they are using deal with them.  Individual clients
-            MUST NOT be configured to use a mixture of smeared and
+            must not be configured to use a mixture of smeared and
             non-smeared servers.  If a client uses smeared servers, the
             servers it uses must all have the same leap smear
             configuration.</t>
@@ -676,10 +676,10 @@
           computational areas in the Autokey protocol that, while secure at
           the time of its original design, were no longer secure.</t>
 
-        <t>We recommend that Autokey NOT BE USED.  Know that as of the fall
+        <t>It is recommended that Autokey not be used.  Know that as of the fall
           of 2011, a common(?) laptop computer could crack the security
           cookie used in the Autokey protocol in 30 minutes' time.  If you
-          must use Autokey, know that your session keys SHOULD be set to
+          want to use Autokey, know that your session keys should be set to
           expire in under 30 minutes' time.</t>
 
         <t>If you have reason to believe your autokey-protected associations
@@ -726,7 +726,7 @@
           incoming mode 3 timing queries.</t>
 
         <t>A "leaf client" is a host that is using NTP solely for the
-          purpose of adjusting its own time.  A leaf client SHOULD NOT be a
+          purpose of adjusting its own time.  A leaf client should not be a
           time server to other hosts.  That is, a leaf client sends mode 3
           queries to its servers and receives mode 4 responses from these
           servers containing timing information.  To minimize information
@@ -739,7 +739,7 @@
         <t><xref target="RFC5905"></xref> says NTP clients should not accept
           time shifts greater than the panic threshold.  Specifically,
           RFC5905 says "PANIC means the offset is greater than the panic
-          threshold PANICT (1000 s) and SHOULD cause the program to exit
+          threshold PANICT (1000 s) and should cause the program to exit
           with a diagnostic message to the system log."</t>
 
         <t>However, this behavior is designed to be used only in cold-start
@@ -747,15 +747,15 @@
           exploited by attackers <xref target="NDSS16"></xref> when ntpd is
           restarted with a disabled panic gate check.</t>
 
-        <t>If your operating system has init scripts, these scripts SHOULD
-          NOT disable panic gate checking on restarts.</t>
+        <t>If your operating system has init scripts, these scripts should
+          not disable panic gate checking on restarts.</t>
 
 	<t>A growing number of operating systems use process supervisors
           such as systemd to automatically restart any daemons that quit.
           This behavior is the default in CoreOS and Arch Linux.  It is
           likely to become the default behavior in other Linux-based systems
           as they migrate legacy init scripts to systemd.  These scripts
-          SHOULD NOT disable panic gate checking on restarts.</t>
+          should not disable panic gate checking on restarts.</t>
           
         <t>If, against long-standing recommendations, a system disables
           panic gate checking on all restarts, an attacker can send the
@@ -886,7 +886,7 @@
       <t>Readers of this BCP likely already understand how important
 	accurate time is for network computing.  And as computing becomes
 	more ubiquitous, there will be many "Internet of Things" devices
-	that require accurate time.  These embedded devices may not have a
+	that require accurate time.  These embedded devices might not have a
 	traditional user interface, but if they connect to the Internet they
 	will be subject to the same security threats as traditional
 	deployments.</t>
@@ -930,7 +930,7 @@
       <section title="Server configuration">
         <t>Vendors of embedded devices that need time synchronization should
           also carefully consider where they get their time from.  There are
-          several public-facing NTP servers available, but they may not be
+          several public-facing NTP servers available, but they might not be
           prepared to service requests from thousands of new devices on the
           Internet.</t>
 
@@ -957,7 +957,7 @@
           active interface.</t>
 
         <t>Anycast is often used for Internet services at known IP
-          addresses, such as DNS.  Anycast MAY be used in large
+          addresses, such as DNS.  Anycast could be used in large
           organizations to simplify configuration of a large number of NTP
           clients, but note well this simplification comes at the cost of
           degraded NTP behavior and performance.  Each client can be
@@ -986,10 +986,10 @@
 
         <t>If clients are connected to an NTP server via anycast, the client
           does not know which particular server they are connected to.  As
-          anycast servers may arbitrarily enter and leave the network, the
-          server any given client is connected to may change.  It is
-          recommended that anycast be deployed in environments where these
-          small shifts can be tolerated.</t>
+          anycast servers are allowed to arbitrarily enter and leave the 
+          network, the server any given client is connected to could change.  
+          It is recommended that anycast be deployed in environments where 
+          these small shifts can be tolerated.</t>
 
         <t>Configuration of an anycast interface is independent of NTP.
           Clients will always connect to the closest anycast server, even if
@@ -1034,8 +1034,8 @@
       <t>Time is a fundamental component of security on the internet.
 	Credentials and certificates can expire.  Logins and other forms of
 	access can be revoked after a period of time, or at a scheduled
-	time.  And some applications may assume that system time cannot be
-	changed and is always monotonic, and vulnerabilites maybe exposed if
+	time.  And some applications might assume that system time cannot be
+	changed and is always monotonic, and vulnerabilites could be exposed if
 	a time in the past is forced into a system.  Therefore, any system
 	adminstrator concerned with security should be concerned with how
 	the current time gets into their system.</t>
