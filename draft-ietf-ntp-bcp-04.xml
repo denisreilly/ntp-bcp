@@ -274,25 +274,40 @@
       applicable to other implementations as well.</t>
 
       <section title="Use enough time sources">
-        <t>ntpd takes the available sources of time and submits their timing
-        data to intersection and clustering algorithms, looking for the best
-        idea of the correct time.</t>
+        <t>Some NTP implementations (including ntpd) will monitor any 
+        available sources of time and submit their timing data to 
+        sophisticated intersection, clustering, and combing algorithms to get 
+        the best estimate of the correct time. The description of these 
+        algorithms would go beyond the scope of this document. Interested 
+        readers shall be referenced to <xref target="RFC 5905">RFC5905</xref> or to 
+        the NTP's detailed description in <xref target="MILLS 2006">MILLS2006</xref></t>
 	<t><list style="symbols">
-        <t>If there is only 1 source of time, the answer is obvious.  It
-	    might not be a good source of time, but it's the only source of
-	    time that can be considered.</t>
-		 
-        <t>If there are 2 sources of time and they agree well enough,
-        that's good. But if they don't, then ntpd has no way to know
-        which source to believe.</t>
-		
-		<t>If there are 3 sources of time, you can tolerate one of
-        those sources becoming unreachable or unusable. But at that
-        point, we are back down to 2 sources.</t>
-        
-		<t>4 sources of time is better. If one of these sources
-	    develops a problem there are still 3 others.</t>
-        </list></t>
+        <t>If there is only 1 source of time, then obtaining the time is 
+        simple. The accuracy of this time is solely dependent on the accuracy 
+        of the single clock being used. Any deviation of this clock from 
+        accurate time will be passed on to the client. Clock malfunction,
+        attack or even unavailability will directly effect the client.</t>
+	
+        <t>If there are 2 sources of time in close agreement, then the best 
+        time can be calculated easily. If there are 2 time sources that 
+        don't agree then the task becomes hard, because it's impossible to know
+        which one to believe simply by looking at the time. And even if they
+        agree, a single failure results in using a single clock with all the
+        issues outlined above.</t>
+	 
+	<t>If there are 3 sources of time, there is more data available for
+        clustering and intersecting algorithms to use to converge on the 
+        correct
+        time, and the "best" time is more easily computed (and its result is 
+        more likely to be accurate). An error in one source can be compensated 
+        for (or ignored entirely) if the other two sources agree. However, any 
+        major problem with any one source results in degradation to the 
+        two-source situation (and all of the problems outlined above).</t>
+	
+	<t>Having 4 or more time sources ensures that we will have enough 
+        sources to allow calculation accuracy. It will also make us tolerant to 
+        the loss of some sources, as long as we still have at least 3 left.
+        </t></list></t>
 		
 	<t>But even with 4 or more sources of time, systemic problems can
 	happen.  During the leap second of June of 2015, several operators
@@ -488,7 +503,8 @@
 
         <t>While earlier versions of NTP contained some ambiguity regarding
         when a leap second that is broadcast by a server should be applied
-        by a client, RFC 5905 is clear that leap seconds are only applied on
+        by a client, <xref target="RFC5905">RFC 5905</xref> is clear 
+        that leap seconds are only applied on
         the last day of a month.  However, because some older clients may
         apply it at the end of the current day, it is recommended that NTP
         servers wait until the last day of the month before broadcasting
@@ -747,9 +763,10 @@
       </section>
 
       <section title="Avoiding Daemon Restart Attacks">
-        <t><xref target="RFC5905"></xref> says NTP clients should not accept
+        <t><xref target="RFC5905">RFC 5905</xref> says NTP clients should not 
+          accept
           time shifts greater than the panic threshold.  Specifically,
-          RFC5905 says "PANIC means the offset is greater than the panic
+          RFC 5905 says "PANIC means the offset is greater than the panic
           threshold PANICT (1000 s) and SHOULD cause the program to exit
           with a diagnostic message to the system log."</t>
 
@@ -832,7 +849,7 @@
       </section>
 
       <section title="Broadcast Mode Should Only Be Used On Trusted Networks">
-        <t>Per <xref target="RFC5905"></xref>, NTP's broadcast mode is
+        <t>Per <xref target="RFC5905">RFC 5905</xref>, NTP's broadcast mode is
         authenticated using symmetric key cryptography.  The broadcast
         server and all of its broadcast clients share a symmetric
         cryptographic key, and the broadcast server uses this key to append
@@ -1019,7 +1036,7 @@
       <t>The authors wish to acknowledge the contributions of Sue Graves,
       Samuel Weiler, Lisa Perdue, Karen O'Donoghue, David Malone, 
       Sharon Goldberg, Martin Burnicki, Miroslav Lichvar, and 
-      Daniel Fox Franke.</t>
+      Daniel Fox Franke, and Robert Nagy.</t>
     </section>
 
     <!-- Possibly a 'Contributors' section ... -->
@@ -1092,8 +1109,18 @@
     <!-- Here we use entities that we defined at the beginning. -->
 
     <references title="Informative References">
+<!-- [MILLS2006] Mills, D. (2006). Computer network time synchronization: the Network Time Protocol: CRC Press. -->
+      <reference anchor="MILLS2006">
+        <front>
+          <title>Computer network time synchronization: the Network Time Protocol</title>
+          <author fullname="David Mills" surname="Mills" initials="D.">
+		  	<organization>University of Delaware</organization>
+          </author>
+		  <date year="2006" />
+        </front>
+		<seriesInfo name="CRC Press" value=""/>
+      </reference>
 
-<!-- DPR TODO: figure out the right way to list these references -->
 
 <!-- [NDSS16] Attacking the Network Time Protocol. Aanchal Malhotra, Isaac E. Cohen, Erik Brakke and Sharon Goldberg NDSS'16, San Diego, CA. Feb 2016.    https://eprint.iacr.org/2015/1020.pdf -->
 
