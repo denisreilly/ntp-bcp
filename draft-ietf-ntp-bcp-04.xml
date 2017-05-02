@@ -275,18 +275,18 @@
 
       <section title="Use enough time sources">
         <t>Some NTP implementations (including ntpd) will monitor any 
-        available sources of time and submit their timing data to 
+        configured sources of time and submit their timing data to 
         sophisticated intersection, clustering, and combing algorithms to get 
         the best estimate of the correct time. The description of these 
         algorithms would go beyond the scope of this document. Interested 
-        readers shall be referenced to <xref target="RFC 5905">RFC5905</xref> or to 
-        the NTP's detailed description in <xref target="MILLS 2006">MILLS2006</xref></t>
+        readers shall be referenced to <xref target="RFC5905">RFC 5905</xref> or to 
+        the NTP's detailed description in <xref target="MILLS2006">MILLS 2006</xref></t>
 	<t><list style="symbols">
         <t>If there is only 1 source of time, then obtaining the time is 
         simple. The accuracy of this time is solely dependent on the accuracy 
         of the single clock being used. Any deviation of this clock from 
         accurate time will be passed on to the client. Clock malfunction,
-        attack or even unavailability will directly effect the client.</t>
+        attack or even unavailability will directly affect the client.</t>
 	
         <t>If there are 2 sources of time in close agreement, then the best 
         time can be calculated easily. If there are 2 time sources that 
