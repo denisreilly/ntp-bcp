@@ -59,7 +59,7 @@
     <!-- Another author who claims to be an editor -->
 
     <author fullname="Denis Reilly" initials="D." surname="Reilly" role="editor">
-      <organization>Spectracom Corporation</organization>
+      <organization>Spectracom</organization>
 
       <address>
         <postal>
@@ -283,22 +283,27 @@
         description of NTP in <xref target="MILLS2006">MILLS 2006</xref></t>
 
 	<t><list style="symbols">
-            <t>If there is only 1 source of time, the answer is obvious.  It
-	    may not be a good source of time, but it's the only source of
-	    time that can be considered.</t>
+          <t>If there is only 1 source of time, the answer is obvious.  It
+	  may not be a good source of time, but it's the only source of
+	  time that can be considered. Any issue with the time at the source 
+          will be passed on to the client.</t>
 			 
-             <t>If there are 2 sources of time and they agree well enough,
-             that's good. But if they don't, then ntpd has no way to know
-             which source to believe.</t>
+          <t>If there are 2 sources of time and they agree well enough,
+          then the best "time" can be calculated easily. But if one source 
+          fails, then your solution degrades to the single-source solution 
+          outlined above. And if the two sources don't agree, then it's 
+          impossible to know which one is correct by simply looking at the 
+          time.</t>
 			 
-             <t>If there are 3 sources of time, you may be able to tolerate
-             one of those sources becoming unreachable or unusable. But at
-             that point, we are back down to 2 sources.</t>
+          <t>If there are 3 sources of time, there is more data available to 
+          converge on a "best" time, and this time is more likely to be 
+          accurate. And you can tolerate one of the sources becoming 
+          unreachable or unusable. But at that point, you are back down to 
+          2 sources.</t>
             
-             <t>4 or more sources of time is better. If one of these sources
-	     develops a problem there are still at least 3 other time
-	     sources.</t>
-          </list></t>
+          <t>4 or more sources of time is better. If one of these sources
+          develops a problem there are still at least 3 other time sources.</t>
+        </list></t>
 		
 	<t>But even with 4 or more sources of time, systemic problems can
 	happen.  During the leap second of June of 2015, several operators
@@ -472,7 +477,7 @@
         of a leap second.  UTC is an atomic time scale whereas UT1 is based
         on the rotational rate of the earth.  Leap seconds are not
         introduced at a fixed rate.  They are announced
-	by the IERS (International Earth rotation
+        by the IERS (International Earth rotation
         and Reference systems Service) in its
 	<eref target="https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html">Bulletin
         C </eref> when necessary to keep UTC and UT1 aligned.</t>
@@ -570,8 +575,8 @@
           to <eref target="http://bk1.ntp.org/ntp-stable/README.leapsmear?PAGE=anno">
           http://bk.ntp.org/ntp-stable/README.leapsmear?PAGE=anno</eref>.</t>
 
-	  <t>Clients that are connected to leap smearing servers MUST NOT,
-	  ever, apply the "standard" NTP leap second handling.  So if they
+	  <t>Clients that are connected to leap smearing servers MUST NOT
+	  apply the "standard" NTP leap second handling.  So if they
 	  are using ntpd, these clients must never have a leap second file
 	  loaded, and the smearing servers must never advertise to clients
 	  that a leap second is pending.</t>
@@ -678,28 +683,16 @@
         <section title="Autokey">
           <t>Autokey was designed in 2003 to provide a means for clients to
 	  authenticate servers.  However, by 2011 Moore's Law had caught up
-	  with the original Autokey specification and security researchers
-	  had identified areas in the original Autokey protocol that, while
-	  secure at the time of its original design, were shown to render
-	  Autokey <eref
+	  with the original Autokey specification. Security researchers
+	  had identified vulnerabilities in the original Autokey protocol that
+          were not practical to exploit at the time of its design. But with
+          modern hardware, thsse vulnerabilities render Autokey <eref
 	  target="https://lists.ntp.org/pipermail/ntpwg/2011-August/001714.html">
-	  "completely useless"</eref>.</t>
+	  "completely useless"</eref> .</t>
 
           <t>Autokey SHOULD NOT BE USED.</t>
 
-	  <t>Know that as of the fall of 2011, a common laptop computer CPU
-          could crack the security cookie used in the Autokey protocol in 30
-          minutes' time, and current GPU attacks on this cookie will succeed
-          in a fraction of a second.</t>
-
-          <t>If you have reason to believe your autokey-protected
-          associations will be attacked, you should read
-          https://lists.ntp.org/pipermail/ntpwg/2011-August/001714.html and
-          decide what resources your attackers might be using, and adjust
-          the session key expiration time accordingly.  If your attackers
-          are using GPUs to crack the autokey session cookie, Autokey
-          provides no useful protection.</t>
-        </section>
+      </section>
 		
 	<section title="Network Time Security">
           <t> Work has begun on an enhanced replacement for Autokey, which
@@ -711,11 +704,15 @@
 	  and is expected to be released in early 2017.</t>
         </section>
 
+		
+	<!-- DPR: discuss this with Harlan -->
+	<!--
 	<section title="Extended Information">
 	  <t>One of the use-cases for Autokey is that it provides the
 	  UTC/TAI offset.  The proposed "Extended Information Extension
 	  Field" will provide a better way to get this data.</t>
         </section>
+	-->
       </section>
 
       <section anchor="Sec_Bcp" title="NTP Security Best Practices">
@@ -987,13 +984,13 @@
       temporary loss of service while a server is taken down, these
       additions can be transparent to the clients.</t>
 
-      <t>NOTE WELL: Using anycast for NTP is likely to be a bad idea,
-      because it means each client will likely use a single time server
+      <t>NOTE WELL: Using a single anycast address for NTP should be done 
+      with care. It means each client will likely use a single time server
       source.  A key element of a robust NTP deployment is each client using
       multiple sources of time.  With multiple time sources, a client will
       analyze the various time sources, selecting good ones, and
-      disregarding poor ones.  In an Anycast scenario, this analysis is
-      likely not implemented.</t>
+      disregarding poor ones.  If a single Anycast address is used, this 
+      analysis will not happen.</t>
 
       <t>If clients are connected to an NTP server via anycast, the client
       does not know which particular server they are connected to.  As
@@ -1287,6 +1284,8 @@ v00 2016-07-26  DPR moved to ietf doc, lots of suggestions from Martin Burnicki,
 v01 2016-10-04  DPR more leap second fixes from Martin, editrorial fixes
     2016-10-29	HMS Updates and cleanup.
     2017-05-11 HMS: tweaks to DPR's 04
+    2017-05-18 DPR tweaks back 
+               (sources of time, autokey, anycast, extended info)
        -->
   </back>
 </rfc>
