@@ -682,13 +682,11 @@
 
         <section title="Autokey">
           <t>Autokey was designed in 2003 to provide a means for clients to
-	  authenticate servers.  However, by 2011 Moore's Law had caught up
-	  with the original Autokey specification. Security researchers
-	  had identified vulnerabilities in the original Autokey protocol that
-          were not practical to exploit at the time of its design. But with
-          modern hardware, thsse vulnerabilities render Autokey <eref
+	  authenticate servers.  However, security researchers
+	  had identified vulnerabilities in the  Autokey protocol.Because of these 
+    vulnerabilities, the usage of Autokey is <eref
 	  target="https://lists.ntp.org/pipermail/ntpwg/2011-August/001714.html">
-	  "completely useless"</eref> .</t>
+	  useless</eref> .</t>
 
           <t>Autokey SHOULD NOT BE USED.</t>
 
