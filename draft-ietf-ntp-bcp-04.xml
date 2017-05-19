@@ -683,10 +683,10 @@
         <section title="Autokey">
           <t>Autokey was designed in 2003 to provide a means for clients to
 	  authenticate servers.  However, security researchers
-	  had identified vulnerabilities in the  Autokey protocol.Because of these 
-    vulnerabilities, the usage of Autokey is <eref
+	  have identified vulnerabilities in the Autokey protocol, which make 
+          the protocol <eref
 	  target="https://lists.ntp.org/pipermail/ntpwg/2011-August/001714.html">
-	  useless</eref> .</t>
+	  "useless".</eref></t>
 
           <t>Autokey SHOULD NOT BE USED.</t>
 
