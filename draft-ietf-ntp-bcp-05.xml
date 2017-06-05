@@ -39,7 +39,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="bcp" docName="draft-ietf-ntp-bcp-04" ipr="trust200902">
+<rfc category="bcp" docName="draft-ietf-ntp-bcp-05" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
      you can add the attributes updates="NNNN" and obsoletes="NNNN" 
@@ -859,9 +859,15 @@
         trust each other.  Broadcast mode should only be run from within a 
         trusted network.</t>
 
-	<t>Starting with ntp-4.2.8p7 the ntp.keys file accepts an optional
-	4th column, a comma-separated list of IPs that are allowed to serve
-	time.  Use this feature.</t>
+	<t>Starting with ntp-4.2.8p7 the ntp.keys file accepts an optional 4th 
+        column, a comma-separated list of IPs that are allowed to serve time. 
+        Use this feature.  Note, however, that an adversarial client that knows
+        the symmetric broadcast key could still easily spoof its source IP to an
+        IP that is allowed to serve time. (This is easy to do because the origin
+        timestamp on broadcast mode packets is not validated by the client. By
+        contrast, client/server and symmetric modes do require origin timestamp 
+        validation, making it more difficult to spoof packets <xref target="CCR16">
+        </xref>.</t> 
       </section>
 
       <section title="Symmetric Mode Should Only Be Used With Trusted Peers">
@@ -936,6 +942,17 @@
         and back off when asked to do so by a server.  It is even more
         important for an embedded device, which may not have exposed a
         control interface for NTP.</t>
+
+        <t>That said, a client must only accept a KoD packet if it has a valid
+        origin timestamp. Once accepted, the client should increase its poll
+        interval value (thus decreasing its polling rate) up to a reasonable
+        maximum. This maximum can vary by implementation but must not exceed a
+        poll interval value of 13 (2 hours). Clients are not obligated to match
+        the value that the server inserts in the KoD packet, and should not
+        simply accept any value from the server. Accepting any value allows a
+        denial-of-service attack that causes the client to stop querying its 
+        server <xref target="NDSS16"></xref>. Clients must monitor their NTP 
+        instance to detect suspicious KoD packets.</t>
 
         <t>The KoD mechanism relies on clients behaving properly in order to
         be effective.  Some clients ignore the KoD packet entirely, and
