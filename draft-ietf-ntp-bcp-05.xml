@@ -836,9 +836,37 @@
 
         <t>Also, Kiss-o'-Death (KoD) packets can be used in denial of
         service attacks.  Thus, the observation of even just one KoD packet
-        with a high poll value (e.g. poll>10) could be sign that the client
-        is under attack.
+        with a high poll value could be sign that the client
+        is under attack. See <xref target="KoD"></xref> for more information.
         </t>
+      </section>
+
+      <section anchor="KoD" title="KISS Packets">
+        <t>The "Kiss-o'-Death" (KoD) packet is a rate limiting mechanism
+        where a server can tell a misbehaving client to "back off" its query
+        rate.  It is important for all NTP devices to respect these packets
+        and back off when asked to do so by a server.  It is even more
+        important for an embedded device, which may not have exposed a
+        control interface for NTP.</t>
+
+        <t>That said, a client must only accept a KoD packet if it has a valid
+        origin timestamp. Once accepted, the client should increase its poll
+        interval value (thus decreasing its polling rate) up to a reasonable
+        maximum. This maximum can vary by implementation but should not exceed a
+        poll interval value of 13 (2 hours). The mechanism to determine how much
+        to increase the poll interval value is undefined in 
+        <xref target="RFC5905">RFC 5905</xref>. If the client uses the poll
+        interval value sent by the server in the KoD packet, it must not simply
+        accept any value. Using large interval values may open a vector for a 
+        denial-of-service attack that causes the client to stop querying its 
+        server <xref target="NDSS16"></xref>.</t>
+
+        <t>The KoD mechanism relies on clients behaving properly in order to
+        be effective.  Some clients ignore the KoD packet entirely, and
+        other poorly-implemented clients might unintentionally increase
+        their poll rate and simulate a denial of service attack.  Server
+        administrators should be prepared for this and take measures outside
+        of the NTP protocol to drop packets from misbehaving clients.</t>
       </section>
 
       <section title="Broadcast Mode Should Only Be Used On Trusted Networks">
@@ -933,33 +961,6 @@
 	involve embedded devices, on the Wikipedia page
 	for <eref target="https://en.wikipedia.org/wiki/NTP_server_misuse_and_abuse">
 	NTP Server Misuse and Abuse</eref>. </t>
-      </section>
-
-      <section title="KISS Packets">
-        <t>The "Kiss-o'-Death" (KoD) packet is a rate limiting mechanism
-        where a server can tell a misbehaving client to "back off" its query
-        rate.  It is important for all NTP devices to respect these packets
-        and back off when asked to do so by a server.  It is even more
-        important for an embedded device, which may not have exposed a
-        control interface for NTP.</t>
-
-        <t>That said, a client must only accept a KoD packet if it has a valid
-        origin timestamp. Once accepted, the client should increase its poll
-        interval value (thus decreasing its polling rate) up to a reasonable
-        maximum. This maximum can vary by implementation but must not exceed a
-        poll interval value of 13 (2 hours). Clients are not obligated to match
-        the value that the server inserts in the KoD packet, and should not
-        simply accept any value from the server. Accepting any value allows a
-        denial-of-service attack that causes the client to stop querying its 
-        server <xref target="NDSS16"></xref>. Clients must monitor their NTP 
-        instance to detect suspicious KoD packets.</t>
-
-        <t>The KoD mechanism relies on clients behaving properly in order to
-        be effective.  Some clients ignore the KoD packet entirely, and
-        other poorly-implemented clients might unintentionally increase
-        their poll rate and simulate a denial of service attack.  Server
-        administrators should be prepared for this and take measures outside
-        of the NTP protocol to drop packets from misbehaving clients.</t>
       </section>
 
       <section title="Server configuration">
