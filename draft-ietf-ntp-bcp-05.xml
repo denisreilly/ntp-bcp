@@ -850,12 +850,12 @@
         control interface for NTP.</t>
 
         <t>That said, a client must only accept a KoD packet if it has a valid
-        origin timestamp. Once accepted, the client should increase its poll
-        interval value (thus decreasing its polling rate) up to a reasonable
-        maximum. This maximum can vary by implementation but should not exceed a
-        poll interval value of 13 (2 hours). The mechanism to determine how much
-        to increase the poll interval value is undefined in 
-        <xref target="RFC5905">RFC 5905</xref>. If the client uses the poll
+        origin timestamp. Once a RATE packet is accepted, the client should 
+        increase its poll interval value (thus decreasing its polling rate) up 
+        to a reasonable maximum. This maximum can vary by implementation but 
+        should not exceed a poll interval value of 13 (2 hours). The mechanism 
+        to determine how much to increase the poll interval value is undefined 
+        in <xref target="RFC5905">RFC 5905</xref>. If the client uses the poll
         interval value sent by the server in the KoD packet, it must not simply
         accept any value. Using large interval values may open a vector for a 
         denial-of-service attack that causes the client to stop querying its 
