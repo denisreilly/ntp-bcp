@@ -457,7 +457,7 @@
 
 	<t>If you are a vendor who wishes to provide time service to your
 	customers or clients, consider joining the pool and providing a
-	"vendor zone" thru the pool project.</t>
+	"vendor zone" through the pool project.</t>
 
         <t>If you want to synchronize many computers, consider running your
         own NTP servers that are synchronized by the pool, and synchronizing
@@ -632,7 +632,7 @@
         <section title="Pre-Shared Key Approach">
           <t>This approach applies a symmetric key for the calculation of
           the MAC, which protects authenticity and integrity of the
-          exchanged packets for a association.  NTP does not provide a
+          exchanged packets for an association.  NTP does not provide a
           mechanism for the exchange of the keys between the associated
           nodes.  Therefore, for each association, keys have to be exchanged
           securely by external means.  It is recommended that each
@@ -660,7 +660,7 @@
           should only be readable by the NTP process.  Different keys are
           added line by line to the key file.</t>
 
-          <t>A NTP client establishes a protected association by appending
+          <t>An NTP client establishes a protected association by appending
           the option "key keyid" to the server statement in the NTP
           configuration file:</t>
 
@@ -739,11 +739,11 @@
            provides timing information to other hosts may additionally log
            and drop incoming mode 3 timing queries from unexpected sources.
            Note well that the easiest way to monitor ntpd's status is to
-           send it a mode 3 query.  A much better appropach might be to
+           send it a mode 3 query.  A much better approach might be to
            filter mode 3 queries at the edge, or make sure mode 3 queries
-           are allowed from trusted systems or networks.</t>
+           are allowed only from trusted systems or networks.</t>
 
-           <t>An "leaf-node host" is host that is using NTP solely for the
+           <t>A "leaf-node host" is a host that is using NTP solely for the
            purpose of adjusting its own system time.  Such a host is not
            expected to provide time to other hosts, and relies exclusively
            on NTP's basic mode to take time from a set of servers. (That is,
@@ -824,7 +824,7 @@
           <t>"Bogus packets" - A packet whose origin timestamp does not
           match the value that expected by the client.</t>
 
-          <t>"Zero origin packet" - A packet with a origin timestamp set to
+          <t>"Zero origin packet" - A packet with an origin timestamp set to
           zero <xref target="CVE-2015-8138"></xref>.</t>
 
           <t>A packet with an invalid cryptographic MAC <xref target="CCR16">
