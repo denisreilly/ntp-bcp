@@ -1,0 +1,6 @@
+SEPARATION OF IMPLEMENTATION SPECIFIC CONTENT
+
+- Section 2           done
+- Section 3.1
+- Section 4           done
+- Section 4.1         done

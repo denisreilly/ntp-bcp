@@ -242,14 +242,7 @@
       a incomplete list include the chrony, the openntp, and the ntpsec 
       projects.<t/>
       
-      <!--> continues to be actively maintained and developed by
-      NTF's NTP Project, with help from volunteers and NTF's
-      supporters. This NTP software can be downloaded
-      from <eref target="http://www.ntp.org/downloads.html">ntp.org</eref>
-      and also from NTF's NTP Project's
-      <eref target="http://bk.ntp.org/">BitKeeper repository</eref> or
-      <eref target="https://github.com/ntp-project/ntp">github page
-      </eref>.</t>-->
+
     </section>
 
     <section title="General Network Security Best Practices">
@@ -281,7 +274,7 @@
     are implementation specific are compilied in Section 
     <xref target="ImplSpecific"/>.</t>
 
-      <section title="Use enough time sources">
+      <section anchor="TimeSources" title="Use enough time sources">
         <t>An NTP implementation (as opposed to an SNTP implementation)
         takes the available sources of time and submits this timing data to
         sophisticated intersection, clustering, and combing algorithms to
@@ -320,13 +313,6 @@
 	4 sources of time gave them consistent UTC/POSIX time, while the
 	other 2 gave them consistent leap-smeared time. See
 	<xref target="leap_smear"/> for more information.</t>
-
-        <t>Starting with ntp-4.2.6, the 'pool' directive will spin up
-        "enough" associations to provide robust time service, and will
-        disconnect poor servers and add in new servers as-needed.  If you
-        have good reason, you may use the 'minclock' and 'maxclock' options
-        of the 'tos' command to override the default values of how many
-        servers are discovered through the 'pool' directive.</t>
 
         <t>Monitor your ntpd instances. If your time sources do not
         generally agree, find out why and either correct the problems or
@@ -1266,6 +1252,35 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
     <section anchor="ImplSpecific" title="Implementation Specific Information">
     <t>This appendix procides information that is specific to various
     implementation of RFC 5905.</t>
+       
+       <section anchor="AppendixNTPD" title="NTP Implementation by the Network 
+       Time Foundation">
+       
+       <t>The Network Time Foundation (NTF) provides the reference
+       implementation of NTP, well-known under the name "ntpd". 
+       It is actively maintained and developed by
+       NTF's NTP Project, with help from volunteers and NTF's
+       supporters. This NTP software can be downloaded
+       from <eref target="http://www.ntp.org/downloads.html">ntp.org</eref>.
+       </t>
+      
+      <section anchor="AppendixNTPDTimeSources"
+      title="Use enough time sources">
+      
+        <t>In addition to the recommendation given in Section <xref 
+        target="TimeSources"/> the ntpd implementation provides the 'pool'
+        directive. 
+        Starting with ntp-4.2.6, this directive will spin up
+        "enough" associations to provide robust time service, and will
+        disconnect poor servers and add in new servers as-needed.  If you
+        have good reason, you may use the 'minclock' and 'maxclock' options
+        of the 'tos' command to override the default values of how many
+        servers are discovered through the 'pool' directive.</t>
+      
+      </section>
+      
+       </section>
+    
     </section>  
 
     <!-- Change Log
