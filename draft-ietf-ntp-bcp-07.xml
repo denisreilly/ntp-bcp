@@ -758,7 +758,7 @@
            responses from these servers containing timing information.)  To
            minimize information leakage, leaf-node hosts should drop all
            incoming NTP packets except mode 4 response packets that come
-           from unknown sources.  Note well that proper monitoring of an
+           from known sources.  Note well that proper monitoring of an
            ntpd instance includes checking the time of that ntpd
            instance.</t>
       </section>
