@@ -221,11 +221,13 @@
       time infrastructure is operating correctly and within specification,
       and is not being attacked or misused.</t>
           
-      <t>Thousands of individual bugs have been found and fixed in the NTP
+      <!-->
+		  <t>Thousands of individual bugs have been found and fixed in the NTP
       Project's ntpd since the first NTPv4 release in 1997.  Each version
       release contains at least a few bug fixes. The best way to stay in
       front of these issues is to keep your NTP implementation current.</t>
-
+      -->
+	  
       <t>There are multiple versions of the NTP protocol in use, and
       multiple implementations in use, on many different platforms. It is
       recommended that NTP users actively monitor wherever they get their
@@ -233,15 +235,21 @@
       attacks, and deploy updates containing security fixes as soon as
       practical.</t>
 
-      <t>The reference implementation of NTP Version 4 from Network Time
-      Foundation (NTF) continues to be actively maintained and developed by
+      <t>Therefore, it is recommended to only apply NTP implementations that 
+      are actively maintained such as the reference implementation 
+      from the Network Time Foundation (NTF). Note, that there are also 
+      other active implementations of NTPv4. At the time of writing,
+      a incomplete list include the chrony, the openntp, and the ntpsec 
+      projects.<t/>
+      
+      <!--> continues to be actively maintained and developed by
       NTF's NTP Project, with help from volunteers and NTF's
       supporters. This NTP software can be downloaded
       from <eref target="http://www.ntp.org/downloads.html">ntp.org</eref>
       and also from NTF's NTP Project's
       <eref target="http://bk.ntp.org/">BitKeeper repository</eref> or
       <eref target="https://github.com/ntp-project/ntp">github page
-      </eref>.</t>
+      </eref>.</t>-->
     </section>
 
     <section title="General Network Security Best Practices">
