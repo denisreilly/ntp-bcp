@@ -277,9 +277,9 @@
     </section>
 
     <section title="NTP Configuration Best Practices">
-      <t>These Best Practices, while based on the ntpd reference
-      implementation maintained by Network Time Foundation, may be
-      applicable to other implementations as well.</t>
+    <t>This section provides general Best Practices. Best Practices that 
+    are implementation specific are compilied in Section 
+    <xref target="ImplSpecific"/>.</t>
 
       <section title="Use enough time sources">
         <t>An NTP implementation (as opposed to an SNTP implementation)
@@ -1261,6 +1261,12 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
 
     </references> 
   
+  
+    <!-- Appendix with implementation sepcific stuff -->
+    <section anchor="ImplSpecific" title="Implementation Specific Information">
+    <t>This appendix procides information that is specific to various
+    implementation of RFC 5905.</t>
+    </section>  
 
     <!-- Change Log
 
