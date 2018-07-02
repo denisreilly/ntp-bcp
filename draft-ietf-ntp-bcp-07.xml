@@ -6,6 +6,7 @@
      There has to be one entity for each item to be referenced. 
      An alternate method (rfc include) is described in the references. -->
 <!ENTITY RFC5905 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5905.xml">
+<!ENTITY RFC1305 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.1305.xml">
 <!ENTITY RFC2827 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2827.xml">
 <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
 <!ENTITY RFC2434 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2434.xml">
@@ -240,7 +241,7 @@
       from the Network Time Foundation (NTF). Note, that there are also 
       other active implementations of NTPv4. At the time of writing,
       a incomplete list include the chrony, the openntp, and the ntpsec 
-      projects.<t/>
+      projects.</t>
       
 
     </section>
@@ -341,59 +342,27 @@
         instances when the system is unavailable (or wrong!).</t>
       </section>
 
-      <section anchor="mode67" title="Mode 6 and 7">
-        <t>NTP Mode 6 (ntpq) and Mode 7 (ntpdc) packets are designed to
-        permit monitoring and optional authenticated control of ntpd and its
-        configuration.  Used properly, these facilities provide vital
+      <section anchor="mode67" title="Control Messages">
+        <t>Some implementations of NTPv4 provide the NTP Control Messages
+        which originally have been specified in Appendix B of 
+        <xref target="RFC1305"/> but never have been part of the NTPv4
+        specification (!!here we should mention Brian Control messages draft)
+        The NTP Control Message
+        are designed to permit monitoring and optionally authenticated 
+        control of NTP and its configuration.  Used properly, these facilities provide vital
         debugging and performance information and control.  Used improperly,
         these facilities can be an abuse vector.</t>
 
-        <t>Mode 7 queries have been disabled by default in ntpd since
-        4.2.7p230, released on 2011/11/01.  Do not enable Mode 7 unless
-        there is a compelling reason to do so.</t>
-
         <t>The ability to use Mode 6 beyond its basic monitoring
         capabilities can be limited to authenticated sessions that provide a
-        'controlkey'. Similarly, if Mode 7 has been explicitly enabled its
-        use for more than basic monitoring can be limited to authenticated
-        sessions that provide a 'requestkey'.</t>
+        'controlkey'.</t>
 
-        <t>Older versions of the reference implementation of NTP could be
-        abused to participate in high-bandwidth DDoS attacks, if the above
-        restrictions are not applied.  Starting with ntp-4.2.7p26, released
-        in April of 2010, ntpd requires the use of a nonce before replying
-        with potentially large response packets.</t>
-
-        <t>As mentioned above, there are two general ways to use Mode 6 and
-        Mode 7 requests. One way is to query ntpd for information, and this
-        mode can be disabled with:</t>
-
-        <t>restrict ... noquery</t>
-
-        <t>The second way to use Mode 6 and Mode 7 requests is to modify
-        ntpd's behavior.  Modification of ntpd's configuration requires an
-        authenticated session BY default.  If no authentication keys have
-        been specified no modifications can be made.  For additional
-        protection, the ability to perform these modifications can be
-        controlled with:</t>
-
-        <t>restrict ... nomodify</t>
-
-        <!-- Should we talk about notrap ? -->
-
-        <!-- the following ntp.conf fragment examples are version-specific.
-             Which versions should we show examples for? -->
-
-        <t>Users can prevent their NTP servers from considering
-        query/configuration traffic by default by adding the following to
-        their ntp.conf file:</t>
-
-        <t>restrict default -4 nomodify notrap nopeer noquery</t>
-
-        <t>restrict default -6 nomodify notrap nopeer noquery</t>
-
-        <t>restrict source nomodify notrap noquery <vspace />
-		# nopeer is OK if you don't use the 'pool' directive</t>
+        <t>The NTP Control Messages responses are much larger than
+        the correspondig queries. Thus, they can  be
+        abused in high-bandwidth DDoS attacks. To provide protection for such
+        abuse NTP server operators should deply ingress filtering 
+        <xref target="RFC2827">BCP 38</xref>.</t>
+        
       </section>
 
       <section anchor="Monitoring" title="Monitoring">
@@ -1102,7 +1071,10 @@
       <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2827.xml"?-->
 
       &RFC7094;
+      
+      <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.1305.xml"?-->
 	  
+	  &RFC1305;
 
       <?rfc include='reference.RFC.7384'?>
     </references>
@@ -1264,8 +1236,8 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
        from <eref target="http://www.ntp.org/downloads.html">ntp.org</eref>.
        </t>
       
-      <section anchor="AppendixNTPDTimeSources"
-      title="Use enough time sources">
+       <section anchor="AppendixNTPDTimeSources"
+       title="Use enough time sources">
       
         <t>In addition to the recommendation given in Section <xref 
         target="TimeSources"/> the ntpd implementation provides the 'pool'
@@ -1276,9 +1248,47 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
         have good reason, you may use the 'minclock' and 'maxclock' options
         of the 'tos' command to override the default values of how many
         servers are discovered through the 'pool' directive.</t>
-      
-      </section>
-      
+       </section>
+      	 <section anchor="NTPFacilityMessages" 
+      	 title="NTP Control and Facility Messages">
+        <t>In addition to NTP Control Messages the ntpd implementation 
+      	also offers the mode 7 commands for monitoring and configuration.</t>
+      	 
+      	<t> If Mode 7 has been explicitly enabled to be used
+        for more than basic monitoring it should be limited to authenticated
+        sessions that provide a 'requestkey'.</t>
+        
+        <t>As mentioned above, there are two general ways to use Mode 6 and
+        Mode 7 requests. One way is to query ntpd for information, and this
+        mode can be disabled with:</t>
+
+        <t>restrict ... noquery</t>
+
+        <t>The second way to use Mode 6 and Mode 7 requests is to modify
+        ntpd's behavior.  Modification of ntpd's configuration requires an
+        authenticated session BY default.  If no authentication keys have
+        been specified no modifications can be made.  For additional
+        protection, the ability to perform these modifications can be
+        controlled with:</t>
+
+        <t>restrict ... nomodify</t>
+
+        <!-- Should we talk about notrap ? -->
+
+        <!-- the following ntp.conf fragment examples are version-specific.
+             Which versions should we show examples for? -->
+
+        <t>Users can prevent their NTP servers from considering
+        query/configuration traffic by default by adding the following to
+        their ntp.conf file:</t>
+
+        <t>restrict default -4 nomodify notrap nopeer noquery</t>
+
+        <t>restrict default -6 nomodify notrap nopeer noquery</t>
+
+        <t>restrict source nomodify notrap noquery <vspace />
+		# nopeer is OK if you don't use the 'pool' directive</t>
+      	 </section>
        </section>
     
     </section>  
