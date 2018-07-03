@@ -222,13 +222,13 @@
       time infrastructure is operating correctly and within specification,
       and is not being attacked or misused.</t>
           
-      <!-->
-		  <t>Thousands of individual bugs have been found and fixed in the NTP
+      <!--
+	  <t>Thousands of individual bugs have been found and fixed in the NTP
       Project's ntpd since the first NTPv4 release in 1997.  Each version
       release contains at least a few bug fixes. The best way to stay in
       front of these issues is to keep your NTP implementation current.</t>
       -->
-	  
+      
       <t>There are multiple versions of the NTP protocol in use, and
       multiple implementations in use, on many different platforms. It is
       recommended that NTP users actively monitor wherever they get their
@@ -346,8 +346,11 @@
         <t>Some implementations of NTPv4 provide the NTP Control Messages
         which originally have been specified in Appendix B of 
         <xref target="RFC1305"/> but never have been part of the NTPv4
-        specification (!!here we should mention Brian Control messages draft)
-        The NTP Control Message
+        specification. 
+        (Work is being done to formally document the structure of these 
+        control messages in <xref target="CTRLMSG">draft-ietf-ntp-mode-6-cmds</xref>
+        .) </t>
+        <t>The NTP Control Messages
         are designed to permit monitoring and optionally authenticated 
         control of NTP and its configuration.  Used properly, these facilities provide vital
         debugging and performance information and control.  Used improperly,
@@ -360,7 +363,7 @@
         <t>The NTP Control Messages responses are much larger than
         the correspondig queries. Thus, they can  be
         abused in high-bandwidth DDoS attacks. To provide protection for such
-        abuse NTP server operators should deply ingress filtering 
+        abuse NTP server operators should deploy ingress filtering 
         <xref target="RFC2827">BCP 38</xref>.</t>
         
       </section>
@@ -655,13 +658,13 @@
 
       </section>
 		
-	<section title="Network Time Security">
+    <section title="Network Time Security">
           <t> Work is in progress on an enhanced replacement for Autokey, which
           is called
           <xref target="NTSFORNTP">Network Time Security (NTS)</xref>.  As 
-		  of December 2017, this effort was at draft #10, and in the 
-		  'final call' process.  Readers are encouraged to adopt its
-		  mechanisms.</t>
+          of July 2018, this effort was at draft #12, and in the 
+          'Working Group Last Call' process.  Readers are encouraged to adopt
+          its mechanisms.</t>
         </section>
 
 		
@@ -1203,7 +1206,7 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
             <organization />
           </author>
 
-          <date month='October' day='30' year='2017' />
+          <date month='July' day='01' year='2018' />
 
           <abstract><t>This memo specifies Network Time Security (NTS), a 
 		  mechanism for using Transport Layer Security (TLS) and Authenticated
@@ -1212,15 +1215,49 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
 
           </front>
 
-        <seriesInfo name='Internet-Draft' value='draft-ietf-ntp-using-nts-for-ntp-10' />
+        <seriesInfo name='Internet-Draft' value='draft-ietf-ntp-using-nts-for-ntp-12' />
         <format type='TXT'
-            target=' https://www.ietf.org/id/draft-ietf-ntp-using-nts-for-ntp-10.txt'/>
+            target=' https://www.ietf.org/id/draft-ietf-ntp-using-nts-for-ntp-12.txt' />
       </reference>
+
+      <!-- Control Message Draft --> 
+  
+       <reference anchor="CTRLMSG">
+        <front>
+          <title>Control Messages Protocol for Use with Network Time Protocol Version 4</title>
+
+          <author initials='D' surname='Mills' fullname='David Mills'>
+            <organization />
+          </author>
+
+          <author initials='B' surname='Haberman' fullname='Brian Haberman'>
+            <organization />
+          </author>
+
+          <date month='March' day='28' year='2018' />
+
+          <abstract><t>   This document describes the structure of the control messages used
+   with the Network Time Protocol.  These control messages can be used
+   to monitor and control the Network Time Protocol application running
+   on any IP network attached computer.  The information in this
+   document was originally described in Appendix B of RFC 1305.  The
+   goal of this document is to provide a historic description of the
+   control messages as described in RFC 1305 and any additional commands
+   implemented in NTP.</t></abstract>
+
+          </front>
+
+        <seriesInfo name='Internet-Draft' value='draft-ietf-ntp-mode-6-cmds-05' />
+        <format type='TXT'
+            target=' https://www.ietf.org/id/draft-ietf-ntp-mode-6-cmds-05' />
+      </reference>
+
+    
 
     </references> 
   
   
-    <!-- Appendix with implementation sepcific stuff -->
+    <!-- Appendix with implementation specific stuff -->
     <section anchor="ImplSpecific" title="Implementation Specific Information">
     <t>This appendix procides information that is specific to various
     implementation of RFC 5905.</t>
