@@ -1,7 +1,7 @@
 SEPARATION OF IMPLEMENTATION SPECIFIC CONTENT
 
 - Section 2           done
-- Section 3.1				OPEN
+- Section 3.1				review
 - Section 4           done
 - Section 4.1         done
 - Section 4.2         done

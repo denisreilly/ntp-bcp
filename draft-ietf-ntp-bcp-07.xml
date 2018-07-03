@@ -223,7 +223,7 @@
       and is not being attacked or misused.</t>
           
       <!--
-	  <t>Thousands of individual bugs have been found and fixed in the NTP
+      <t>Thousands of individual bugs have been found and fixed in the NTP
       Project's ntpd since the first NTPv4 release in 1997.  Each version
       release contains at least a few bug fixes. The best way to stay in
       front of these issues is to keep your NTP implementation current.</t>
@@ -252,20 +252,22 @@
         <t>Many network attacks rely on modifying the IP source address of a
         packet to point to a different IP address than the computer which
         originated it. This modification/abuse vector has been known for
-        quite some time, and <xref target="RFC2827">BCP 38</xref> was
+        quite some time. UDP-based protocols such as NTP are generally more
+        susceptible to spoofing attacks then other connection-oriented
+        protocols. NTP control messages can generate a lot of data in
+        response to a small query, which makes it more attractive as a 
+        vector for distributed denial-of-service attacks. (NTP Control 
+        messages are discussed further in <xref target="mode67"/>). Mitigating
+        source address spoofing attacks should be a priority of anyone 
+        administering NTP.</t>
+        
+        <t><xref target="RFC2827">BCP 38</xref> was
         approved in 2000 to address this. <xref target="RFC2827">BCP
         38</xref> calls for filtering outgoing and incoming traffic to make
         sure that the source and destination IP addresses are consistent
         with the expected flow of traffic on each network interface. It is
         recommended that all networks (and ISP's of any size) implement
-        ingress and egress filtering. If a machine on a network is sending
-        out packets claiming to be from an address that is not on that
-        network, this could be the first indication that there is a machine
-        that has been compromised, and is being used abusively. If packets
-        are arriving on an external interface with a source address that
-        should only be seen on an internal network, that's a strong
-        indication that an attacker is trying to inject spoofed packets into
-        the network. More information is available at the
+        ingress and egress filtering. More information is available at the
 	<eref target="http://www.bcp38.info">BCP38 Info page</eref> .</t>
       </section>
     </section>
