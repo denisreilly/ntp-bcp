@@ -202,7 +202,7 @@
 
     <section title="Keeping NTP up to date">
       <t>Many network security mechanisms rely on time as part of their
-      operation.  If an attacker can spoof the time, they may be able to
+      operation.  If attackers can spoof the time, they may be able to
       bypass or neutralize other security elements. For example, incorrect
       time can disrupt the ability to reconcile logfile entries on the
       affected system with events on other systems. The best way to detect
@@ -251,8 +251,7 @@
       <section anchor="bcp38" title="BCP 38">
         <t>Many network attacks rely on modifying the IP source address of a
         packet to point to a different IP address than the computer which
-        originated it. This modification/abuse vector has been known for
-        quite some time. UDP-based protocols such as NTP are generally more
+        originated it. UDP-based protocols such as NTP are generally more
         susceptible to spoofing attacks then other connection-oriented
         protocols. NTP control messages can generate a lot of data in
         response to a small query, which makes it more attractive as a 
@@ -288,22 +287,22 @@
 
 	<t><list style="symbols">
           <t>If there is only 1 source of time, the answer is obvious.  It
-	  may not be a good source of time, but it's the only source of
-	  time that can be considered. Any issue with the time at the source 
+	      may not be a good source of time, but it's the only source of
+	      time that can be considered. Any issue with the time at the source 
           will be passed on to the client.</t>
 			 
           <t>If there are 2 sources of time and they agree well enough,
           then the best "time" can be calculated easily. But if one source 
-          fails, then your solution degrades to the single-source solution 
+          fails, then the solution degrades to the single-source solution 
           outlined above. And if the two sources don't agree, then it's 
           impossible to know which one is correct by simply looking at the 
           time.</t>
 			 
           <t>If there are 3 sources of time, there is more data available to 
           converge on a "best" time, and this time is more likely to be 
-          accurate. And you can tolerate one of the sources becoming 
-          unreachable or unusable. But at that point, you are back down to 
-          2 sources.</t>
+          accurate. And the loss of one of the sources (by becoming unreachable
+          or unusable) can be tolerated. But at that point, the solution 
+          degrades to the 2 source solution.</t>
             
           <t>4 or more sources of time is better. If one of these sources
           develops a problem there are still at least 3 other time sources.</t>
@@ -363,7 +362,7 @@
         'controlkey'.</t>
 
         <t>The NTP Control Messages responses are much larger than
-        the correspondig queries. Thus, they can  be
+        the corresponding queries. Thus, they can  be
         abused in high-bandwidth DDoS attacks. To provide protection for such
         abuse NTP server operators should deploy ingress filtering 
         <xref target="RFC2827">BCP 38</xref>.</t>
@@ -371,18 +370,11 @@
       </section>
 
       <section anchor="Monitoring" title="Monitoring">
-        <t>The reference implementation of NTP allows remote monitoring.
-        Access to this service is generally controlled by the "noquery"
-        directive in NTP's configuration file (ntp.conf) via a "restrict"
-        statement.  The syntax reads:</t>
 
-        <figure>
-          <artwork><![CDATA[restrict address mask address_mask noquery]]></artwork>
-        </figure>
-
-        <t>Monitor ntpd instances so machines that are "out of sync" can be
-        quickly identified.  Monitor system logs for messages from ntpd so
-        problems and abuse attempts can be quickly identified.</t>
+        <t>Use your NTP implementation's remote monitoring capabilities to 
+        quickly identify servers which are out of sync, and ensure correctness
+        of the service. Monitor system logs for messages so problems and abuse 
+        attempts can be quickly identified.</t>
 
         <t>If a system starts getting unexpected time replies from its time
         servers, that can be an indication that the IP address of the system
@@ -445,8 +437,8 @@
         of a leap second.  UTC is an atomic time scale whereas UT1 is based
         on the rotational rate of the earth.  Leap seconds are not
         introduced at a fixed rate.  They are announced
-        by the IERS (International Earth rotation
-        and Reference systems Service) in its
+        by the IERS (International Earth Rotation
+        and Reference Systems Service) in its
 	<eref target="https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html">Bulletin
         C </eref> when necessary to keep UTC and UT1 aligned.</t>
         <t>NTP time is based on the UTC timescale, and the protocol has the
@@ -477,38 +469,14 @@
 
         <t>The IETF maintains a 
         <eref target="https://www.ietf.org/timezones/data/leap-seconds.list">leap
-	second list</eref> for NTP users who are not receiving leap second
-	information through an automatic source.  The use of leap second
-	files requires ntpd 4.2.6 or later.  After fetching the leap seconds
-	file onto the server, add this line to ntpd.conf to apply and use
-	the file:</t>
-
-        <t>leapfile "/path/to your/leap-file"</t>
-
-        <t>You may need to restart ntpd to apply this change.</t>
-
+	    second list</eref> for NTP users who are not receiving leap second
+	    information through an automatic source. </t>
         <t>Files are also available from other sources:</t>
         <t>NIST: ftp://time.nist.gov/pub/leap-seconds.list</t>
         <t>US Navy (maintains GPS Time): ftp://tycho.usno.navy.mil/pub/ntp/leap-seconds.list</t>
         <t>IERS (announces leap seconds): https://hpiers.obspm.fr/iers/bul/bulc/ntp/leap-seconds.list</t>
-
-        <t>ntpd servers with a manually configured leap second file will
-        ignore leap second information broadcast from upstream NTP servers
-        until the leap second file expires.  If no valid leap second file is
-        available then a leap second notification from an attached reference
-        clock is always accepted by ntpd.</t>
-		
-	<t>If no valid leap second file is available, a leap second
-	notification may be accepted from upstream NTP servers.  As of
-	ntp-4.2.6, a majority of servers must provide the notification
-	before it is accepted.  Before 4.2.6, a leap second notification
-	would be accepted if a single upstream server of a group of
-	configured servers provided a leap second notification. This would
-	lead to misbehavior if single NTP servers sent an invalid leap
-	second warning, e.g. due to a faulty GPS receiver in one server, but
-	this behavior was once chosen because in the "early days" there was
-	a greater chance that leap second information would be available
-	from a very limited number of sources.</t>
+        <t>See <xref target="AppendixNTPDLeapFile"/> 
+        for instructions on applying the leap second file to the reference implementation.</t>
 
         <section anchor="leap_smear" title="Leap Smearing">
           <t>Some NTP installations may instead make use of a technique
@@ -535,14 +503,6 @@
           possibly 59) seconds in it, and some applications (and even some
           OS's) are known to have problems with that.</t>
 
-          <t>Leap Smearing was introduced in ntpd versions 4.2.8.p3 and
-          4.3.47, in response to CLIENT requests.  Support for leap smearing
-          is not configured by default and must be added at compile time.
-          In addition, no leap smearing will occur unless a leap smear
-          interval is specified in ntpd.conf .  For more information, refer
-          to <eref target="http://bk1.ntp.org/ntp-stable/README.leapsmear?PAGE=anno">
-          http://bk.ntp.org/ntp-stable/README.leapsmear?PAGE=anno</eref>.</t>
-
 	  <t>Clients that are connected to leap smearing servers MUST NOT
 	  apply the "standard" NTP leap second handling.  So if they
 	  are using ntpd, these clients must never have a leap second file
@@ -566,20 +526,6 @@
           configuration.</t>
 
         </section>
-      </section>
-	  
-      <section title="Configuring ntpd">
-	<t>Configuration access to ntpd is controlled by the "modify" status
-        in NTP's configuration file (ntp.conf), which is controlled by a
-        "restrict" statement.  The syntax is:</t>
-
-        <figure>
-          <artwork><![CDATA[restrict address mask address_mask nomodify]]></artwork>
-        </figure>
-
-	<t>See <eref target="https://support.ntp.org/bin/view/Support/ConfiguringNTP">
-	https://support.ntp.org/bin/view/Support/ConfiguringNTP</eref>
-	for additional information on configuring ntpd.</t>
       </section>
     </section>
 
@@ -681,6 +627,9 @@
       </section>
 
       <section anchor="Sec_Bcp" title="NTP Security Best Practices">
+      <t>This section is oriented towards the reference implementation of NTP,
+      but these concepts may (or may not) apply to other implementations. 
+      Contact the maintainers of your implementation for nore information.</t>
 	<section title="Minimizing Information Leakage">
           <t>The base NTP packet leaks important information (including
            reference ID and reference time) that may be used in attacks
@@ -903,7 +852,7 @@
     </section>
 
     <section title="NTP in Embedded Devices">
-      <t>Readers of this BCP likely already understand how important
+      <t>Readers of this BCP already understand how important
       accurate time is for network computing.  And as computing becomes more
       ubiquitous, there will be many small "Internet of Things" devices that
       require accurate time.  These embedded devices may not have a
@@ -1328,8 +1277,78 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
         <t>restrict source nomodify notrap noquery <vspace />
 		# nopeer is OK if you don't use the 'pool' directive</t>
       	 </section>
-       </section>
-    
+       
+        <section anchor="AppendixNTPDMonitoring" title="Monitoring">
+        <t>The reference implementation of NTP allows remote monitoring.
+        Access to this service is generally controlled by the "noquery"
+        directive in NTP's configuration file (ntp.conf) via a "restrict"
+        statement.  The syntax reads:</t>
+
+        <figure>
+          <artwork><![CDATA[restrict address mask address_mask noquery]]></artwork>
+        </figure>
+
+        <t>If a system is using broadcast mode and is running ntp-4.2.8p6 or
+        later, use the 4th field of the ntp.keys file to specify the IPs of
+        machines that are allowed to serve time to the group.</t>
+
+        <!-- Cite
+        CVEs, BU paper, bug reports? -->
+      </section>
+      
+      <section anchor="AppendixNTPDLeapFile" title="Leap Second File">      
+        <t>The use of leap second
+	     files requires ntpd 4.2.6 or later.  After fetching the leap seconds
+	     file onto the server, add this line to ntpd.conf to apply and use
+	    the file:</t>
+
+        <t>leapfile "/path/to your/leap-file"</t>
+
+        <t>You may need to restart ntpd to apply this change.</t>
+
+        <t>ntpd servers with a manually configured leap second file will
+        ignore leap second information broadcast from upstream NTP servers
+        until the leap second file expires.  If no valid leap second file is
+        available then a leap second notification from an attached reference
+        clock is always accepted by ntpd.</t>
+		
+	    <t>If no valid leap second file is available, a leap second
+	    notification may be accepted from upstream NTP servers.  As of
+	    ntp-4.2.6, a majority of servers must provide the notification
+	    before it is accepted.  Before 4.2.6, a leap second notification
+	    would be accepted if a single upstream server of a group of
+	    configured servers provided a leap second notification. This would
+	    lead to misbehavior if single NTP servers sent an invalid leap
+	    second warning, e.g. due to a faulty GPS receiver in one server, but
+	    this behavior was once chosen because in the "early days" there was
+	    a greater chance that leap second information would be available
+	    from a very limited number of sources.</t>
+        
+      </section>
+      <section anchor="AppendixNTPDLeapSmear" title="Leap Smearing"> 
+        <t>Leap Smearing was introduced in ntpd versions 4.2.8.p3 and
+        4.3.47, in response to CLIENT requests.  Support for leap smearing
+        is not configured by default and must be added at compile time.
+        In addition, no leap smearing will occur unless a leap smear
+        interval is specified in ntpd.conf .  For more information, refer
+        to <eref target="http://bk1.ntp.org/ntp-stable/README.leapsmear?PAGE=anno">
+        http://bk.ntp.org/ntp-stable/README.leapsmear?PAGE=anno</eref>.</t>
+      </section>
+        
+        <section title="Configuring ntpd">
+	      <t>Configuration access to ntpd is controlled by the "modify" status
+          in NTP's configuration file (ntp.conf), which is controlled by a
+          "restrict" statement.  The syntax is:</t>
+
+          <figure>
+            <artwork><![CDATA[restrict address mask address_mask nomodify]]></artwork>
+          </figure>
+
+	      <t>See <eref target="https://support.ntp.org/bin/view/Support/ConfiguringNTP">
+	      https://support.ntp.org/bin/view/Support/ConfiguringNTP</eref>
+	      for additional information on configuring ntpd.</t>
+        </section>
+      </section>
     </section>  
 
     <!-- Change Log
@@ -1345,6 +1364,9 @@ v01 2016-10-04  DPR more leap second fixes from Martin, editrorial fixes
     2017-05-11 HMS: tweaks to DPR's 04
     2017-05-18 DPR tweaks back 
                (sources of time, autokey, anycast, extended info)
+    lots missing
+    2018-07-05  DPR: put NTPd-specific things in an appendix with Dieter's help  
+                resolved other feedback from reviewers.
        -->
   </back>
 </rfc>
