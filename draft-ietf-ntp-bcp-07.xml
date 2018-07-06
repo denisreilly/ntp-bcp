@@ -558,34 +558,15 @@
           exchange the key, which consists of a keyid with a value between 1
           and 65534, inclusive, and a label which indicates the chosen
           digest algorithm.  Each communication partner adds this
-          information to their key file in the form:</t>
+          information to its own key file.</t>
 
-          <figure>
-            <artwork><![CDATA[keyid label key]]></artwork>
-          </figure>
-
-          <t>The key file contains the key in clear text.  Therefore it
+          <t>Some implementations store the key in clear text.  Therefore it
           should only be readable by the NTP process.  Different keys are
           added line by line to the key file.</t>
 
           <t>An NTP client establishes a protected association by appending
-          the option "key keyid" to the server statement in the NTP
-          configuration file:</t>
-
-          <figure>
-            <artwork><![CDATA[server address key keyid]]></artwork>
-          </figure>
-
-          <t>Note that the NTP process has to trust the applied key.  A key
-	  is deemed trusted when its keyid is added to the list of trusted
-	  keys by the "trustedkey" statement in the NTP configuration
-	  file.</t>
-
-          <figure>
-            <artwork><![CDATA[trustedkey keyid_1 keyid_2 ... keyid_n]]></artwork>
-          </figure>
-
-          <t/>
+          the key to the server statement in its configuration file. Note that
+          the NTP process has to trust the applied key. </t>
         </section>
 
         <section title="Autokey">
@@ -1271,6 +1252,7 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
         <t>restrict source nomodify notrap noquery <vspace />
 		# nopeer is OK if you don't use the 'pool' directive</t>
       	 </section>
+
        
         <section anchor="AppendixNTPDMonitoring" title="Monitoring">
         <t>The reference implementation of NTP allows remote monitoring.
@@ -1330,18 +1312,36 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
       </section>
         
         <section title="Configuring ntpd">
-	      <t>Configuration access to ntpd is controlled by the "modify" status
-          in NTP's configuration file (ntp.conf), which is controlled by a
-          "restrict" statement.  The syntax is:</t>
-
-          <figure>
-            <artwork><![CDATA[restrict address mask address_mask nomodify]]></artwork>
-          </figure>
-
 	      <t>See <eref target="https://support.ntp.org/bin/view/Support/ConfiguringNTP">
 	      https://support.ntp.org/bin/view/Support/ConfiguringNTP</eref>
 	      for additional information on configuring ntpd.</t>
         </section>
+        
+      <section anchor="AppendixNTPDPreSharedKeys" title="Pre-Shared Keys"> 
+        <t>Each communication partner must add the keyid
+        information to their key file in the form:</t>
+
+          <figure>
+            <artwork><![CDATA[keyid label key]]></artwork>
+          </figure>
+          
+          <t>An ntpd client establishes a protected association by appending
+          the option "key keyid" to the server statement in ntp.conf:</t>
+
+          <figure>
+            <artwork><![CDATA[server address key keyid]]></artwork>
+          </figure>
+          
+          <t>A key is deemed trusted when its keyid is added to the list of trusted
+	      keys by the "trustedkey" statement in ntp.conf.</t>
+
+          <figure>
+            <artwork><![CDATA[trustedkey keyid_1 keyid_2 ... keyid_n]]></artwork>
+          </figure>
+      </section>
+      
+      <!-- end of ntpd appendix -->
+      
       </section>
     </section>  
 
