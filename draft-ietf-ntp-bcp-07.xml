@@ -231,15 +231,11 @@
       
       <t>There are multiple versions of the NTP protocol in use, and
       multiple implementations in use, on many different platforms. It is
-      recommended that NTP users actively monitor wherever they get their
-      software to find out if their versions are vulnerable to any known
-      attacks, and deploy updates containing security fixes as soon as
-      practical.</t>
-
-      <t>Therefore, it is recommended to only apply NTP implementations that 
-      are actively maintained such as the reference implementation 
-      from the Network Time Foundation (NTF). Note, that there are also 
-      other active implementations of NTPv4.</t>
+      recommended that that NTP users select an implementation that is 
+      actively maintained. Users should keep up to date on any known 
+      attacks on their selected implementation, and deploy updates containing 
+      security fixes as soon as practical.
+      </t>
       
 
     </section>
