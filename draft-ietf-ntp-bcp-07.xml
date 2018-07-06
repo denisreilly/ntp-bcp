@@ -239,9 +239,7 @@
       <t>Therefore, it is recommended to only apply NTP implementations that 
       are actively maintained such as the reference implementation 
       from the Network Time Foundation (NTF). Note, that there are also 
-      other active implementations of NTPv4. At the time of writing,
-      a incomplete list include the chrony, the openntp, and the ntpsec 
-      projects.</t>
+      other active implementations of NTPv4.</t>
       
 
     </section>
@@ -629,7 +627,7 @@
       <section anchor="Sec_Bcp" title="NTP Security Best Practices">
       <t>This section is oriented towards the reference implementation of NTP,
       but these concepts may (or may not) apply to other implementations. 
-      Contact the maintainers of your implementation for nore information.</t>
+      Contact the maintainers of your implementation for more information.</t>
 	<section title="Minimizing Information Leakage">
           <t>The base NTP packet leaks important information (including
            reference ID and reference time) that may be used in attacks
@@ -707,9 +705,9 @@
           <t>Hosts running with the above two conditions should be aware
           that the panic threshold does not protect them from attacks.  The
           recommended and natural solution is not to run hosts with these
-          conditions.  Specifically, only use the -g flag in cold-start
-          situations, or when sufficient oversight and checking is in place
-          to make sure that the use of -g is appropriate.</t>
+          conditions.  Specifically, only ignore the panic threshold in cold-start
+          situations if sufficient oversight and checking is in place
+          to make sure that this is appropriate.</t>
 
           <t>As an alternative, the following steps could be taken to
           mitigate the risk of attack.</t>
