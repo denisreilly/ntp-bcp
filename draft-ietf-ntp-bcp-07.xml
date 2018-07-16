@@ -310,7 +310,7 @@
 	other 2 gave them consistent leap-smeared time. See
 	<xref target="leap_smear"/> for more information.</t>
 
-        <t>Monitor your ntpd instances. If your time sources do not
+        <t>Monitor your NTP instances. If your time sources do not
         generally agree, find out why and either correct the problems or
         stop using defective servers.  See <xref target="Monitoring"/> for
         more information.</t>
@@ -340,8 +340,8 @@
       <section anchor="mode67" title="Control Messages">
         <t>Some implementations of NTPv4 provide the NTP Control Messages
         which originally have been specified in Appendix B of 
-        <xref target="RFC1305"/> but never have been part of the NTPv4
-        specification. 
+        <xref target="RFC1305"/> which defined NTPv3, but never have been 
+        part of the NTPv4 specification. 
         (Work is being done to formally document the structure of these 
         control messages in <xref target="CTRLMSG">draft-ietf-ntp-mode-6-cmds</xref>
         .) </t>
