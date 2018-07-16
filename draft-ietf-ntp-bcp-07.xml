@@ -602,9 +602,10 @@
       </section>
 
       <section anchor="Sec_Bcp" title="NTP Security Best Practices">
-      <t>This section is oriented towards the reference implementation of NTP,
-      but these concepts may (or may not) apply to other implementations. 
-      Contact the maintainers of your implementation for more information.</t>
+      <t>This section lists some general NTP security practices,
+      but these concepts may (or may not) have been mitigated in particular
+      versions of particular implementations. Contact the maintainers of 
+      your implementation for more information.</t>
 	<section title="Minimizing Information Leakage">
           <t>The base NTP packet leaks important information (including
            reference ID and reference time) that may be used in attacks
