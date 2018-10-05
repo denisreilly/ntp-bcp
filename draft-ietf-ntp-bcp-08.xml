@@ -267,13 +267,13 @@
 
     <section title="NTP Configuration Best Practices">
     <t>This section provides general Best Practices. Best Practices that 
-    are implementation specific are compilied in Section 
+    are implementation specific are compiled in Section 
     <xref target="ImplSpecific"/>.</t>
 
       <section anchor="TimeSources" title="Use enough time sources">
         <t>An NTP implementation (as opposed to an SNTP implementation)
         takes the available sources of time and submits this timing data to
-        sophisticated intersection, clustering, and combing algorithms to
+        sophisticated intersection, clustering, and combining algorithms to
         get the best estimate of the correct time. The description of these
         algorithms is beyond the scope of this document. Interested readers
         should read <xref target="RFC5905">RFC 5905</xref> or the detailed
@@ -431,14 +431,14 @@
         of a leap second.  UTC is an atomic time scale whereas UT1 is based
         on the rotational rate of the earth.  Leap seconds are not
         introduced at a fixed rate.  They are announced
-        by the IERS (International Earth Rotation
-        and Reference Systems Service) in its
+        by the International Earth Rotation
+        and Reference Systems Service (IERS) in its
 	<eref target="https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html">Bulletin
         C </eref> when necessary to keep UTC and UT1 aligned.</t>
         <t>NTP time is based on the UTC timescale, and the protocol has the
-        capability to broadcast leap second information.  Some GNSS systems
-        (like GPS) or radio transmitters (like DCF77) broadcast leap second
-        information, so if you are synced to an ntp server that is
+        capability to broadcast leap second information.  Some Global Navigation 
+        Satellite Systems (like GPS) or radio transmitters (like DCF77) broadcast leap second
+        information, so if you are synced to an NTP server that is
         ultimately synced to a source that provides leap second notification
         you will get advance notification of impending leap seconds
         automatically.</t>
@@ -530,7 +530,7 @@
         modify the content of the NTP packet, which leads to degradation of
         the time synchronization or the transmission of false time
         information.  A profound threat analysis for time synchronization
-        protocols are given in <xref target="RFC7384">RFC 7384</xref>.  NTP
+        protocols is given in <xref target="RFC7384">RFC 7384</xref>.  NTP
         provides two internal security mechanisms to protect authenticity
         and integrity of the NTP packets.  Both measures protect the NTP
         packet by means of a Message Authentication Code (MAC).  Neither of
@@ -1216,7 +1216,7 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
       	 <section anchor="NTPFacilityMessages" 
       	 title="NTP Control and Facility Messages">
         <t>In addition to NTP Control Messages the ntpd implementation 
-      	also offers the mode 7 commands for monitoring and configuration.</t>
+      	also offers the Mode 7 commands for monitoring and configuration.</t>
       	 
       	<t> If Mode 7 has been explicitly enabled to be used
         for more than basic monitoring it should be limited to authenticated
@@ -1230,7 +1230,7 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
 
         <t>The second way to use Mode 6 and Mode 7 requests is to modify
         ntpd's behavior.  Modification of ntpd's configuration requires an
-        authenticated session BY default.  If no authentication keys have
+        authenticated session by default.  If no authentication keys have
         been specified no modifications can be made.  For additional
         protection, the ability to perform these modifications can be
         controlled with:</t>
