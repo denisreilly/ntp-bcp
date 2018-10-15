@@ -406,3 +406,22 @@ have been mitigate".  How are concepts mitigated?
 ## Resolution
 
 
+# Comment
+
+Section 5 describes available NTP security mechanisms, and then section 6 describes "NTP Security Best Practices". I went back and forth several times, confused by the fact that section 5 includes recommendations as well as brief descriptions of the mechanisms. I think giving a separate overview of the existing security mechanisms is a good idea, but I'd suggest using this section for defining what's available, and moving the recommendations into new subsections of section 6. 
+
+The current draft says, 
+
+   ... The calculation of                                       
+   the MAC may always be based on an MD5 hash, and an AES-128-CMAC hash
+   is expected to soon be allowed as well.  If the NTP daemon is built
+   against an OpenSSL library, NTP can also base the calculation of the
+   MAC upon any other digest algorithm supported by each side's OpenSSL
+   library. 
+
+Shouldn't this doc be recommending use of something stronger than the (non-HMAC) MD5 hash-based solutions given that stronger solutions are available? If both sides can choose from whatever is supported by OpenSSL, then HMAC and/or CMAC algorithms seem like much better choices.
+
+## Who
+- Scott G. Kelly
+
+## Resolution
