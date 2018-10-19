@@ -12,9 +12,10 @@ Section 2, paragraph 1, refers to "best way to detect ..."  Please reword to re
 ## Who
 - Steven Sommars
 
-## Resolution
+## Resolution 
+agree
 
-
+Changing "Best Way.... is" to "Important ways ... are"
 
 # Comment
 
@@ -29,6 +30,15 @@ Maybe use "all conforming NTP implementations", so chrony would be non-conformin
 - Ulrich Windl
 
 ## Resolution
+agree
+
+replace "An NTP implementation (as opposed to an SNTP implementation) takes" with 
+
+"An NTP implementation that supports the selection algorithms in RFC5905 "
+
+-- found typo: "combing" should be "combining"
+ 
+-- TBD: Change the wording in this paragraph to emphasize the usefulness of multiple sources of time up front?
 
 
 # Comment
@@ -39,7 +49,7 @@ Section 4.1, next to last paragraph.  Change "During the leap second of June of
 - Steven Sommars
 
 ## Resolution
-
+agree as-is
 
 
 # Comment
@@ -50,7 +60,10 @@ Section 4.2. Comment.  It may be difficult to put this into practice if the str
 - Steven Sommars
 
 ## Resolution
+agree 
+add to the end of 1st paragraph: 
 
+"Operators need to be aware of this, even if the stratum 1 servers they use are not under their direct control."
 
 
 # Comment
@@ -63,7 +76,13 @@ Please mention these limitations of mode 6.
 - Steven Sommars
 
 ## Resolution
+agree
+We feel that the text is specific in saying that "some" NTP implementation use these messages, and that we state why they are not fit for use everyehere. 
+But we should explicitly state the reality that publically accessible servers block them.
 
+Add after "Abuse Vector"
+
+"For this reason, it is recommended that publicly-facing NTP servers should block mode 6 queries from outside their organization."
 
 # Comment
 
@@ -73,7 +92,7 @@ Section 4.4   The paragraph mentioning ntp-4.2.8p6 and ntp.keys is too impleme
 - Steven Sommars
 
 ## Resolution
-
+agree -- was copied to appendix A.1.3 but never removed here
 
 # Comment
 
@@ -84,7 +103,11 @@ The best current practice for leap smearing is to not use it.
 - Steven Sommars
 
 ## Resolution
+Disagree, but will clarify
+Not everyone agrees that leap smearing should not be used, but we are specific in saying it should now be used on public servers, where operators expect UTC.
 
+perhaps more explanation is required. After the sentence that begins "Leap Smearing MUST NOT", add:
+At this time, there is no standardized way for a client to detect if a server is using leap smearing or if it is not.
 
 # Comment
 
@@ -95,7 +118,9 @@ section 6.1,   The protections should be done by the individual client softwar
 
 ## Resolution
 
+agree
 
+The intention of the text here is that "hosts" means "ntp clients and/or servers" in general. Text will be updated accordingly.
 
 # Comment
 
@@ -115,6 +140,7 @@ Overall:
 
 ## Resolution
 
+TBD
 
 # Comment
 
@@ -129,6 +155,11 @@ Considerations.
 
 ## Resolution
 
+Agreed
+
+Add to Section 11 between paragraphs 1 and 2:
+
+There are several general threats to time synchrnoization protocols which are discussed in RFC7384.
 
 
 # Comment
@@ -143,6 +174,7 @@ plain text.
 
 ## Resolution
 
+Agreed -- remove the reference drom the abstract
 
 # Comment
 
@@ -154,6 +186,7 @@ plain text.
 
 ## Resolution
 
+Agreed -- We will update Section 1.1 according to the proper boilerplate language.
 
 # Comment
 
@@ -165,7 +198,9 @@ I did not immediately recognise [1] as a reference to a URL.
 - Tom Petch
 
 ## Resolution
+Agreed
 
+Change to "More information is available at the BCP38 Info Web page" to make clear that it is a URL.
 
 
 # Comment
@@ -185,6 +220,12 @@ Many of the recommendations lack rationale - e.g., simply choosing 4 time server
 - Joe Touch 
 
 ## Resolution
+Agree in part, will make changes
+
+The "how" is defined in RFC 5905. The operator has to decide how many time sources he/she is using.
+
+The point about "ancestor" servers is well taken. Add:
+"These sources must be truly redundant and derive their time from separate sources."
 
 
 
@@ -204,24 +245,15 @@ independence. Appendix A suggests that there is but one code base.
 - Tom Petch
 
 ## Resolution
+Agree. Change "diversity of sources" to "diversity of sources with independant implementations".
 
+After "may have the same bugs", add "Even devices from different vendors may not be truly independant if they share common elements." 
+Then, we can strike "regardless of whether ... different vendors", because that will be redundant.
 
-# Commment
+Denis likes that last line in the comment. After "application software bugs", add 
+"When having the correct time is of critical importance, it's ultimately up to operators to ensure that their sources are sufficiently independant."
 
-4.2
-There is a general principle behind this that I would like to see
-stated, namely to ensure that multiple sources are really independent.
-I learnt this when I read about Apollo moon shots, but have seen it
-ignored many times since.  You have to work hard to track back to the
-details of the technology in use to find out if there is really more
-than one code base, or chip set, or... in use.  Where security
-depends on such matters, you really need to do that to ensure you have
-independence. Appendix A suggests that there is but one code base.
-
-## Who 
-- Tom Petch
-
-## Resolution
+Also, the original intention of this BCP was that we would get subnissions relating to multiple implementations, but in the end we only received information relating to the NTF implementation.
 
 
 # Comment
@@ -242,6 +274,14 @@ broadcasts.
 - Tom Petch
 
 ## Resolution
+Agree
+change "syslog" to "system logs" globally
+
+change "NTP Implementation's" to "NTP Servers" to emphasize that you may use remote monitoring capabilities outside of the NTP implementation.
+
+TBD mitigation for each scenario presented
+
+"broadcast client" to "client in broadcast mode"
 
 
 
@@ -261,6 +301,12 @@ On the leap smearing issue, some people are going to do it, and most people won'
 
 ## Resolution
 
+Disagree, but we still make clarifications.
+
+there are organizations that will use this , and so the BCP should reflect that reality. We discourage its use on public servers.
+
+We can add "Any use of leap-smearing servers should be limited to within a single well-controlled local environment." to the begging of the paragraph that starts "Leap Smearing MUST NOT be used"
+
 
 # Comment
 
@@ -273,6 +319,7 @@ MD5 is regarded as too weak in many contexts; does that apply here?
 
 ## Resolution
 
+TBD
 
 # Comment
 
@@ -286,6 +333,7 @@ explicit that it covers both.
 
 ## Resolution
 
+TBD
 
 # Comment
 
@@ -300,7 +348,7 @@ apply to any other implementation
 - Tom Petch
 
 ## Resolution
-
+TBD
 
 # Comment
 
@@ -317,6 +365,13 @@ IANA Requirements
 The questions that Joe raises about its suitability for purpose comes down to the document's intended audience.  There is no doubt that the document is of questionable suitability for organisations or people who have a hard requirement for high precision, guaranteed quality timekeeping, e.g. reference or legal timekeeping.  However, there is equally little doubt that if most people who ran NTP services adhered to most of the recommendations listed in the draft, that NTP quality in the world would increase overall, probably dramatically.  My understanding is that the term "BCP" refers to the latter category of people rather than to the former, i.e. "best common practice" rather than "practice which which is provably consistent with a carefully defined and very specific set of inputs with consequently expected output results".
 ...
 Conversely, what would be useful would be a clear statement in the document about its intended audience, i.e. where the recommendations in this draft are relevant, and more importantly, where they are not suitable for purpose.
+
+## Resolution
+
+TBD
+
+Modify the Abstract:
+.... "for the operation of general time synchronization over networks"
 
 
 # Comment
@@ -335,7 +390,7 @@ acknowledgments of past work or advertisements.
 - S. Moonesamy
 
 ## Resolution
-
+TBD
 
 # Comment
 
@@ -348,7 +403,7 @@ well-deployed nowadays?
 - S. Moonesamy
 
 ## Resolution
-
+TBD
 
 # Comment
 
@@ -363,6 +418,8 @@ it apply for the above?
 - S. Moonesamy
 
 ## Resolution
+Agreed
+"Those interested are advised to read"
 
 
 # Comment
@@ -375,7 +432,7 @@ specifying a best practice.
 - S. Moonesamy
 
 ## Resolution
-
+TBD
 
 # Comment
 
@@ -387,13 +444,15 @@ to a possible issue.
 - S. Moonesamy
 
 ## Resolution
-
+TBD
 
 # Comment
 
 Section 4.6 states that "The IETF maintains a leap second list".  How 
 is that list updated by the IETF?
 
+## Resolution
+TBD
 
 # Comment
 
@@ -404,6 +463,8 @@ have been mitigate".  How are concepts mitigated?
 - S. Moonesamy
 
 ## Resolution
+
+TBD
 
 
 # Comment
@@ -425,3 +486,7 @@ Shouldn't this doc be recommending use of something stronger than the (non-HMAC)
 - Scott G. Kelly
 
 ## Resolution
+
+TBD
+
+
