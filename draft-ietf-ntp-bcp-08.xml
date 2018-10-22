@@ -13,6 +13,7 @@
 <!ENTITY RFC3552 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3552.xml">
 <!ENTITY RFC4786 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4786.xml">
 <!ENTITY RFC7094 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7094.xml">
+<!ENTITY RFC4085 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4085.xml">
 <!ENTITY I-D.narten-iana-considerations-rfc2434bis SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.narten-iana-considerations-rfc2434bis.xml">
 ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
@@ -40,7 +41,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="bcp" docName="draft-ietf-ntp-bcp-07" ipr="trust200902">
+<rfc category="bcp" docName="draft-ietf-ntp-bcp-08" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
      you can add the attributes updates="NNNN" and obsoletes="NNNN" 
@@ -60,7 +61,7 @@
     <!-- Another author who claims to be an editor -->
 
     <author fullname="Denis Reilly" initials="D." surname="Reilly" role="editor">
-      <organization>Spectracom</organization>
+      <organization>Orolia USA</organization>
 
       <address>
         <postal>
@@ -180,9 +181,10 @@
          keywords will be used for the search engine. -->
 
     <abstract>
-      <t>NTP Version 4 (NTPv4) has been widely used since its publication as
-      <xref target="RFC5905">RFC 5905</xref>. This documentation is a
-      collection of Best Practices from across the NTP community.</t>
+      <t>The Network Time Protocol (NTP), currently on its fourth version, 
+      has been widely used since its initial publication.  This documentation 
+      is a collection of Best Practices for general operation of time servers 
+      on the Internet from across the NTP community.</t>
     </abstract>
   </front>
 
@@ -191,6 +193,13 @@
       <t>NTP Version 4 (NTPv4) has been widely used since its publication as
       <xref target="RFC5905">RFC 5905</xref>. This documentation is a
       collection of Best Practices from across the NTP community.</t>
+      <t>Among the Best Practices covered are practices for general network
+      security, time protocol specific security, and NTP server and client 
+      configuration. NTP operation in embedded devices is also covered.</t>
+      <t>This document will be of interest to network operators who want to 
+      synchronize the time in devices on their network. It also contains 
+      information for protocol implementors who want to develop their own
+      <xref target="RFC5905">RFC 5905</xref> compliant implementations. </t>      
 
       <section title="Requirements Language">
         <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
@@ -217,20 +226,16 @@
       our definition of what is secure has evolved over the years, so code
       which was considered secure when it was written may turn out to be
       insecure after some time. By keeping NTP implementations current,
-      having "enough" trustworthy time sources, and properly monitoring
-      their time infrastructure, network operators can make sure that their
+      having <xref target="TimeSources">"enough" trustworthy time sources</xref>, 
+      and <xref target="Monitoring"> properly monitoring their time 
+      infrastructure</xref>, network operators can make sure that their
       time infrastructure is operating correctly and within specification,
       and is not being attacked or misused.</t>
-          
-      <!--
-      <t>Thousands of individual bugs have been found and fixed in the NTP
-      Project's ntpd since the first NTPv4 release in 1997.  Each version
-      release contains at least a few bug fixes. The best way to stay in
-      front of these issues is to keep your NTP implementation current.</t>
-      -->
       
       <t>There are multiple versions of the NTP protocol in use, and
-      multiple implementations in use, on many different platforms. It is
+      multiple implementations in use, on many different platforms. The 
+      practices in this document are meant to apply generally to any implementation
+      of <xref target="RFC5905">RFC 5905</xref>. It is
       recommended that that NTP users select an implementation that is 
       actively maintained. Users should keep up to date on any known 
       attacks on their selected implementation, and deploy updates containing 
@@ -250,7 +255,10 @@
         protocols. NTP control messages can generate a lot of data in
         response to a small query, which makes it more attractive as a 
         vector for distributed denial-of-service attacks. (NTP Control 
-        messages are discussed further in <xref target="mode67"/>). Mitigating
+        messages are discussed further in <xref target="mode67"/>). 
+        One documented instance of such an attack can be found <eref 
+        target="https://blog.cloudflare.com/technical-details-behind-a-400gbps-ntp-amplification-ddos-attack/"> 
+        here</eref>. Mitigating
         source address spoofing attacks should be a priority of anyone 
         administering NTP.</t>
         
@@ -298,7 +306,8 @@
           or unusable) can be tolerated. But at that point, the solution 
           degrades to the 2 source solution.</t>
             
-          <t>4 or more sources of time is better. If one of these sources
+          <t>4 or more sources of time is better, as long as the sources are 
+          <xref target="Diversity"> diverse</xref>. If one of these sources
           develops a problem there are still at least 3 other time sources.</t>
         </list></t>
 		
@@ -316,18 +325,22 @@
         more information.</t>
       </section>
 
-      <section title="Use a diversity of Reference Clocks">
+      <section anchor="Diversity" title="Use a diversity of Reference Clocks">
         <t>When using servers with attached hardware reference clocks, it is
         recommended that several different types of reference clocks be
-        used.  Having a diversity of sources means that any one issue is
-        less likely to cause a service interruption.</t>
+        used.  Having a diversity of sources  with independent implementations 
+        means that any one issue is less likely to cause a service interruption.</t>
 
         <t>Are all clocks on a network from the same vendor?  They may have
-        the same bugs.  Are they using the same base chipset, regardless of
-        whether or not the finished products are from different vendors?
+        the same bugs.  Even devices from different vendors may not be truly 
+        independent if they share common elements. Are they using the same 
+        base chipset? 
         Are they all running the same version of firmware? Chipset and
         firmware bugs can happen, but they can be more difficult to diagnose
-        than application software bugs.</t>
+        than application software bugs. When having the correct time is of 
+        critical importance, it's ultimately up to operators to ensure that 
+        their sources are sufficiently independent, even if they are not under
+        the operator's control.</t>
 
         <t> A systemic problem with time from any satellite navigation
         service is possible and has happened.  Sunspot activity can render
@@ -353,7 +366,9 @@
 
         <t>The ability to use Mode 6 beyond its basic monitoring
         capabilities can be limited to authenticated sessions that provide a
-        'controlkey'.</t>
+        'controlkey'. It can also be limited through mechanisms outside of the
+        NTP protocol, such as Access Contrtol Lists, that only allow access 
+        from approved IP addresses.</t>
 
         <t>The NTP Control Messages responses are much larger than
         the corresponding queries. Thus, they can  be
@@ -386,10 +401,6 @@
         then either the system clock is unusually fast or somebody is trying
         to launch a replay attack against that server.</t>
 
-        <t>If a system is using broadcast mode and is running ntp-4.2.8p6 or
-        later, use the 4th field of the ntp.keys file to specify the IPs of
-        machines that are allowed to serve time to the group.</t>
-
         <!-- Cite
         CVEs, BU paper, bug reports? -->
       </section>
@@ -399,7 +410,7 @@
         synchronize one NTP client, but NTP servers that can service tens of
         thousands of clients take more resources to run.  Users who want to
         synchronize their computers should only synchronize to servers that
-        they have permission to use.</t>
+        they have permission to use. </t>
 
         <t>The NTP pool project is a group of volunteers who have donated
         their computing and bandwidth resources to freely distribute time
@@ -418,10 +429,6 @@
         your clients to your in-house NTP servers. This reduces the load on
         the pool.</t>
 
-        <t>If you would like to contribute a server with a static IP address
-        and a permanent Internet connection to the pool, please consult the
-        instructions at <eref target="http://www.pool.ntp.org/en/join.html">
-        http://www.pool.ntp.org/en/join.html</eref> .</t>
       </section>
 
       <section title="Leap Second Handling">
@@ -486,9 +493,9 @@
           depending on the implementation.  But at least all clients will
           generally agree on what time they think it is!</t>
 
-	  <t>NOTE WELL that using a leap-smear can cause your reported time
-	  to be "legally indefensible" and/or be a breach of compliance
-	  regulations.</t>
+	  <t>Operators should NOTE WELL that using a leap-smear can cause 
+      your reported time to be "legally indefensible" and/or be a breach of 
+      compliance regulations.</t>
 		  
 	  <t>The purpose of Leap Smearing is to enable systems that don't
           deal with the leap second event properly to function consistently,
@@ -498,10 +505,9 @@
           OS's) are known to have problems with that.</t>
 
 	  <t>Clients that are connected to leap smearing servers MUST NOT
-	  apply the "standard" NTP leap second handling.  So if they
-	  are using ntpd, these clients must never have a leap second file
-	  loaded, and the smearing servers must never advertise to clients
-	  that a leap second is pending.</t>
+	  apply the "standard" NTP leap second handling.  So these clients must 
+      never have a leap second file loaded, and the smearing servers must 
+      never advertise to clients that a leap second is pending.</t>
 		  
           <t>Leap Smearing MUST NOT be used for public-facing NTP servers,
           as they will disagree with non-smearing servers (as well as UTC)
@@ -547,9 +553,14 @@
           association be protected by its own unique key.  NTP does not
           provide a mechanism to automatically refresh the applied keys.  It
           is therefore recommended that the participants periodically agree
-          on a fresh key.  The calculation of the MAC may always be based on
-          an MD5 hash, and an AES-128-CMAC hash is expected to soon be
-          allowed as well.  If the NTP daemon is built against an OpenSSL
+          on a fresh key.</t>
+          <t><xref target="RFC5905">RFC 5905</xref> specifies a MD5 hash which
+          must be supported for calculation of the MAC, but other algorithms 
+          may be supported as well. The MD5 hash is now considered to be too 
+          weak. Implementations will soon be available based on 
+          <xref target="NTPMAC">AES-128-CMAC </xref>, and users are encouraged
+          to use that when it is available. </t>
+          <t>If the NTP daemon is built against an OpenSSL
           library, NTP can also base the calculation of the MAC upon any
           other digest algorithm supported by each side's OpenSSL
           library.</t>
@@ -631,7 +642,7 @@
            provides timing information to other hosts may additionally log
            and drop incoming mode 3 timing queries from unexpected sources.
            Note well that the easiest way to monitor ntpd's status is to
-           send it a mode 3 query.  A much better approach might be to
+           send it a mode 3 query.  It is recommended that operators should
            filter mode 3 queries at the edge, or make sure mode 3 queries
            are allowed only from trusted systems or networks.</t>
 
@@ -669,10 +680,8 @@
             other systems as they migrate legacy init scripts to process
             supervisors such as systemd.)</t>
           
-            <t>If, against long-standing recommendation, ntpd is always
-            started with the -g option, it will ignore the panic threshold
-            when it is restarted.  The -g option SHOULD only be provided in
-            cold-start situations.</t>
+            <t>The NTP client is configured to ignore the panic 
+            threshold on all restarts.</t>
           </list></t>
 
           <t>In such cases, if the attacker can send the target an offset
@@ -696,6 +705,9 @@
 
              <t>Request manual intervention when a timestep larger than the
              panic threshold is detected.</t>
+             
+             <t>Configure the ntp client to only ignore the panic threshold in
+             a cold start situation.</t>
 
              <t>Prevent the NTP daemon from taking time steps that set the
              clock to a time earlier than the compile date of the NTP
@@ -758,7 +770,8 @@
         other poorly-implemented clients might unintentionally increase
         their poll rate and simulate a denial of service attack.  Server
         administrators should be prepared for this and take measures outside
-        of the NTP protocol to drop packets from misbehaving clients.</t>
+        of the NTP protocol to drop packets from misbehaving clients when these
+        clients are detected.</t>
       </section>
 
       <section title="Broadcast Mode Should Only Be Used On Trusted Networks">
@@ -864,6 +877,10 @@
 
         <t>Vendors are encouraged to invest resources into providing their own
         time servers for their devices to connect to.</t>
+        
+        <t>Vendors should read <xref target="RFC4085">RFC 4085</xref>, 
+        which advises against embedding globally-routable IP addresses in 
+        products, and offers several better alternatives.</t>
 
         <section title="Get a vendor subdomain for pool.ntp.org">
           <t>The NTP Pool Project offers a program where vendors can obtain
@@ -922,7 +939,8 @@
       <t>One useful application in large networks is to use a hybrid
       unicast/anycast approach.  Stratum 1 NTP servers can be deployed with
       unicast interfaces at several sites.  Each site may have several
-      Stratum 2 servers with two ethernet interfaces.  One interface has a
+      Stratum 2 servers with two ethernet interfaces, or a single interface 
+      which can support multiple addresses.  One interface has a
       unique unicast IP address.  The second has an anycast IP interface
       (with a shared IP address per location).  The unicast interfaces can
       be used to obtain time from the Stratum 1 servers globally (and
@@ -1005,6 +1023,10 @@
       <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.1305.xml"?-->
 	  
 	  &RFC1305;
+      
+           <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4085.xml"?-->
+	  
+	  &RFC4085;
 
       <?rfc include='reference.RFC.7384'?>
     </references>
@@ -1145,6 +1167,36 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
         <seriesInfo name='Internet-Draft' value='draft-ietf-ntp-using-nts-for-ntp-12' />
         <format type='TXT'
             target=' https://www.ietf.org/id/draft-ietf-ntp-using-nts-for-ntp-12.txt' />
+      </reference>
+      
+<!-- NTP MAC -->
+
+      <reference anchor="NTPMAC">
+        <front>
+          <title>Message Authentication Code for the Network Time Protocol</title>
+
+          <author initials='A' surname='Malhotra' fullname='Malhotra'>
+            <organization />
+          </author>
+
+          <author initials='S' surname='Goldberg' fullname='Sharon Goldberg'>
+            <organization />
+          </author>
+
+          <date month='March' day='05' year='2018' />
+
+          <abstract><t>   RFC 5905 [RFC5905] states that Network Time Protocol (NTP) packets
+            should be authenticated by appending a 128-bit key to the NTP data,
+            and hashing the result with MD5 to obtain a 128-bit tag.  This
+            document deprecates MD5-based authentication, which is considered to
+            be too weak, and recommends the use of AES-CMAC [RFC4493] as a
+            replacement.</t></abstract>
+
+          </front>
+
+        <seriesInfo name='Internet-Draft' value='draft-ietf-ntp-mac-04' />
+        <format type='TXT'
+            target=' https://www.ietf.org/id/draft-ietf-ntp-mac-04' />
       </reference>
 
       <!-- Control Message Draft --> 
