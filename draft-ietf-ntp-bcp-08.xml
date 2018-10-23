@@ -14,6 +14,7 @@
 <!ENTITY RFC4786 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4786.xml">
 <!ENTITY RFC7094 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7094.xml">
 <!ENTITY RFC4085 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4085.xml">
+<!ENTITY RFC4085 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6557.xml">
 <!ENTITY I-D.narten-iana-considerations-rfc2434bis SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.narten-iana-considerations-rfc2434bis.xml">
 ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
@@ -269,7 +270,7 @@
         with the expected flow of traffic on each network interface. It is
         recommended that all networks (and ISP's of any size) implement
         ingress and egress filtering. More information is available at the
-	<eref target="http://www.bcp38.info">BCP38 Info page</eref> .</t>
+	<eref target="http://www.bcp38.info">BCP38 Info Web page</eref> .</t>
       </section>
     </section>
 
@@ -279,13 +280,16 @@
     <xref target="ImplSpecific"/>.</t>
 
       <section anchor="TimeSources" title="Use enough time sources">
-        <t>An NTP implementation (as opposed to an SNTP implementation)
+        <t>An NTP implementation that supports the selection algorithms in 
+        <xref target="RFC5905">RFC 5905</xref>
         takes the available sources of time and submits this timing data to
         sophisticated intersection, clustering, and combining algorithms to
         get the best estimate of the correct time. The description of these
         algorithms is beyond the scope of this document. Interested readers
         should read <xref target="RFC5905">RFC 5905</xref> or the detailed
-        description of NTP in <xref target="MILLS2006">MILLS 2006</xref></t>
+        description of NTP in <xref target="MILLS2006">MILLS 2006</xref>.
+        These available sources must be truly redundant and derive their time 
+        from independent sources.</t>
 
 	<t><list style="symbols">
           <t>If there is only 1 source of time, the answer is obvious.  It
@@ -312,7 +316,8 @@
         </list></t>
 		
 	<t>But even with 4 or more sources of time, systemic problems can
-	happen.  During the leap second of June of 2015, several operators
+	happen.  For several hours before and after the June 2015 leap second, 
+    several operators
 	implemented leap smearing while others did not, and many NTP end
 	nodes could not determine an accurate time source because 2 of their
 	4 sources of time gave them consistent UTC/POSIX time, while the
@@ -328,7 +333,7 @@
       <section anchor="Diversity" title="Use a diversity of Reference Clocks">
         <t>When using servers with attached hardware reference clocks, it is
         recommended that several different types of reference clocks be
-        used.  Having a diversity of sources  with independent implementations 
+        used.  Having a diversity of sources with independent implementations 
         means that any one issue is less likely to cause a service interruption.</t>
 
         <t>Are all clocks on a network from the same vendor?  They may have
@@ -362,7 +367,9 @@
         are designed to permit monitoring and optionally authenticated 
         control of NTP and its configuration.  Used properly, these facilities provide vital
         debugging and performance information and control.  Used improperly,
-        these facilities can be an abuse vector.</t>
+        these facilities can be an abuse vector. For this reason, it is 
+        recommended that publicly-facing NTP servers should block mode 6 
+        queries from outside their organization.</t>
 
         <t>The ability to use Mode 6 beyond its basic monitoring
         capabilities can be limited to authenticated sessions that provide a
@@ -391,12 +398,12 @@
         are trying to convince that time server to stop serving time to that
         system.</t>
 
-        <t>If a system is a broadcast client and its syslog shows that it
+        <t>If a system is a broadcast client and its system log shows that it
         is receiving "early" time messages from its server, that is an
         indication that somebody may be forging packets from a broadcast
         server.</t>
 
-        <t>If a server's syslog shows messages that indicates it is
+        <t>If a server's system log shows messages that indicates it is
         receiving timestamps that are earlier than the current system time,
         then either the system clock is unusually fast or somebody is trying
         to launch a replay attack against that server.</t>
@@ -470,8 +477,8 @@
 
         <t>The IETF maintains a 
         <eref target="https://www.ietf.org/timezones/data/leap-seconds.list">leap
-	    second list</eref> for NTP users who are not receiving leap second
-	    information through an automatic source. </t>
+	    second list</eref> as part of the Time Zone Database for NTP users who are not receiving leap second
+	    information through an automatic source. Information on the maintenance of the Time Zone Database is available in <xref target="RFC6557">BCP 135</xref>.</t>
         <t>Files are also available from other sources:</t>
         <t>NIST: ftp://time.nist.gov/pub/leap-seconds.list</t>
         <t>US Navy (maintains GPS Time): ftp://tycho.usno.navy.mil/pub/ntp/leap-seconds.list</t>
@@ -509,11 +516,14 @@
       never have a leap second file loaded, and the smearing servers must 
       never advertise to clients that a leap second is pending.</t>
 		  
-          <t>Leap Smearing MUST NOT be used for public-facing NTP servers,
+          <t>Any use of leap smearing servers should be limited to within a 
+          single, well-controlled environment. Leap Smearing MUST NOT be used f
+          or public-facing NTP servers,
           as they will disagree with non-smearing servers (as well as UTC)
-          during the leap smear interval.  However, be aware that some
-          public-facing servers may be configured this way anyway in spite
-          of this guidance.</t>
+          during the leap smear interval, and there is no standardized way for
+          a client to detect that a server is using leap smearing.  However, 
+          be aware that some public-facing servers may be configured this way 
+          anyway in spite of this guidance.</t>
 
 	  <!-- Cite the "Leap-Smear REFID" in the ntp-refid update? -->
 		         
@@ -554,7 +564,7 @@
           provide a mechanism to automatically refresh the applied keys.  It
           is therefore recommended that the participants periodically agree
           on a fresh key.</t>
-          <t><xref target="RFC5905">RFC 5905</xref> specifies a MD5 hash which
+          <t><xref target="RFC5905">RFC 5905</xref> specifies a hash which
           must be supported for calculation of the MAC, but other algorithms 
           may be supported as well. The MD5 hash is now considered to be too 
           weak. Implementations will soon be available based on 
@@ -610,7 +620,7 @@
 
       <section anchor="Sec_Bcp" title="NTP Security Best Practices">
       <t>This section lists some general NTP security practices,
-      but these concepts may (or may not) have been mitigated in particular
+      but these issues may (or may not) have been mitigated in particular
       versions of particular implementations. Contact the maintainers of 
       your implementation for more information.</t>
 	<section title="Minimizing Information Leakage">
@@ -958,6 +968,9 @@
       in the past is forced into a system.  Therefore, any system
       adminstrator concerned with security should be concerned with how the
       current time gets into their system. </t>
+      
+      <t>There are several general threats to time synchrnoization protocols 
+      which are discussed in <xref target="RFC7384">RFC 7384</xref>.</t>
 
       <t>
       <xref target="NTSFORNTP"/> is an Internet-Draft that specifies the
@@ -1008,10 +1021,12 @@
 	  
 	  &RFC1305;
       
-           <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4085.xml"?-->
+      <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4085.xml"?-->
 	  
 	  &RFC4085;
 
+      
+      <?rfc include='reference.RFC.6557'?>
       <?rfc include='reference.RFC.7384'?>
     </references>
 

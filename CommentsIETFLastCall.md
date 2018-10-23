@@ -174,7 +174,7 @@ plain text.
 
 ## Resolution
 
-Agreed -- remove the reference drom the abstract
+Agreed -- remove the reference from the abstract
 
 # Comment
 
@@ -318,8 +318,11 @@ MD5 is regarded as too weak in many contexts; does that apply here?
 - Tom Petch
 
 ## Resolution
+agree
 
-TBD
+update based on mac-for-NTP document, add the right reference that will be changed before publication
+
+MD5 is in the process of being deprecated, but current implementations still provide it. Use AES when implementations support it.
 
 # Comment
 
@@ -332,8 +335,9 @@ explicit that it covers both.
 - Tom Petch
 
 ## Resolution
+agree
 
-TBD
+TBD -- Make sure that language regarding IPV4 vs IPV6 in Anycast agrees with RFC.
 
 # Comment
 
@@ -348,7 +352,9 @@ apply to any other implementation
 - Tom Petch
 
 ## Resolution
-TBD
+agree
+
+Since there are no other implementations currently with appendixes, we will refactor to make Appendix A devoted solely to the NTF implementation. In the event this BCP is updated with information from different implementations, they can have their own appendix.
 
 # Comment
 
@@ -367,11 +373,13 @@ The questions that Joe raises about its suitability for purpose comes down to th
 Conversely, what would be useful would be a clear statement in the document about its intended audience, i.e. where the recommendations in this draft are relevant, and more importantly, where they are not suitable for purpose.
 
 ## Resolution
+agree
+modify the abstract
 
-TBD
+NTP has been widely used since its initial publication, and is currently on its fourth version.  This documentation is a collection of Best Practices for general operation of time servers on the Internet from across the NTP community.
 
-Modify the Abstract:
-.... "for the operation of general time synchronization over networks"
+Add to the introduction a statement about the intended audience -- operators and maintainers of NTP servers and clients on the Internet.
+
 
 
 # Comment
@@ -390,7 +398,7 @@ acknowledgments of past work or advertisements.
 - S. Moonesamy
 
 ## Resolution
-TBD
+agree -- general changes need to be made to make the language stronger.
 
 # Comment
 
@@ -452,7 +460,9 @@ Section 4.6 states that "The IETF maintains a leap second list".  How
 is that list updated by the IETF?
 
 ## Resolution
-TBD
+reference RFC for timezone database
+
+
 
 # Comment
 
@@ -464,7 +474,8 @@ have been mitigate".  How are concepts mitigated?
 
 ## Resolution
 
-TBD
+agree
+change "concepts" to "issues"
 
 
 # Comment
