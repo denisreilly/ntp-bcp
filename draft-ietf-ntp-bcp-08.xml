@@ -214,9 +214,9 @@
       operation.  If attackers can spoof the time, they may be able to
       bypass or neutralize other security elements. For example, incorrect
       time can disrupt the ability to reconcile logfile entries on the
-      affected system with events on other systems. The best way to detect
+      affected system with events on other systems. Important ways to detect
       and protect computers and networks against undefined behavior and
-      security threats related to time is to keep their NTP implementations
+      security threats related to time are to keep their NTP implementations
       current, use an appropriate number of trustworthy time sources, and
       properly monitor their time infrastructure.</t>
           
