@@ -192,8 +192,8 @@
     <section title="Introduction">
       <t>NTP Version 4 (NTPv4) has been widely used since its publication as
       <xref target="RFC5905">RFC 5905</xref>. This documentation is a
-      collection of Best Practices from across the NTP community.</t>
-      <t>Among the Best Practices covered are practices for general network
+      collection of best practices from across the NTP community.</t>
+      <t>Among the best practices covered are practices for general network
       security, time protocol specific security, and NTP server and client 
       configuration. NTP operation in embedded devices is also covered.</t>
       <t>This document will be of interest to network operators who want to 
@@ -258,9 +258,9 @@
         messages are discussed further in <xref target="mode67"/>). 
         One documented instance of such an attack can be found <eref 
         target="https://blog.cloudflare.com/technical-details-behind-a-400gbps-ntp-amplification-ddos-attack/"> 
-        here</eref>. Mitigating
-        source address spoofing attacks should be a priority of anyone 
-        administering NTP.</t>
+        here</eref>, and in <xref target="IMC14"/> and <xref target="NDSS14"/>. 
+        Mitigating source address spoofing attacks should be a priority of 
+        anyone administering NTP.</t>
         
         <t><xref target="RFC2827">BCP 38</xref> was
         approved in 2000 to address this. <xref target="RFC2827">BCP
@@ -367,7 +367,7 @@
         <t>The ability to use Mode 6 beyond its basic monitoring
         capabilities can be limited to authenticated sessions that provide a
         'controlkey'. It can also be limited through mechanisms outside of the
-        NTP protocol, such as Access Contrtol Lists, that only allow access 
+        NTP specification, such as Access Contrtol Lists, that only allow access 
         from approved IP addresses.</t>
 
         <t>The NTP Control Messages responses are much larger than
@@ -560,10 +560,6 @@
           weak. Implementations will soon be available based on 
           <xref target="NTPMAC">AES-128-CMAC </xref>, and users are encouraged
           to use that when it is available. </t>
-          <t>If the NTP daemon is built against an OpenSSL
-          library, NTP can also base the calculation of the MAC upon any
-          other digest algorithm supported by each side's OpenSSL
-          library.</t>
 
           <t>To use this approach the communication partners have to
           exchange the key, which consists of a keyid with a value between 1
@@ -792,15 +788,6 @@
         trust each other.  Broadcast mode should only be run from within a 
         trusted network.</t>
 
-	<t>Starting with ntp-4.2.8p7 the ntp.keys file accepts an optional 4th 
-        column, a comma-separated list of IPs that are allowed to serve time. 
-        Use this feature.  Note, however, that an adversarial client that knows
-        the symmetric broadcast key could still easily spoof its source IP to an
-        IP that is allowed to serve time. (This is easy to do because the origin
-        timestamp on broadcast mode packets is not validated by the client. By
-        contrast, client/server and symmetric modes do require origin timestamp 
-        validation, making it more difficult to spoof packets <xref target="CCR16">
-        </xref>.</t> 
       </section>
 
       <section title="Symmetric Mode Should Only Be Used With Trusted Peers">
@@ -834,9 +821,6 @@
         bias the result of the target's Byzantine fault tolerant selection
         algorithms. </t> -->
 
-        <t>Starting with ntp-4.2.8p7 the ntp.keys file accepts an optional
-        4th column, a comma-separated list of IPs that are allowed to serve
-        time.  Use this feature.</t>
       </section>
     </section>
 
@@ -859,8 +843,8 @@
         responsibility of making sure their devices have the latest NTP
         updates applied.</t>
 
-        <t>This should also include the ability to update any NTP server
-        addresses on these devices.</t>
+        <t>This should also include the ability to update information 
+        regarding which NTP server to connect to on these devices.</t>
 
         <t>There is a catalog of NTP server abuse incidents, some of which
 	involve embedded devices, on the Wikipedia page
@@ -1088,6 +1072,58 @@ Attacking NTP's Authenticated Broadcast Mode. Aanchal Malhotra and Sharon Goldbe
         </front>
 		<seriesInfo name="SIGCOMM Computer Communications Review (CCR)" value=""/>
       </reference>
+      
+<!--
+[IMC14] 
+Czyz, J., Kallitsis, M., Gharaibeh, M., Papadopoulos, C., Bailey, M., 
+& Karir, M. (2014). Taming the 800 Pound Gorilla: The Rise and Decline of NTP 
+DDoS Attacks. Paper presented at the Proceedings of the 2014 Conference on 
+Internet Measurement Conference, Vancouver, BC, Canada. 
+http://dl.acm.org/citation.cfm?doid=2663716.2663717
+-->
+
+      <reference anchor="IMC14">
+        <front>
+          <title>Taming the 800 Pound Gorilla: The Rise and Decline of NTP DDoS Attacks</title>
+          <author fullname="Jakub Czyz" surname="Czyz" initials="J.">
+		  	<organization>University of Michigan</organization>
+          </author>
+          <author fullname="Michael Kallitsis" surname="Kallitsis" initials="M.">
+			<organization>Merit Network, Inc.</organization>
+          </author>
+          
+          <author fullname="Manaf Gharaibeh" surname="Gharaibeh" initials="M.">
+			<organization>Colorado State University</organization>
+          </author>
+          <author fullname="Christos Papadopoulos" surname="Papadopoulos" initials="C.">
+			<organization>Colorado State University</organization>
+          </author>
+          <author fullname="Michael Bailey" surname="Bailey" initials="M.">
+			<organization>University of Michigan, University of Illinois</organization>
+          </author>
+          <author fullname="Manish Karir" surname="Karir" initials="M.">
+			<organization>Merit Network, Inc.</organization>
+          </author>
+          <date year="2014" />
+        </front>
+		<seriesInfo name="Internet Measurement Conference" value=""/>
+      </reference>
+      
+<!--
+[NDSS14] 
+o	Rossow, C. (2014). Amplification Hell: Revisiting Network Protocols for DDoS Abuse. Paper presented at the NDSS Symposium 2014, San Diego, California. 
+-->
+
+      <reference anchor="NDSS14">
+        <front>
+          <title>Amplification Hell: Revisiting Network Protocols for DDoS Abuse</title>
+          <author fullname="Christian Rossow" surname="Rossow" initials="C.">
+		  	<organization>VU University </organization>
+          </author>
+          <date year="2014" />
+        </front>
+		<seriesInfo name="NDSS'14, San Diego, CA." value=""/>
+      </reference>
 
 <!--
 [CVE-2015-8138] 
@@ -1175,7 +1211,7 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
         <front>
           <title>Message Authentication Code for the Network Time Protocol</title>
 
-          <author initials='A' surname='Malhotra' fullname='Malhotra'>
+          <author initials='A' surname='Malhotra' fullname='Aanchal Malhotra'>
             <organization />
           </author>
 
@@ -1391,6 +1427,16 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
           <figure>
             <artwork><![CDATA[trustedkey keyid_1 keyid_2 ... keyid_n]]></artwork>
           </figure>
+          
+        <t>Starting with ntp-4.2.8p7 the ntp.keys file accepts an optional 4th 
+        column, a comma-separated list of IPs that are allowed to serve time. 
+        Use this feature.  Note, however, that an adversarial client that knows
+        the symmetric broadcast key could still easily spoof its source IP to an
+        IP that is allowed to serve time. (This is easy to do because the origin
+        timestamp on broadcast mode packets is not validated by the client. By
+        contrast, client/server and symmetric modes do require origin timestamp 
+        validation, making it more difficult to spoof packets <xref target="CCR16">
+        </xref>.</t> 
       </section>
       
       <!-- end of ntpd appendix -->
