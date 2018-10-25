@@ -374,7 +374,7 @@
         <t>The ability to use Mode 6 beyond its basic monitoring
         capabilities can be limited to authenticated sessions that provide a
         'controlkey'. It can also be limited through mechanisms outside of the
-        NTP specification, such as Access Contrtol Lists, that only allow access 
+        NTP specification, such as Access Control Lists, that only allow access 
         from approved IP addresses.</t>
 
         <t>The NTP Control Messages responses are much larger than
@@ -495,7 +495,7 @@
           interval should be large enough to make the rate that the time is
           slewed small, so that clients will follow the smeared time without
           objecting.  Periods ranging from 2 to 24 hours have been used
-          sucessfully.  During the adjustment window, all the NTP clients'
+          successfully.  During the adjustment window, all the NTP clients'
           times may be offset from UTC by as much as a full second,
           depending on the implementation.  But at least all clients will
           generally agree on what time they think it is!</t>
@@ -947,7 +947,7 @@
       monitoring easier.</t>
     </section>
 
-    <section anchor="Acknowledgements" title="Acknowledgements">
+    <section anchor="Acknowledgements" title="Acknowledgments">
       <t>The authors wish to acknowledge the contributions of Sue Graves,
       Samuel Weiler, Lisa Perdue, Karen O'Donoghue, David Malone, Sharon
       Goldberg, Martin Burnicki, Miroslav Lichvar, Daniel Fox Franke, and
@@ -964,12 +964,12 @@
       Credentials and certificates can expire.  Logins and other forms of
       access can be revoked after a period of time, or at a scheduled time.
       And some applications may assume that system time cannot be changed
-      and is always monotonic, and vulnerabilites may be exposed if a time
+      and is always monotonic, and vulnerabilities may be exposed if a time
       in the past is forced into a system.  Therefore, any system
-      adminstrator concerned with security should be concerned with how the
+      administrator concerned with security should be concerned with how the
       current time gets into their system. </t>
       
-      <t>There are several general threats to time synchrnoization protocols 
+      <t>There are several general threats to time synchronization protocols 
       which are discussed in <xref target="RFC7384">RFC 7384</xref>.</t>
 
       <t>
@@ -1289,7 +1289,7 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
   
     <!-- Appendix with implementation specific stuff -->
     <section anchor="ImplSpecific" title="Implementation Specific Information">
-    <t>This appendix procides information that is specific to various
+    <t>This appendix provides information that is specific to various
     implementation of RFC 5905.</t>
        
        <section anchor="AppendixNTPD" title="NTP Implementation by the Network 
