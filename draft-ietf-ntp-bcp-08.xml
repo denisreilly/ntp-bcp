@@ -14,7 +14,8 @@
 <!ENTITY RFC4786 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4786.xml">
 <!ENTITY RFC7094 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7094.xml">
 <!ENTITY RFC4085 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4085.xml">
-<!ENTITY RFC4085 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6557.xml">
+<!ENTITY RFC6557 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6557.xml">
+<!ENTITY RFC8174 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml">
 <!ENTITY I-D.narten-iana-considerations-rfc2434bis SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.narten-iana-considerations-rfc2434bis.xml">
 ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
@@ -202,11 +203,13 @@
       information for protocol implementors who want to develop their own
       <xref target="RFC5905">RFC 5905</xref> compliant implementations. </t>      
 
-      <section title="Requirements Language">
+      <section title="Requirements Language">     
         <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
-        NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL"
-        in this document are to be interpreted as described
-        in <xref target="RFC2119">RFC 2119</xref>.</t>
+        NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
+        "MAY", and "OPTIONAL" in this document are to be interpreted as
+        described in BCP&nbsp;14 
+        <xref target='RFC2119' /> <xref target='RFC8174' />
+        when, and only when, they appear in all capitals, as shown here.</t>
       </section>
     </section>
 
@@ -1032,6 +1035,7 @@
       
       <?rfc include='reference.RFC.6557'?>
       <?rfc include='reference.RFC.7384'?>
+      <?rfc include="reference.RFC.8174" ?>
     </references>
 
     <!-- Here we use entities that we defined at the beginning. -->
