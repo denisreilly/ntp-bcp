@@ -120,7 +120,7 @@ section 6.1,   The protections should be done by the individual client softwar
 
 agree
 
-The intention of the text here is that "hosts" means "ntp clients and/or servers" in general. Text will be updated accordingly.
+TBD -- check this -- The intention of the text here is that "hosts" means "ntp clients and/or servers" in general. Text will be updated accordingly.
 
 # Comment
 
@@ -500,4 +500,236 @@ Shouldn't this doc be recommending use of something stronger than the (non-HMAC)
 
 TBD
 
+# Comment
+
+Another remark on "The NTP Control Messages responses are much larger than the
+   corresponding queries.  Thus, they can be abused in high-bandwidth
+   DDoS attacks.  To provide protection for such abuse NTP server
+   operators should deploy ingress filtering BCP 38 [RFC2827].": If I understood it correctly, the ingress filtering has to be done by the attacker's ISP (where the bad packet enters the net). At the destination you possibly cannot do ingress filtering unless you want to disallow any packets outside the current subnet or the company's nets. If I misunderstood the advice, others may do as well, so please elaborate what operators should actually do.
+
+## Who
+- Ulrich Windl
+
+## Resolution
+We note that BCP38 advises that corporate network administrators should implement filtering to make sure that their network cannot be the source of spoofed packets. So while you are correct that it is most useful at the ISP, it does offer benefits for corporate networks. We can clarify that "all large corporate networks" can benefit from this to reduce the scope a bit. 
+
+# Comment
+
+On "If a system is a broadcast client and its syslog shows that it is
+   receiving "early" time messages from its server, that is an
+   indication that somebody may be forging packets from a broadcast
+   server.":
+Maybe elaborate on use of authentication for broadcast clients: Should use of (strong) authentication keys be recommended?
+
+## Who
+- Ulrich Windl
+
+## Resolution
+This section recommends to use broadcast in trusted networks only, so we make no recommendation on encryption here.
+
+# Comment
+
+On "If a system is using broadcast mode and is running ntp-4.2.8p6 or
+   later, use the 4th field of the ntp.keys file to specify the IPs of
+   machines that are allowed to serve time to the group.":
+I think it's too specific: Why not state "If your NTP client (it's describing a client, right?) allows to filter valid time sources, please use it (for eaxmple ntp-4.2.8p6 allows to put valid IP... in the 4th field of ..."
+
+## Who
+- Ulrich Windl
+
+## Resolution
+This text has been moved to the ntpd appendix, where the specificity is more appropriate.
+
+
+# Comment
+
+Maybe rename "Using Pool Servers" to "Selecting Servers to use", because it's more general than just pool servers.
+I would prefix the paragraph starting with "The NTP pool project is a group ..." with a general explanation that some NTP software is able to process a DNS response for a server name containing multiple IP addresses of different servers to pick some of those servers as time sources. THEN proceed explaining the NTP pool server project. Maybe also emphasize that "ingress filtering should not block pool servers" if they are intended to be used.
+
+## Who
+- Ulrich Windl
+
+## Resolution
+We would prefer to keep the original title, because we feel the pool project is an important service for the community to know about. The link to the pool project has a good explanation of the DNS activity that does not need to be duplicated here.  
+
+
+# Comment
+
+I would combine these two paragraphs: "If you are a vendor who wishes to provide time service to your
+   customers or clients, consider joining the pool and providing a
+   "vendor zone" through the pool project." and "If you would like to contribute a server with a static IP address and
+   a permanent Internet connection to the pool, please consult the
+   instructions at http://www.pool.ntp.org/en/join.html [3] .".
+
+   ## Who
+- Ulrich Windl
+
+## Resolution
+We eliminated the second paragraph.
+
+# Comment
+
+You could add "up to twice a year" at the end of: "UTC is kept in agreement with the astronomical time UT1 [4] to within
+   +/- 0.9 seconds by the insertion (or possibly a deletion) of a leap
+   second."
+
+## Who
+- Ulrich Windl
+
+## Resolution
+We don't think that change is necessary.
+
+# Comment 
+
+I would change "and the protocol has the capability to broadcast leap second information" to "and the protocol has the capability to broadcast and process leap second information".
+
+## Who
+- Ulrich Windl
+
+## Resolution
+I personally think that the protocol will broadcast the leap second information, and the clients receiving the protocol messages would process the information. So I don't think the change is necessary.
+
+# Comment
+
+Change "Note well that NTPv4 allows a maximum poll interval of 17, or 131,072 seconds, which is longer than a day." to "Note well that NTPv4's longest polling interval exceeds one day and thus a leap second announcement may be missed."
+
+## Who
+- Ulrich Windl
+
+## Resolution
+
+Agreed
+
+# Comment
+
+Change "keys have to be exchanged securely by external
+   means." to "keys have to be exchanged securely by external
+   means, and they have to be protected from disclosure."
+
+## Who
+- Ulrich Windl
+
+## Resolution
+
+Agreed
+
+
+# Comment
+
+I would swap the two sentences "NTP does not provide a mechanism to automatically
+   refresh the applied keys.  It is therefore recommended that the
+   participants periodically agree on a fresh key.". (Its recommended to refresh keys periodically, but (unfortunately) NTP dies not assist you in doing so (excpet from "readkeys").
+
+## Who
+- Ulrich Windl
+
+## Resolution
+
+Personally I like how that language flows a bit better, we changed to:
+"It is recommended that participants agree to refresh keys periodically. 
+However, NTP does not provide a mechanism to assist in doing so."
+
+# Comment
+
+On "Some implementations store the key in clear text.": Which do not?
+## Who
+- Ulrich Windl
+
+## Resolution
+I don't know of any, but we can't guarantee that future implementation won't. In any case, we don't think the text needs to change. 
+
+# Comment
+I would re-word "An NTP client establishes a protected association by appending the
+   key to the server statement in its configuration file." as "Authentication is requested by the client by specifying a key and adding a valid MAC to the request. This happens when a key number is specified with the server configuration (value and type of the key are read from a secret key file)."
+
+I'd replace "Autokey was designed in 2003 to provide a means for clients to
+   authenticate servers." with "Autokey was designed in 2003 to provide automatic key selection and updates for clients to
+   authenticate servers."
+
+## Who
+- Ulrich Windl
+
+## Resolution
+Dieter recommends "Autokey was specified in 2010 to provide automated key management and authentication of NTP servers”. 
+
+# Comment
+
+The sentence "As such, access control should be used to limit the exposure of this
+   information to inappropriate third parties." is quite confusing, because when a server serves a client, it will provide such information. Despite from updating the software, the operator can do little about that.
+
+## Who
+- Ulrich Windl
+
+## Resolution
+
+We will reword to match language that was changed for the "control messages" section:
+"As such, mechanisms outside of the NTP protocol, such as Access Control Lists, should be used to limit the exposure of this information to allowed IP addresses, and keep it from remote attackers not on the list.
+
+# Comment
+
+
+On "Prevent the NTP daemon from taking time steps that set the clock
+      to a time earlier than the compile date of the NTP daemon.": This would be a recommendation to an implementer, right? The operator cannot do much about it, I guess.
+
+## Who
+- Ulrich Windl
+
+## Resolution
+
+We will clarify this for implementors.
+
+
+# Comment
+
+Before the paragraph on "Kiss-o'-Death (KoD)" the concept should be explained in one sentence. (Like "KoD is a mechanism for a server to tell a client to stop polling it (that fast).)
+And: The heading "KISS Packets" should be "Kiss-of-Death Packets". Generally I would remove some of the details that describe the implementation and are not related to actual recommendations.
+
+## Who
+- Ulrich Windl
+
+## Resolution
+We feel that the introductory sentence "The "Kiss-o'-Death" (KoD) packet is a rate limiting mechanism where a server can tell a misbehaving client to "back off" its query rate." is a clear enough explanation. But we agree that the heading can be changed.
+
+# Comment
+
+In 6.6 explain that a passive peer receives time messages from a server that has not been configured at the client.
+
+## Who
+- Ulrich Windl
+
+## Resolution
+DR: Can he explain this further?
+
+# Comment
+
+For 7. maybe note that embedded devices sometimes do not have a battery-buffered clock, so using NTP successfully to set the time may be critical for proper operation.
+
+## Who
+- Ulrich Windl
+
+## Resolution
+Excellent point, thanks!
+
+# Comment
+
+Maybe add: "Avoid devices that use a fixed built-in configuration for NTP" (meaning: YOu cannot configure its servers or security).
+
+Maybe also differ between embedded clients and embedded servers...
+
+## Who
+- Ulrich Windl
+
+## Resolution
+We feel this advice can be difficult for some of these new small IoT devices, we prefer to put the onus on vendors to be responsible.
+
+# Comment
+
+For 8.: Maybe clarify the difference between "manycast", "anycast" and "multicast" (not to talk abut broadcast).
+
+## Who
+- Ulrich Windl
+
+## Resolution
+
+We feel that Manycast and Multicast are already covered in RFC 5905. 
 

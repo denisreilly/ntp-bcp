@@ -268,8 +268,9 @@
         38</xref> calls for filtering outgoing and incoming traffic to make
         sure that the source and destination IP addresses are consistent
         with the expected flow of traffic on each network interface. It is
-        recommended that all networks (and ISP's of any size) implement
-        ingress and egress filtering. More information is available at the
+        recommended that large corporate networks (and ISP's of any size)
+		implement ingress and egress filtering. More information is
+		available at the
 	<eref target="http://www.bcp38.info">BCP38 Info Web page</eref> .</t>
       </section>
     </section>
@@ -279,7 +280,7 @@
     are implementation specific are compiled in the Appendices.</t>
 
       <section anchor="TimeSources" title="Use enough time sources">
-        <t>An NTP implementation that supports the selection algorithms in 
+        <t>An NTP implementation that is compliant with 
         <xref target="RFC5905">RFC 5905</xref>
         takes the available sources of time and submits this timing data to
         sophisticated intersection, clustering, and combining algorithms to
@@ -470,9 +471,9 @@
         apply it at the end of the current day, it is recommended that NTP
         servers wait until the last day of the month before broadcasting
         leap seconds. Doing this will prevent older clients from applying a
-        leap second at the wrong time.  Note well that NTPv4 allows a
-        maximum poll interval of 17, or 131,072 seconds, which is longer
-        than a day.</t>
+        leap second at the wrong time.  Note well that NTPv4's longest
+		polling interval exceeds one day and thus a leap second
+		announcement may be missed.</t>
 
         <t>The IETF maintains a 
         <eref target="https://www.ietf.org/timezones/data/leap-seconds.list">leap
@@ -558,11 +559,12 @@
           exchanged packets for an association.  NTP does not provide a
           mechanism for the exchange of the keys between the associated
           nodes.  Therefore, for each association, keys have to be exchanged
-          securely by external means.  It is recommended that each
-          association be protected by its own unique key.  NTP does not
-          provide a mechanism to automatically refresh the applied keys.  It
-          is therefore recommended that the participants periodically agree
-          on a fresh key.</t>
+          securely by external means, and they have to be protected from
+          disclosure.  It is recommended that each
+          association be protected by its own unique key. It is recommended
+          that participants agree to refresh keys periodically. 
+          However, NTP does not provide a mechanism to assist in doing so.
+		  </t>
           <t><xref target="RFC5905">RFC 5905</xref> specifies a hash which
           must be supported for calculation of the MAC, but other algorithms 
           may be supported as well. The MD5 hash is now considered to be too 
@@ -586,8 +588,8 @@
         </section>
 
         <section title="Autokey">
-          <t>Autokey was designed in 2003 to provide a means for clients to
-	  authenticate servers.  However, security researchers
+          <t>Autokey was specified in 2010 to provide automated key management 
+		  and authentication of NTP servers.  However, security researchers
 	  have identified vulnerabilities in the Autokey protocol, which make 
           the protocol <eref
 	  target="https://lists.ntp.org/pipermail/ntpwg/2011-August/001714.html">
@@ -635,8 +637,9 @@
            attacker can learn this information by sending control queries to
            a target system and inspecting the response.</t>
 
-           <t>As such, access control should be used to limit the exposure
-           of this information to inappropriate third parties.</t>
+           <t>As such, mechanisms outside of the NTP protocol, such as Access Control Lists, should be used to limit the exposure
+           of this information to allowed IP addresses, and keep it from
+		   remote attackers not on the list.</t>
 
            <t>Hosts should only respond to NTP control queries from
            authorized parties.  One way to do this is to only allow control
@@ -714,7 +717,7 @@
              <t>Configure the ntp client to only ignore the panic threshold in
              a cold start situation.</t>
 
-             <t>Prevent the NTP daemon from taking time steps that set the
+             <t>Implementations should prevent the NTP daemon from taking time steps that set the
              clock to a time earlier than the compile date of the NTP
              daemon.</t>
             
@@ -750,7 +753,7 @@
         </t>
       </section>
 
-      <section anchor="KoD" title="KISS Packets">
+      <section anchor="KoD" title="Kiss-of-Death Packets">
         <t>The "Kiss-o'-Death" (KoD) packet is a rate limiting mechanism
         where a server can tell a misbehaving client to "back off" its query
         rate.  It is important for all NTP devices to respect these packets
@@ -837,10 +840,12 @@
       <t>Readers of this BCP already understand how important
       accurate time is for network computing.  And as computing becomes more
       ubiquitous, there will be many small "Internet of Things" devices that
-      require accurate time.  These embedded devices may not have a
-      traditional user interface, but if they connect to the Internet they
-      will be subject to the same security threats as traditional
-      deployments.</t>
+      require accurate time.  These devices may not have a persistent
+	  battery-backed clock, so using NTP to set the correct time on 
+	  power-up may be critical for proper operation. These devices may not
+	  have a traditional user interface, but if they connect to the
+	  Internet they will be subject to the same security threats as 
+	  traditional deployments.</t>
 
       <section title="Updating Embedded Devices">
         <t>Vendors of embedded devices have a special responsibility to pay
