@@ -195,13 +195,18 @@
       <t>NTP Version 4 (NTPv4) has been widely used since its publication as
       <xref target="RFC5905">RFC 5905</xref>. This documentation is a
       collection of best practices from across the NTP community.</t>
-      <t>Among the best practices covered are practices for general network
-      security, time protocol specific security, and NTP server and client 
+      <t>The recommendations in this document are intended to help
+      operators distribute time on their networks more accurately and more
+      securely. It is intended to apply generally to a broad range of networks.
+      Some specific networks may have higher accuracy requirements
+	  that require additional techniques beyond what is documented here.</t>
+	  <t>Among the best practices covered are recommendatons for general 
+	  network security, time protocol specific security, and NTP server and client 
       configuration. NTP operation in embedded devices is also covered.</t>
-      <t>This document will be of interest to network operators who want to 
-      synchronize the time in devices on their network. It also contains 
+      <t>This document also contains 
       information for protocol implementors who want to develop their own
-      <xref target="RFC5905">RFC 5905</xref> compliant implementations. </t>      
+      <xref target="RFC5905">RFC 5905</xref> compliant implementations. </t> 
+       	  
 
       <section title="Requirements Language">     
         <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
