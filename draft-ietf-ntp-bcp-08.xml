@@ -14,7 +14,9 @@
 <!ENTITY RFC4786 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4786.xml">
 <!ENTITY RFC7094 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7094.xml">
 <!ENTITY RFC4085 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4085.xml">
-<!ENTITY RFC6557 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6557.xml">
+<!--
+<!ENTITY RFC6557 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6557.xml"> 
+-->
 <!ENTITY RFC8174 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml">
 <!ENTITY I-D.narten-iana-considerations-rfc2434bis SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.narten-iana-considerations-rfc2434bis.xml">
 ]>
@@ -483,16 +485,18 @@
 		polling interval exceeds one day and thus a leap second
 		announcement may be missed.</t>
 
-        <t>The IETF maintains a 
+<!--        <t>The IETF maintains a 
         <eref target="https://www.ietf.org/timezones/data/leap-seconds.list">leap
 	    second list</eref> as part of the Time Zone Database for NTP users who are not receiving leap second
 	    information through an automatic source. Information on the maintenance of the Time Zone Database is available in <xref target="RFC6557">BCP 135</xref>.</t>
-        <t>Files are also available from other sources:</t>
+-->
+        <t>In circumstances where an NTP server is not receiving leap second 
+        information from an automated source, certain organizations maintain 
+        files which are updated every time a new leap second is announced:</t>
         <t>NIST: ftp://time.nist.gov/pub/leap-seconds.list</t>
         <t>US Navy (maintains GPS Time): ftp://tycho.usno.navy.mil/pub/ntp/leap-seconds.list</t>
         <t>IERS (announces leap seconds): https://hpiers.obspm.fr/iers/bul/bulc/ntp/leap-seconds.list</t>
-        <t>See <xref target="AppendixNTPDLeapFile"/> 
-        for instructions on applying the leap second file to the reference implementation.</t>
+        
 
         <section anchor="leap_smear" title="Leap Smearing">
           <t>Some NTP installations may instead make use of a technique
@@ -1038,7 +1042,8 @@
 	  &RFC4085;
 
       
-      <?rfc include='reference.RFC.6557'?>
+<!--      <?rfc include='reference.RFC.6557'?> 
+-->
       <?rfc include='reference.RFC.7384'?>
       <?rfc include="reference.RFC.8174" ?>
     </references>
