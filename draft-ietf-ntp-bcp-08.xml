@@ -256,7 +256,7 @@
 
     </section>
 
-    <section title="General Network Security Best Practices">
+    <section anchor="Sec_Gen" title="General Network Security Best Practices">
 
       <section anchor="bcp38" title="BCP 38">
         <t>Many network attacks rely on modifying the IP source address of a
@@ -325,6 +325,12 @@
           develops a problem there are still at least 3 other time sources.</t>
         </list></t>
 		
+    <t>Operators who are concerned with maintaining accurate time SHOULD use
+    at least 4 independent, diverse sources of time. Four sources will 
+    provide sufficient backup in case one source goes down. If four sources
+    are not available, operators MAY use fewer sources, subject to the risks
+    outlined above.</t>
+    
 	<t>But even with 4 or more sources of time, systemic problems can
 	happen.  For several hours before and after the June 2015 leap second, 
     several operators
@@ -976,14 +982,15 @@
     </section>
 
     <section anchor="Security" title="Security Considerations">
-      <t>Time is a fundamental component of security on the internet.
-      Credentials and certificates can expire.  Logins and other forms of
-      access can be revoked after a period of time, or at a scheduled time.
-      And some applications may assume that system time cannot be changed
-      and is always monotonic, and vulnerabilities may be exposed if a time
-      in the past is forced into a system.  Therefore, any system
-      administrator concerned with security should be concerned with how the
-      current time gets into their system. </t>
+      <t>Time is a fundamental component of security on the internet. 
+         The absence of a reliable source of current time subverts many 
+         common web authentication schemes, e.g.,  by allowing the use of 
+         expired credentials or by allowing for replay of messages only 
+         intended to be processed once.</t>
+      
+      <t>Much of this document directly addresses how to secure NTP servers.
+      In particular, see <xref target="Sec_Gen"/>, <xref target="Sec_Mech"/>, 
+      and <xref target="Sec_Bcp"/>. </t>
       
       <t>There are several general threats to time synchronization protocols 
       which are discussed in <xref target="RFC7384">RFC 7384</xref>.</t>
