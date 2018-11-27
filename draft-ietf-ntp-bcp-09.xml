@@ -202,7 +202,7 @@
       securely. It is intended to apply generally to a broad range of networks.
       Some specific networks may have higher accuracy requirements
 	  that require additional techniques beyond what is documented here.</t>
-	  <t>Among the best practices covered are recommendatons for general 
+	  <t>Among the best practices covered are recommendations for general 
 	  network security, time protocol specific security, and NTP server and client 
       configuration. NTP operation in embedded devices is also covered.</t>
       <t>This document also contains 
@@ -225,13 +225,7 @@
       operation.  If attackers can spoof the time, they may be able to
       bypass or neutralize other security elements. For example, incorrect
       time can disrupt the ability to reconcile logfile entries on the
-      affected system with events on other systems. Important ways to detect
-      and protect computers and networks against undefined behavior and
-      security threats related to time are to keep their NTP implementations
-      current, use an appropriate number of trustworthy time sources, and
-      properly monitor their time infrastructure.</t>
-          
-      <t>There are always new ideas about security on the Internet, and an
+      affected system with events on other systems. An
       application which is secure today could be insecure tomorrow once an
       unknown bug (or a known behavior) is exploited in the right way.  Even
       our definition of what is secure has evolved over the years, so code
@@ -247,11 +241,10 @@
       multiple implementations in use, on many different platforms. The 
       practices in this document are meant to apply generally to any implementation
       of <xref target="RFC5905">RFC 5905</xref>. It is
-      recommended that that NTP users select an implementation that is 
+      RECOMMENDED that that NTP users select an implementation that is 
       actively maintained. Users should keep up to date on any known 
       attacks on their selected implementation, and deploy updates containing 
-      security fixes as soon as practical.
-      </t>
+      security fixes as soon as practical.</t>
       
 
     </section>
@@ -269,7 +262,7 @@
         messages are discussed further in <xref target="mode67"/>). 
         One documented instance of such an attack can be found <eref 
         target="https://blog.cloudflare.com/technical-details-behind-a-400gbps-ntp-amplification-ddos-attack/"> 
-        here</eref>, and in <xref target="IMC14"/> and <xref target="NDSS14"/>. 
+        here</eref>, and further discussion in <xref target="IMC14"/> and <xref target="NDSS14"/>. 
         Mitigating source address spoofing attacks should be a priority of 
         anyone administering NTP.</t>
         
@@ -278,7 +271,7 @@
         38</xref> calls for filtering outgoing and incoming traffic to make
         sure that the source and destination IP addresses are consistent
         with the expected flow of traffic on each network interface. It is
-        recommended that large corporate networks (and ISP's of any size)
+        RECOMMENDED that large corporate networks (and ISP's of any size)
 		implement ingress and egress filtering. More information is
 		available at the
 	<eref target="http://www.bcp38.info">BCP38 Info Web page</eref> .</t>
@@ -348,7 +341,7 @@
 
       <section anchor="Diversity" title="Use a diversity of Reference Clocks">
         <t>When using servers with attached hardware reference clocks, it is
-        recommended that several different types of reference clocks be
+        RECOMMENDED that several different types of reference clocks be
         used.  Having a diversity of sources with independent implementations 
         means that any one issue is less likely to cause a service interruption.</t>
 
@@ -363,11 +356,11 @@
         their sources are sufficiently independent, even if they are not under
         the operator's control.</t>
 
-        <t> A systemic problem with time from any satellite navigation
+        <t>A systemic problem with time from any satellite navigation
         service is possible and has happened.  Sunspot activity can render
         satellite or radio-based time source unusable.  If the time on your
-        network must be correct close to 100% of the time, then even if you
-        are using a satellite-based system, you must plan for those rare
+        network has to be correct close to 100% of the time, then even if you
+        are using a satellite-based system, operators need to plan for those rare
         instances when the system is unavailable (or wrong!).</t>
       </section>
 
@@ -384,26 +377,26 @@
         control of NTP and its configuration.  Used properly, these facilities provide vital
         debugging and performance information and control.  Used improperly,
         these facilities can be an abuse vector. For this reason, it is 
-        recommended that publicly-facing NTP servers should block mode 6 
+        RECOMMENDED that publicly-facing NTP servers should block mode 6 
         queries from outside their organization.</t>
 
         <t>The ability to use Mode 6 beyond its basic monitoring
-        capabilities can be limited to authenticated sessions that provide a
-        'controlkey'. It can also be limited through mechanisms outside of the
+        capabilities SHOULD be limited to authenticated sessions that provide a
+        'controlkey'. It MAY also be limited through mechanisms outside of the
         NTP specification, such as Access Control Lists, that only allow access 
         from approved IP addresses.</t>
 
         <t>The NTP Control Messages responses are much larger than
-        the corresponding queries. Thus, they can  be
+        the corresponding queries. Thus, they can be
         abused in high-bandwidth DDoS attacks. To provide protection for such
-        abuse NTP server operators should deploy ingress filtering 
+        abuse NTP server operators on large networks SHOULD deploy ingress filtering 
         <xref target="RFC2827">BCP 38</xref>.</t>
         
       </section>
 
       <section anchor="Monitoring" title="Monitoring">
 
-        <t>Use your NTP implementation's remote monitoring capabilities to 
+        <t>Operators SHOULD use their NTP implementation's remote monitoring capabilities to 
         quickly identify servers which are out of sync, and ensure correctness
         of the service. Monitor system logs for messages so problems and abuse 
         attempts can be quickly identified.</t>
@@ -432,7 +425,7 @@
         <t>It only takes a small amount of bandwidth and system resources to
         synchronize one NTP client, but NTP servers that can service tens of
         thousands of clients take more resources to run.  Users who want to
-        synchronize their computers should only synchronize to servers that
+        synchronize their computers SHOULD only synchronize to servers that
         they have permission to use. </t>
 
         <t>The NTP pool project is a group of volunteers who have donated
@@ -477,14 +470,14 @@
         generally slowly increasing</eref>, all leap seconds that have been
         introduced since the practice started in 1972 have been "positive"
         leap seconds, where a second is added to UTC.  NTP also supports a
-        "negative" leap second, where a second is removed from UTC, should
-        that ever become necessary.</t>
+        "negative" leap second, where a second is removed from UTC, if
+        that ever becomes necessary.</t>
 
         <t>While earlier versions of NTP contained some ambiguity regarding
         when a leap second that is broadcast by a server should be applied
         by a client, RFC 5905 is clear that leap seconds are only applied on
         the last day of a month.  However, because some older clients may
-        apply it at the end of the current day, it is recommended that NTP
+        apply it at the end of the current day, it is RECOMMENDED that NTP
         servers wait until the last day of the month before broadcasting
         leap seconds. Doing this will prevent older clients from applying a
         leap second at the wrong time.  Note well that NTPv4's longest
@@ -516,11 +509,12 @@
           successfully.  During the adjustment window, all the NTP clients'
           times may be offset from UTC by as much as a full second,
           depending on the implementation.  But at least all clients will
-          generally agree on what time they think it is!</t>
+          generally agree on what time they think it is.</t>
 
-	  <t>Operators should NOTE WELL that using a leap-smear can cause 
-      your reported time to be "legally indefensible" and/or be a breach of 
-      compliance regulations.</t>
+          <t>Operators who have legal obligations or other strong requirements
+          to be synchronized with UTC or civil time SHOULD NOT use leap smearing,
+          because the distributed time cannot be guaranteed to be traceable to 
+          UTC during the smear interval.</t>          
 		  
 	  <t>The purpose of Leap Smearing is to enable systems that don't
           deal with the leap second event properly to function consistently,
@@ -535,8 +529,8 @@
       never advertise to clients that a leap second is pending.</t>
 		  
           <t>Any use of leap smearing servers should be limited to within a 
-          single, well-controlled environment. Leap Smearing MUST NOT be used f
-          or public-facing NTP servers,
+          single, well-controlled environment. Leap Smearing MUST NOT be used
+          for public-facing NTP servers,
           as they will disagree with non-smearing servers (as well as UTC)
           during the leap smear interval, and there is no standardized way for
           a client to detect that a server is using leap smearing.  However, 
@@ -548,7 +542,7 @@
           <t>System Administrators are advised to be aware of impending leap
           seconds and how the servers (inside and outside their
           organization) they are using deal with them.  Individual clients
-          must never be configured to use a mixture of smeared and
+          MUST NOT be configured to use a mixture of smeared and
           non-smeared servers.  If a client uses smeared servers, the
           servers it uses must all have the same leap smear
           configuration.</t>
@@ -576,10 +570,10 @@
           the MAC, which protects authenticity and integrity of the
           exchanged packets for an association.  NTP does not provide a
           mechanism for the exchange of the keys between the associated
-          nodes.  Therefore, for each association, keys have to be exchanged
-          securely by external means, and they have to be protected from
-          disclosure.  It is recommended that each
-          association be protected by its own unique key. It is recommended
+          nodes.  Therefore, for each association, keys SHOULD be exchanged
+          securely by external means, and they SHOULD be protected from
+          disclosure.  It is RECOMMENDED that each
+          association be protected by its own unique key. It is RECOMMENDED
           that participants agree to refresh keys periodically. 
           However, NTP does not provide a mechanism to assist in doing so.
 		  </t>
@@ -597,7 +591,7 @@
           information to its own key file.</t>
 
           <t>Some implementations store the key in clear text.  Therefore it
-          should only be readable by the NTP process.  Different keys are
+          SHOULD only be readable by the NTP process.  Different keys are
           added line by line to the key file.</t>
 
           <t>An NTP client establishes a protected association by appending
@@ -613,7 +607,7 @@
 	  target="https://lists.ntp.org/pipermail/ntpwg/2011-August/001714.html">
 	  "useless".</eref></t>
 
-          <t>Autokey SHOULD NOT BE USED.</t>
+          <t>Autokey SHOULD NOT be used.</t>
 
       </section>
 		
@@ -621,7 +615,7 @@
           <t> Work is in progress on an enhanced replacement for Autokey, which
           is called
           <xref target="NTSFORNTP">Network Time Security (NTS)</xref>.  As 
-          of July 2018, this effort was at draft #12, and in the 
+          of November 2018, this effort was at draft #14, and in the 
           'Working Group Last Call' process.  Readers are encouraged to adopt
           its mechanisms.</t>
         </section>
@@ -655,20 +649,17 @@
            attacker can learn this information by sending control queries to
            a target system and inspecting the response.</t>
 
-           <t>As such, mechanisms outside of the NTP protocol, such as Access Control Lists, should be used to limit the exposure
+           <t>As such, mechanisms outside of the NTP protocol, such as 
+           Access Control Lists, SHOULD be used to limit the exposure
            of this information to allowed IP addresses, and keep it from
-		   remote attackers not on the list.</t>
-
-           <t>Hosts should only respond to NTP control queries from
-           authorized parties.  One way to do this is to only allow control
-           queries from authenticated sources via authorized IP
-           addresses.</t>
+		   remote attackers not on the list.  Hosts SHOULD only respond to 
+           NTP control queries from authorized parties. </t>
 
            <t>A host that is not supposed to act as an NTP server that
-           provides timing information to other hosts may additionally log
+           provides timing information to other hosts MAY additionally log
            and drop incoming mode 3 timing queries from unexpected sources.
            Note well that the easiest way to monitor ntpd's status is to
-           send it a mode 3 query.  It is recommended that operators should
+           send it a mode 3 query.  It is recommended that operators SHOULD
            filter mode 3 queries at the edge, or make sure mode 3 queries
            are allowed only from trusted systems or networks.</t>
 
@@ -678,7 +669,7 @@
            on NTP's basic mode to take time from a set of servers. (That is,
            the host sends mode 3 queries to its servers and receives mode 4
            responses from these servers containing timing information.)  To
-           minimize information leakage, leaf-node hosts should drop all
+           minimize information leakage, leaf-node hosts SHOULD drop all
            incoming NTP packets except mode 4 response packets that come
            from known sources.  Note well that proper monitoring of an
            ntpd instance includes checking the time of that ntpd
@@ -715,17 +706,18 @@
           when the client restarts, it ignores the panic threshold and
           accepts the attacker's large offset.</t>
 
-          <t>Hosts running with the above two conditions should be aware
-          that the panic threshold does not protect them from attacks.  The
-          recommended and natural solution is not to run hosts with these
-          conditions.  Specifically, only ignore the panic threshold in cold-start
-          situations if sufficient oversight and checking is in place
-          to make sure that this is appropriate.</t>
+          <t>Operators SHOULD be aware that when operating with the above 
+          two conditions, the panic threshold offers no protection from attacks.  
+          The natural solution is not to run hosts with these
+          conditions.  Specifically, operators SHOULD NOT ignore the panic 
+          threshold in all cold-start situations unless sufficient 
+          oversight and checking is in place to make sure that this type of
+          attack cannot happen.</t>
 
-          <t>As an alternative, the following steps could be taken to
-          mitigate the risk of attack.</t>
+          <t>As an alternative, the following steps MAY be taken by operators 
+          to mitigate the risk of attack:</t>
           <t><list style="symbols">
-             <t>Monitor NTP system log to detect when the NTP daemon has
+             <t>Monitor the NTP system log to detect when the NTP daemon has
              quit due to a panic event, as this could be a sign of an
              attack.</t>
 
@@ -734,19 +726,20 @@
              
              <t>Configure the ntp client to only ignore the panic threshold in
              a cold start situation.</t>
-
-             <t>Implementations should prevent the NTP daemon from taking time steps that set the
-             clock to a time earlier than the compile date of the NTP
-             daemon.</t>
             
              <t>Add "minsane" and "minclock" parameters to the ntp.conf file
              so ntpd waits until "enough" trusted sources of time agree on
              the correct time.</t>
+          
           </list></t>
+          
+          <t>In addition, implementations SHOULD prevent the NTP daemon from 
+          taking time steps that set the clock to a time earlier than the 
+          compile date of the NTP daemon.</t>
       </section>
       
       <section title="Detection of Attacks Through Monitoring">
-        <t>Users should monitor their NTP instances to detect attacks.  Many
+        <t>Operators SHOULD monitor their NTP instances to detect attacks.  Many
         known attacks on NTP have particular signatures.  Common attack
         signatures include:</t>
         
@@ -771,22 +764,22 @@
         </t>
       </section>
 
-      <section anchor="KoD" title="Kiss-of-Death Packets">
+      <section anchor="KoD" title="Kiss-o'-Death Packets">
         <t>The "Kiss-o'-Death" (KoD) packet is a rate limiting mechanism
         where a server can tell a misbehaving client to "back off" its query
-        rate.  It is important for all NTP devices to respect these packets
+        rate.  It is RECOMMENDED that all NTP devices respect these packets
         and back off when asked to do so by a server.  It is even more
         important for an embedded device, which may not have exposed a
         control interface for NTP.</t>
 
-        <t>That said, a client must only accept a KoD packet if it has a valid
+        <t>That said, a client MUST only accept a KoD packet if it has a valid
         origin timestamp. Once a RATE packet is accepted, the client should 
         increase its poll interval value (thus decreasing its polling rate) up 
         to a reasonable maximum. This maximum can vary by implementation but 
         should not exceed a poll interval value of 13 (2 hours). The mechanism 
         to determine how much to increase the poll interval value is undefined 
         in <xref target="RFC5905">RFC 5905</xref>. If the client uses the poll
-        interval value sent by the server in the KoD packet, it must not simply
+        interval value sent by the server in the KoD packet, it MUST NOT simply
         accept any value. Using large interval values may open a vector for a 
         denial-of-service attack that causes the client to stop querying its 
         server <xref target="NDSS16"></xref>.</t>
@@ -795,7 +788,7 @@
         be effective.  Some clients ignore the KoD packet entirely, and
         other poorly-implemented clients might unintentionally increase
         their poll rate and simulate a denial of service attack.  Server
-        administrators should be prepared for this and take measures outside
+        administrators SHOULD be prepared for this and take measures outside
         of the NTP protocol to drop packets from misbehaving clients when these
         clients are detected.</t>
       </section>
@@ -809,13 +802,13 @@
         sends.</t>
 
         <t>Importantly, all broadcast clients that listen to this server
-        must know the cryptographic key. This mean that any client can use
+        have to know the cryptographic key. This mean that any client can use
         this key to send valid broadcast messages that look like they come
         from the broadcast server. Thus, a rogue broadcast client can use
         its knowledge of this key to attack the other broadcast clients.</t>
 
-        <t>For this reason, an NTP broadcast server and all its client must 
-        trust each other.  Broadcast mode should only be run from within a 
+        <t>For this reason, an NTP broadcast server and all its clients have 
+        to trust each other.  Broadcast mode SHOULD only be run from within a 
         trusted network.</t>
 
       </section>
@@ -832,11 +825,11 @@
         attacker can attempt to change Bob's time by asking Bob to become
         its symmetric passive peer.</t>
 
-        <t>For this reason, a host (Bob) should only allow symmetric passive
+        <t>For this reason, a host SHOULD only allow symmetric passive
         associations to be established with trusted peers.  Specifically,
-        Bob should require each of its symmetric passive association to be
+        a host SHOULD require each of its symmetric passive association to be
         cryptographically authenticated.  Each symmetric passive association
-        should be authenticated under a different cryptographic key.</t>
+        SHOULD be authenticated under a different cryptographic key.</t>
 
 	<t>The use of a different cryptographic key per peer prevents a
 	Sybil attack, where a single malicious peer uses the same
@@ -866,7 +859,7 @@
 	  traditional deployments.</t>
 
       <section title="Updating Embedded Devices">
-        <t>Vendors of embedded devices have a special responsibility to pay
+        <t>Vendors of embedded devices MUST pay
         attention to the current state of NTP bugs and security issues,
         because their customers don't have the ability to update their NTP
         implementation on their own.  Those devices may have a single
@@ -875,8 +868,9 @@
         responsibility of making sure their devices have the latest NTP
         updates applied.</t>
 
-        <t>This should also include the ability to update information 
-        regarding which NTP server to connect to on these devices.</t>
+        <t>Vendors of embedded devices SHOULD also include the ability 
+        to update information regarding which NTP server to connect to 
+        on these devices.</t>
 
         <t>There is a catalog of NTP server abuse incidents, some of which
 	involve embedded devices, on the Wikipedia page
@@ -885,11 +879,12 @@
       </section>
 
       <section title="Server configuration">
-        <t>Vendors of embedded devices that need time synchronization should
+        <t>Vendors of embedded devices that need time synchronization SHOULD
         also carefully consider where they get their time from.  There are
         several public-facing NTP servers available, but they may not be
         prepared to service requests from thousands of new devices on the
-        Internet.</t>
+        Internet. Vendors SHOULD only synchronize to servers that
+        they have permission to use.</t>
 
         <t>Vendors are encouraged to invest resources into providing their own
         time servers for their devices to connect to.</t>
@@ -925,8 +920,8 @@
       temporary loss of service while a server is taken down, these
       additions can be transparent to the clients.</t>
 
-      <t>NOTE WELL: Using a single anycast address for NTP should be done 
-      with care. It means each client will likely use a single time server
+      <t>Note well that using a single anycast address for NTP presents its 
+      own potential issues. It means each client will likely use a single time server
       source.  A key element of a robust NTP deployment is each client using
       multiple sources of time.  With multiple time sources, a client will
       analyze the various time sources, selecting good ones, and
@@ -938,19 +933,19 @@
       anycast servers may arbitrarily enter and leave the network, the
       server a particular client is connected to may change.  This may cause
       a small shift in time from the perspective of the client when the
-      server it is connected to changes.  It is recommended that anycast
+      server it is connected to changes.  It is RECOMMENDED that anycast
       only be deployed in environments where these small shifts can be
       tolerated.</t>
 
       <t>Configuration of an anycast interface is independent of NTP.
       Clients will always connect to the closest server, even if that server
-      is having NTP issues.  It is recommended that anycast NTP
+      is having NTP issues.  It is RECOMMENDED that anycast NTP
       implementations have an independent method of monitoring the
       performance of NTP on a server.  If the server is not performing to
       specification, it should remove itself from the Anycast network.  It
-      is also recommended that each Anycast NTP server have at least one
-      Unicast interface, so its performance can be checked independently of
-      the anycast routing scheme.</t>
+      is also RECOMMENDED that each Anycast NTP server have an alternative method
+      of access, such as an alternate Unicast IP address, so its performance 
+      can be checked independently of the anycast routing scheme.</t>
 
       <t>One useful application in large networks is to use a hybrid
       unicast/anycast approach.  Stratum 1 NTP servers can be deployed with
@@ -972,8 +967,8 @@
     <section anchor="Acknowledgements" title="Acknowledgments">
       <t>The authors wish to acknowledge the contributions of Sue Graves,
       Samuel Weiler, Lisa Perdue, Karen O'Donoghue, David Malone, Sharon
-      Goldberg, Martin Burnicki, Miroslav Lichvar, Daniel Fox Franke, and
-      Robert Nagy.</t> </section>
+      Goldberg, Martin Burnicki, Miroslav Lichvar, Daniel Fox Franke,
+      Robert Nagy, and Brian Haberman</t> </section>
 
     <!-- Possibly a 'Contributors' section ... -->
 
@@ -1231,7 +1226,7 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
             <organization />
           </author>
 
-          <date month='July' day='01' year='2018' />
+          <date month='November' day='06' year='2018' />
 
           <abstract><t>This memo specifies Network Time Security (NTS), a 
 		  mechanism for using Transport Layer Security (TLS) and Authenticated
@@ -1240,9 +1235,9 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
 
           </front>
 
-        <seriesInfo name='Internet-Draft' value='draft-ietf-ntp-using-nts-for-ntp-12' />
+        <seriesInfo name='Internet-Draft' value='draft-ietf-ntp-using-nts-for-ntp-14' />
         <format type='TXT'
-            target=' https://www.ietf.org/id/draft-ietf-ntp-using-nts-for-ntp-12.txt' />
+            target=' https://www.ietf.org/id/draft-ietf-ntp-using-nts-for-ntp-14.txt' />
       </reference>
       
 <!-- NTP MAC -->
@@ -1429,7 +1424,7 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
       </section>
       <section anchor="AppendixNTPDLeapSmear" title="Leap Smearing"> 
         <t>Leap Smearing was introduced in ntpd versions 4.2.8.p3 and
-        4.3.47, in response to CLIENT requests.  Support for leap smearing
+        4.3.47, in response to client requests.  Support for leap smearing
         is not configured by default and must be added at compile time.
         In addition, no leap smearing will occur unless a leap smear
         interval is specified in ntpd.conf .  For more information, refer
@@ -1496,6 +1491,8 @@ v01 2016-10-04  DPR more leap second fixes from Martin, editrorial fixes
     lots missing
     2018-07-05  DPR: put NTPd-specific things in an appendix with Dieter's help  
                 resolved other feedback from reviewers.
+v08 2018-11-12  DPR: resolved several comments from outside reviewers
+v09             DPR: strengthened and clarified requirements language
        -->
   </back>
 </rfc>
