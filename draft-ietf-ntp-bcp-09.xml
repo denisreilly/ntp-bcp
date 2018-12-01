@@ -672,7 +672,7 @@
            minimize information leakage, leaf-node hosts SHOULD drop all
            incoming NTP packets except mode 4 response packets that come
            from known sources.  Note well that proper monitoring of an
-           ntpd instance includes checking the time of that ntpd
+           NTP server instance includes checking the time of that NTP server
            instance.</t>
       </section>
 
