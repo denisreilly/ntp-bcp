@@ -238,7 +238,7 @@
       and is not being attacked or misused.</t>
       
       <t>There are multiple versions of the NTP protocol in use, and
-      multiple implementations in use, on many different platforms. The 
+      multiple implementations, on many different platforms. The 
       practices in this document are meant to apply generally to any implementation
       of <xref target="RFC5905">RFC 5905</xref>. It is
       RECOMMENDED that that NTP users select an implementation that is 
@@ -833,7 +833,7 @@
 
 	<t>The use of a different cryptographic key per peer prevents a
 	Sybil attack, where a single malicious peer uses the same
-	cryptographic key to set up multiple symmetric associations a
+	cryptographic key to set up multiple symmetric associations with a
 	target, and thus bias the results of the target's Byzantine fault
 	tolerant peer selection algorithms.</t>
 
@@ -968,7 +968,7 @@
       <t>The authors wish to acknowledge the contributions of Sue Graves,
       Samuel Weiler, Lisa Perdue, Karen O'Donoghue, David Malone, Sharon
       Goldberg, Martin Burnicki, Miroslav Lichvar, Daniel Fox Franke,
-      Robert Nagy, and Brian Haberman</t> </section>
+      Robert Nagy, and Brian Haberman.</t> </section>
 
     <!-- Possibly a 'Contributors' section ... -->
 
