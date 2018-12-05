@@ -195,7 +195,7 @@
   <middle>
     <section title="Introduction">
       <t>NTP Version 4 (NTPv4) has been widely used since its publication as
-      <xref target="RFC5905">RFC 5905</xref>. This documentation is a
+      <xref target="RFC5905"/>. This documentation is a
       collection of best practices from across the NTP community.</t>
       <t>The recommendations in this document are intended to help
       operators distribute time on their networks more accurately and more
@@ -207,7 +207,7 @@
       configuration. NTP operation in embedded devices is also covered.</t>
       <t>This document also contains 
       information for protocol implementors who want to develop their own
-      <xref target="RFC5905">RFC 5905</xref> compliant implementations. </t> 
+      RFC 5905 compliant implementations. </t> 
        	  
 
       <section title="Requirements Language">     
@@ -240,7 +240,7 @@
       <t>There are multiple versions of the NTP protocol in use, and
       multiple implementations, on many different platforms. The 
       practices in this document are meant to apply generally to any implementation
-      of <xref target="RFC5905">RFC 5905</xref>. It is
+      of <xref target="RFC5905"/>. It is
       RECOMMENDED that that NTP users select an implementation that is 
       actively maintained. Users should keep up to date on any known 
       attacks on their selected implementation, and deploy updates containing 
@@ -267,14 +267,14 @@
         anyone administering NTP.</t>
         
         <t><xref target="RFC2827">BCP 38</xref> was
-        approved in 2000 to address this. <xref target="RFC2827">BCP
-        38</xref> calls for filtering outgoing and incoming traffic to make
+        approved in 2000 to address this. BCP
+        38 calls for filtering outgoing and incoming traffic to make
         sure that the source and destination IP addresses are consistent
         with the expected flow of traffic on each network interface. It is
         RECOMMENDED that large corporate networks (and ISP's of any size)
 		implement ingress and egress filtering. More information is
 		available at the
-	<eref target="http://www.bcp38.info">BCP38 Info Web page</eref> .</t>
+	<xref target="BCP38INFO">BCP38 Info Web page</xref> .</t>
       </section>
     </section>
 
@@ -284,13 +284,13 @@
 
       <section anchor="TimeSources" title="Use enough time sources">
         <t>An NTP implementation that is compliant with 
-        <xref target="RFC5905">RFC 5905</xref>
+        <xref target="RFC5905"/>
         takes the available sources of time and submits this timing data to
         sophisticated intersection, clustering, and combining algorithms to
         get the best estimate of the correct time. The description of these
         algorithms is beyond the scope of this document. Interested readers
-        should read <xref target="RFC5905">RFC 5905</xref> or the detailed
-        description of NTP in <xref target="MILLS2006">MILLS 2006</xref>.
+        should read <xref target="RFC5905"/> or the detailed
+        description of NTP in <xref target="MILLS2006"/>.
         These available sources must be truly redundant and derive their time 
         from independent sources.</t>
 
@@ -558,7 +558,7 @@
         modify the content of the NTP packet, which leads to degradation of
         the time synchronization or the transmission of false time
         information.  A profound threat analysis for time synchronization
-        protocols is given in <xref target="RFC7384">RFC 7384</xref>.  NTP
+        protocols is given in <xref target="RFC7384"/>.  NTP
         provides two internal security mechanisms to protect authenticity
         and integrity of the NTP packets.  Both measures protect the NTP
         packet by means of a Message Authentication Code (MAC).  Neither of
@@ -577,7 +577,7 @@
           that participants agree to refresh keys periodically. 
           However, NTP does not provide a mechanism to assist in doing so.
 		  </t>
-          <t><xref target="RFC5905">RFC 5905</xref> specifies a hash which
+          <t><xref target="RFC5905"/> specifies a hash which
           must be supported for calculation of the MAC, but other algorithms 
           may be supported as well. The MD5 hash is now considered to be too 
           weak. Implementations will soon be available based on 
@@ -677,18 +677,18 @@
       </section>
 
       <section title="Avoiding Daemon Restart Attacks">
-        <t><xref target="RFC5905">RFC 5905</xref> says NTP clients should
+        <t><xref target="RFC5905"/> says NTP clients should
           not accept time shifts greater than the panic threshold.
           Specifically, RFC 5905 says "PANIC means the offset is greater
           than the panic threshold PANICT (1000 s) and SHOULD cause the
           program to exit with a diagnostic message to the system log."</t>
 
           <t>However, this behavior can be exploited by attackers 
-          <xref target="NDSS16"></xref>, when the following two conditions
+          as described in <xref target="NDSS16"/>, when the following two conditions
           hold:</t>
 
           <t><list style="numbers">
-            <t>The operating system automatically restarts the NTP daemon
+            <t>The operating system automatically restarts the NTP client
             when it quits.  (Modern *NIX operating systems are replacing
             traditional init systems with process supervisors, such as
             systemd, which can be configured to automatically restart any
@@ -703,7 +703,7 @@
 
           <t>In such cases, if the attacker can send the target an offset
           that exceeds the panic threshold, the client will quit.  Then,
-          when the client restarts, it ignores the panic threshold and
+          when it restarts, it ignores the panic threshold and
           accepts the attacker's large offset.</t>
 
           <t>Operators SHOULD be aware that when operating with the above 
@@ -748,10 +748,9 @@
           match the value that expected by the client.</t>
 
           <t>"Zero origin packet" - A packet with an origin timestamp set to
-          zero <xref target="CVE-2015-8138"></xref>.</t>
+          zero <xref target="CVE-2015-8138"/>.</t>
 
-          <t>A packet with an invalid cryptographic MAC <xref target="CCR16">
-          </xref>.</t>
+          <t>A packet with an invalid cryptographic MAC <xref target="CCR16"/>.</t>
         </list></t>
 
         <t>The observation of many such packets could indicate that the client 
@@ -760,7 +759,7 @@
         <t>Also, Kiss-o'-Death (KoD) packets can be used in denial of
         service attacks.  Thus, the observation of even just one KoD packet
         with a high poll value could be sign that the client
-        is under attack. See <xref target="KoD"></xref> for more information.
+        is under attack. See <xref target="KoD"/> for more information.
         </t>
       </section>
 
@@ -778,11 +777,11 @@
         to a reasonable maximum. This maximum can vary by implementation but 
         should not exceed a poll interval value of 13 (2 hours). The mechanism 
         to determine how much to increase the poll interval value is undefined 
-        in <xref target="RFC5905">RFC 5905</xref>. If the client uses the poll
+        in <xref target="RFC5905"/>. If the client uses the poll
         interval value sent by the server in the KoD packet, it MUST NOT simply
         accept any value. Using large interval values may open a vector for a 
         denial-of-service attack that causes the client to stop querying its 
-        server <xref target="NDSS16"></xref>.</t>
+        server <xref target="NDSS16"/>.</t>
 
         <t>The KoD mechanism relies on clients behaving properly in order to
         be effective.  Some clients ignore the KoD packet entirely, and
@@ -794,7 +793,7 @@
       </section>
 
       <section title="Broadcast Mode Should Only Be Used On Trusted Networks">
-        <t>Per <xref target="RFC5905">RFC 5905</xref>, NTP's broadcast mode is
+        <t>Per <xref target="RFC5905"/>, NTP's broadcast mode is
         authenticated using symmetric key cryptography.  The broadcast
         server and all of its broadcast clients share a symmetric
         cryptographic key, and the broadcast server uses this key to append
@@ -859,8 +858,8 @@
 	  traditional deployments.</t>
 
       <section title="Updating Embedded Devices">
-        <t>Vendors of embedded devices MUST pay
-        attention to the current state of NTP bugs and security issues,
+        <t>Vendors of embedded devices MUST pay attention to the current state 
+		of protocol security issues and bugs in their chosen implementation,
         because their customers don't have the ability to update their NTP
         implementation on their own.  Those devices may have a single
         firmware upgrade, provided by the manufacturer, that updates all
@@ -889,7 +888,7 @@
         <t>Vendors are encouraged to invest resources into providing their own
         time servers for their devices to connect to.</t>
         
-        <t>Vendors should read <xref target="RFC4085">RFC 4085</xref>, 
+        <t>Vendors should read <xref target="RFC4085"/>, 
         which advises against embedding globally-routable IP addresses in 
         products, and offers several better alternatives.</t>
 
@@ -907,7 +906,7 @@
 
     <section title="NTP over Anycast">
       <t>Anycast is described in <xref target="RFC4786">BCP 126</xref>.
-      (Also see <xref target="RFC7094">RFC 7094</xref>).  With anycast, a
+      (Also see <xref target="RFC7094"/>).  With anycast, a
       single IP address is assigned to multiple interfaces, and routers
       direct packets to the closest active interface.</t>
 
@@ -988,7 +987,7 @@
       and <xref target="Sec_Bcp"/>. </t>
       
       <t>There are several general threats to time synchronization protocols 
-      which are discussed in <xref target="RFC7384">RFC 7384</xref>.</t>
+      which are discussed in <xref target="RFC7384"/>.</t>
 
       <t>
       <xref target="NTSFORNTP"/> is an Internet-Draft that specifies the
@@ -1053,6 +1052,14 @@
     <!-- Here we use entities that we defined at the beginning. -->
 
     <references title="Informative References">
+	
+	<reference anchor="BCP38INFO" target="http://www.bcp38.info">
+  <front>
+    <title>BCP38 Info Page</title>
+    <author/>
+    <date/>
+  </front>
+</reference>
 <!-- [MILLS2006] Mills, D. (2006). Computer network time synchronization: the Network Time Protocol: CRC Press. -->
       <reference anchor="MILLS2006">
         <front>
