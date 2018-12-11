@@ -14,9 +14,8 @@
 <!ENTITY RFC4786 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4786.xml">
 <!ENTITY RFC7094 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7094.xml">
 <!ENTITY RFC4085 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4085.xml">
-<!--
-<!ENTITY RFC6557 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6557.xml"> 
--->
+<!ENTITY RFC7384 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7384.xml">
+
 <!ENTITY RFC8174 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml">
 <!ENTITY I-D.narten-iana-considerations-rfc2434bis SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.narten-iana-considerations-rfc2434bis.xml">
 ]>
@@ -196,7 +195,8 @@
     <section title="Introduction">
       <t>NTP Version 4 (NTPv4) has been widely used since its publication as
       <xref target="RFC5905"/>. This documentation is a
-      collection of best practices from across the NTP community.</t>
+      collection of best practices for the operation of NTP clients and
+      servers.</t>
       <t>The recommendations in this document are intended to help
       operators distribute time on their networks more accurately and more
       securely. It is intended to apply generally to a broad range of networks.
@@ -220,7 +220,7 @@
       </section>
     </section>
 
-    <section title="Keeping NTP up to date">
+ <!--   <section title="Keeping NTP up to date">
       <t>Many network security mechanisms rely on time as part of their
       operation.  If attackers can spoof the time, they may be able to
       bypass or neutralize other security elements. For example, incorrect
@@ -230,13 +230,7 @@
       unknown bug (or a known behavior) is exploited in the right way.  Even
       our definition of what is secure has evolved over the years, so code
       which was considered secure when it was written may turn out to be
-      insecure after some time. By keeping NTP implementations current,
-      having <xref target="TimeSources">"enough" trustworthy time sources</xref>, 
-      and <xref target="Monitoring"> properly monitoring their time 
-      infrastructure</xref>, network operators can make sure that their
-      time infrastructure is operating correctly and within specification,
-      and is not being attacked or misused.</t>
-      
+      insecure after some time. </t>
       <t>There are multiple versions of the NTP protocol in use, and
       multiple implementations, on many different platforms. The 
       practices in this document are meant to apply generally to any implementation
@@ -248,7 +242,7 @@
       
 
     </section>
-
+-->
     <section anchor="Sec_Gen" title="General Network Security Best Practices">
 
       <section anchor="bcp38" title="BCP 38">
@@ -279,8 +273,31 @@
     </section>
 
     <section title="NTP Configuration Best Practices">
-    <t>This section provides general Best Practices. Best Practices that 
-    are implementation specific are compiled in the Appendices.</t>
+    <t>This section provides Best Practices for NTP configuration and 
+    operation.  Best Practices that are specific to the NTF implementation 
+    are compiled in Appendix A.</t>
+    
+    <section title="Keeping NTP up to date">
+      <t>Many network security mechanisms rely on time as part of their
+      operation.  If attackers can spoof the time, they may be able to
+      bypass or neutralize other security elements. For example, incorrect
+      time can disrupt the ability to reconcile logfile entries on the
+      affected system with events on other systems. An
+      application which is secure today could be insecure tomorrow once an
+      unknown bug (or a known behavior) is exploited in the right way.  Even
+      our definition of what is secure has evolved over the years, so code
+      which was considered secure when it was written may turn out to be
+      insecure after some time. </t>
+      <t>There are multiple versions of the NTP protocol in use, and
+      multiple implementations, on many different platforms. The 
+      practices in this document are meant to apply generally to any implementation
+      of <xref target="RFC5905"/>. It is
+      RECOMMENDED that that NTP users select an implementation that is 
+      actively maintained. Users should keep up to date on any known 
+      attacks on their selected implementation, and deploy updates containing 
+      security fixes as soon as practical.</t>
+      
+    </section>
 
       <section anchor="TimeSources" title="Use enough time sources">
         <t>An NTP implementation that is compliant with 
@@ -291,8 +308,7 @@
         algorithms is beyond the scope of this document. Interested readers
         should read <xref target="RFC5905"/> or the detailed
         description of NTP in <xref target="MILLS2006"/>.
-        These available sources must be truly redundant and derive their time 
-        from independent sources.</t>
+        </t>
 
 	<t><list style="symbols">
           <t>If there is only 1 source of time, the answer is obvious.  It
@@ -301,14 +317,14 @@
           will be passed on to the client.</t>
 			 
           <t>If there are 2 sources of time and they agree well enough,
-          then the best "time" can be calculated easily. But if one source 
+          then the best time can be calculated easily. But if one source 
           fails, then the solution degrades to the single-source solution 
           outlined above. And if the two sources don't agree, then it's 
           impossible to know which one is correct by simply looking at the 
           time.</t>
 			 
           <t>If there are 3 sources of time, there is more data available to 
-          converge on a "best" time, and this time is more likely to be 
+          converge on the best calculated time, and this time is more likely to be 
           accurate. And the loss of one of the sources (by becoming unreachable
           or unusable) can be tolerated. But at that point, the solution 
           degrades to the 2 source solution.</t>
@@ -333,8 +349,9 @@
 	other 2 gave them consistent leap-smeared time. See
 	<xref target="leap_smear"/> for more information.</t>
 
-        <t>Monitor your NTP instances. If your time sources do not
-        generally agree, find out why and either correct the problems or
+        <t>Operators SHOULD monitor all of the time sources that are in use.
+        If time sources do not
+        generally agree, find out the cause and either correct the problems or
         stop using defective servers.  See <xref target="Monitoring"/> for
         more information.</t>
       </section>
@@ -369,9 +386,9 @@
         which originally have been specified in Appendix B of 
         <xref target="RFC1305"/> which defined NTPv3, but never have been 
         part of the NTPv4 specification. 
-        (Work is being done to formally document the structure of these 
+        Work is being done to formally document the structure of these 
         control messages in <xref target="CTRLMSG">draft-ietf-ntp-mode-6-cmds</xref>
-        .) </t>
+        . </t>
         <t>The NTP Control Messages
         are designed to permit monitoring and optionally authenticated 
         control of NTP and its configuration.  Used properly, these facilities provide vital
@@ -390,7 +407,7 @@
         the corresponding queries. Thus, they can be
         abused in high-bandwidth DDoS attacks. To provide protection for such
         abuse NTP server operators on large networks SHOULD deploy ingress filtering 
-        <xref target="RFC2827">BCP 38</xref>.</t>
+        in accordance with <xref target="RFC2827">BCP 38</xref>.</t>
         
       </section>
 
@@ -398,17 +415,17 @@
 
         <t>Operators SHOULD use their NTP implementation's remote monitoring capabilities to 
         quickly identify servers which are out of sync, and ensure correctness
-        of the service. Monitor system logs for messages so problems and abuse 
+        of the service. Operators SHOULD also monitor system logs for messages so problems and abuse 
         attempts can be quickly identified.</t>
 
         <t>If a system starts getting unexpected time replies from its time
         servers, that can be an indication that the IP address of the system
-        is being forged in requests to its time server, and these abusers
-        are trying to convince that time server to stop serving time to that
-        system.</t>
+        is being forged in requests to its time server. The goal of this attack
+        is to convince the time server to stop serving time to the system whose
+        address is being forged.</t>
 
         <t>If a system is a broadcast client and its system log shows that it
-        is receiving "early" time messages from its server, that is an
+        is receiving early time messages from its server, that is an
         indication that somebody may be forging packets from a broadcast
         server.</t>
 
@@ -468,9 +485,9 @@
 	<t>Since the length of the UT1 day
         is <eref target="https://en.wikipedia.org/wiki/Solar_time#Mean_solar_time">
         generally slowly increasing</eref>, all leap seconds that have been
-        introduced since the practice started in 1972 have been "positive"
+        introduced since the practice started in 1972 have been positive
         leap seconds, where a second is added to UTC.  NTP also supports a
-        "negative" leap second, where a second is removed from UTC, if
+        negative leap second, where a second is removed from UTC, if
         that ever becomes necessary.</t>
 
         <t>While earlier versions of NTP contained some ambiguity regarding
@@ -498,8 +515,8 @@
         
 
         <section anchor="leap_smear" title="Leap Smearing">
-          <t>Some NTP installations may instead make use of a technique
-          called "Leap Smearing".  With this method, instead of introducing
+          <t>Some NTP installations make use of a technique
+          called Leap Smearing.  With this method, instead of introducing
           an extra second (or eliminating a second), NTP time will be slewed
           in small increments over a comparably large window of time (called
           the smear interval) around the leap second event.  The smear
@@ -524,7 +541,7 @@
           OS's) are known to have problems with that.</t>
 
 	  <t>Clients that are connected to leap smearing servers MUST NOT
-	  apply the "standard" NTP leap second handling.  So these clients must 
+	  apply the standard NTP leap second handling.  So these clients must 
       never have a leap second file loaded, and the smearing servers must 
       never advertise to clients that a leap second is pending.</t>
 		  
@@ -557,7 +574,7 @@
         become a Man-In-The-Middle is therefore able to drop, replay or
         modify the content of the NTP packet, which leads to degradation of
         the time synchronization or the transmission of false time
-        information.  A profound threat analysis for time synchronization
+        information.  A threat analysis for time synchronization
         protocols is given in <xref target="RFC7384"/>.  NTP
         provides two internal security mechanisms to protect authenticity
         and integrity of the NTP packets.  Both measures protect the NTP
@@ -602,10 +619,10 @@
         <section title="Autokey">
           <t>Autokey was specified in 2010 to provide automated key management 
 		  and authentication of NTP servers.  However, security researchers
-	  have identified vulnerabilities in the Autokey protocol, which make 
-          the protocol <eref
-	  target="https://lists.ntp.org/pipermail/ntpwg/2011-August/001714.html">
-	  "useless".</eref></t>
+	      have identified <eref
+	      target="https://lists.ntp.org/pipermail/ntpwg/2011-August/001714.html">
+          vulnerabilities</eref> in the Autokey protocol. 
+	  </t>
 
           <t>Autokey SHOULD NOT be used.</t>
 
@@ -616,8 +633,7 @@
           is called
           <xref target="NTSFORNTP">Network Time Security (NTS)</xref>.  As 
           of November 2018, this effort was at draft #14, and in the 
-          'Working Group Last Call' process.  Readers are encouraged to adopt
-          its mechanisms.</t>
+          'Working Group Last Call' process. </t>
         </section>
 
 		
@@ -727,8 +743,8 @@
              <t>Configure the ntp client to only ignore the panic threshold in
              a cold start situation.</t>
             
-             <t>Add "minsane" and "minclock" parameters to the ntp.conf file
-             so ntpd waits until "enough" trusted sources of time agree on
+             <t>Add 'minsane' and 'minclock' parameters to the ntp.conf file
+             so ntpd waits until enough trusted sources of time agree on
              the correct time.</t>
           
           </list></t>
@@ -744,10 +760,10 @@
         signatures include:</t>
         
         <t><list style="numbers">
-          <t>"Bogus packets" - A packet whose origin timestamp does not
+          <t>Bogus packets - A packet whose origin timestamp does not
           match the value that expected by the client.</t>
 
-          <t>"Zero origin packet" - A packet with an origin timestamp set to
+          <t>Zero origin packet - A packet with an origin timestamp set to
           zero <xref target="CVE-2015-8138"/>.</t>
 
           <t>A packet with an invalid cryptographic MAC <xref target="CCR16"/>.</t>
@@ -756,19 +772,14 @@
         <t>The observation of many such packets could indicate that the client 
         is under attack.</t>
 
-        <t>Also, Kiss-o'-Death (KoD) packets can be used in denial of
-        service attacks.  Thus, the observation of even just one KoD packet
-        with a high poll value could be sign that the client
-        is under attack. See <xref target="KoD"/> for more information.
-        </t>
       </section>
 
       <section anchor="KoD" title="Kiss-o'-Death Packets">
         <t>The "Kiss-o'-Death" (KoD) packet is a rate limiting mechanism
-        where a server can tell a misbehaving client to "back off" its query
+        where a server can tell a misbehaving client to reduce its query
         rate.  It is RECOMMENDED that all NTP devices respect these packets
         and back off when asked to do so by a server.  It is even more
-        important for an embedded device, which may not have exposed a
+        important for an embedded device, which may not have an exposed 
         control interface for NTP.</t>
 
         <t>That said, a client MUST only accept a KoD packet if it has a valid
@@ -790,6 +801,11 @@
         administrators SHOULD be prepared for this and take measures outside
         of the NTP protocol to drop packets from misbehaving clients when these
         clients are detected.</t>
+        
+        <t>Also, Kiss-o'-Death (KoD) packets can be used in denial of
+        service attacks.  Thus, the observation of even just one KoD packet
+        with a high poll value could be sign that the client
+        is under attack.</t>
       </section>
 
       <section title="Broadcast Mode Should Only Be Used On Trusted Networks">
@@ -830,26 +846,19 @@
         cryptographically authenticated.  Each symmetric passive association
         SHOULD be authenticated under a different cryptographic key.</t>
 
-	<t>The use of a different cryptographic key per peer prevents a
+	<!-- <t>The use of a different cryptographic key per peer prevents a
 	Sybil attack, where a single malicious peer uses the same
 	cryptographic key to set up multiple symmetric associations with a
 	target, and thus bias the results of the target's Byzantine fault
-	tolerant peer selection algorithms.</t>
+	tolerant peer selection algorithms.</t> -->
 
-        <!-- <t>The use of a different cryptographic key per peer prevents
-        Sybil attacks.  If a target host uses the same key to authenticate
-        all symmetric peers, then a malicious peer could attempt to set up
-        multiple symmetric associations with the target host in order to
-        bias the result of the target's Byzantine fault tolerant selection
-        algorithms. </t> -->
 
       </section>
     </section>
 
     <section title="NTP in Embedded Devices">
-      <t>Readers of this BCP already understand how important
-      accurate time is for network computing.  And as computing becomes more
-      ubiquitous, there will be many small "Internet of Things" devices that
+      <t>As computing becomes more
+      ubiquitous, there will be many small embedded devices that
       require accurate time.  These devices may not have a persistent
 	  battery-backed clock, so using NTP to set the correct time on 
 	  power-up may be critical for proper operation. These devices may not
@@ -1014,39 +1023,27 @@
      filing system or remote ones accessed by http (http://domain/dir/... ).-->
 
     <references title="Normative References">
-      <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
-
-      &RFC2119;
-
-      <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5905.xml"?-->
 
       &RFC5905;
 
-      <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2827.xml"?-->
 
       &RFC2827;
 
-      <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2827.xml"?-->
 
       &RFC4786;
 
-      <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2827.xml"?-->
 
       &RFC7094;
       
-      <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.1305.xml"?-->
 	  
 	  &RFC1305;
       
-      <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4085.xml"?-->
 	  
 	  &RFC4085;
 
-      
-<!--      <?rfc include='reference.RFC.6557'?> 
--->
-      <?rfc include='reference.RFC.7384'?>
-      <?rfc include="reference.RFC.8174" ?>
+     
+      &RFC7384;
+
     </references>
 
     <!-- Here we use entities that we defined at the beginning. -->
@@ -1309,7 +1306,9 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
             target=' https://www.ietf.org/id/draft-ietf-ntp-mode-6-cmds-05' />
       </reference>
 
-    
+          &RFC2119;
+          &RFC8174;
+          
 
     </references> 
   
