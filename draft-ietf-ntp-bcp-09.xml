@@ -195,10 +195,12 @@
          keywords will be used for the search engine. -->
 
     <abstract>
-      <t>The Network Time Protocol (NTP), currently on its fourth version, 
-      has been widely used since its initial publication.  This documentation 
-      is a collection of Best Practices for general operation of time servers 
-      on the Internet from across the NTP community.</t>
+      <t>The Network Time Protocol (NTP) is one of the oldest protocols on 
+      the Internet and has been widely used since its initial publication. 
+      This document is a collection of Best Practices for general operation 
+      of NTP servers and clients on the Internet. It includes recommendations 
+      for stable, accurate and secure operation of NTP infrastructure. This
+      document is targeted at NTPv4 as described in RFC 5905.</t>
     </abstract>
   </front>
 
