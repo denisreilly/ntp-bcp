@@ -18,7 +18,18 @@
 
 <!ENTITY RFC8174 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml">
 <!ENTITY I-D.narten-iana-considerations-rfc2434bis SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.narten-iana-considerations-rfc2434bis.xml">
+
+<!ENTITY NTSFORNTP SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-ntp-using-nts-for-ntp.xml">
+
+<!ENTITY DATAMIN SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-ntp-data-minimization.xml">
+
+<!ENTITY NTPMAC SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-ntp-mac.xml">
+
+<!ENTITY CTRLMSG SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-ntp-mode-6-cmds.xml">
+
 ]>
+
+
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 <!-- used by XSLT processors -->
 <!-- For a complete list and description of processing instructions (PIs), 
@@ -387,8 +398,8 @@
         <xref target="RFC1305"/> which defined NTPv3, but never have been 
         part of the NTPv4 specification. 
         Work is being done to formally document the structure of these 
-        control messages in <xref target="CTRLMSG">draft-ietf-ntp-mode-6-cmds</xref>
-        . </t>
+        control messages in <xref target="I-D.ietf-ntp-mode-6-cmds"/>.
+        </t>
         <t>The NTP Control Messages
         are designed to permit monitoring and optionally authenticated 
         control of NTP and its configuration.  Used properly, these facilities provide vital
@@ -598,7 +609,7 @@
           must be supported for calculation of the MAC, but other algorithms 
           may be supported as well. The MD5 hash is now considered to be too 
           weak. Implementations will soon be available based on 
-          <xref target="NTPMAC">AES-128-CMAC </xref>, and users are encouraged
+          <xref target="I-D.ietf-ntp-mac">AES-128-CMAC </xref>, and users are encouraged
           to use that when it is available. </t>
 
           <t>To use this approach the communication partners have to
@@ -629,11 +640,8 @@
       </section>
 		
     <section title="Network Time Security">
-          <t> Work is in progress on an enhanced replacement for Autokey, which
-          is called
-          <xref target="NTSFORNTP">Network Time Security (NTS)</xref>.  As 
-          of November 2018, this effort was at draft #14, and in the 
-          'Working Group Last Call' process. </t>
+          <t> Work is in progress on an enhanced replacement for Autokey. Refer to
+          <xref target="I-D.ietf-ntp-using-nts-for-ntp"/> for more information. </t>
         </section>
 
 		
@@ -690,6 +698,9 @@
            from known sources.  Note well that proper monitoring of an
            NTP server instance includes checking the time of that NTP server
            instance.</t>
+           
+           <t>Please refer to <xref target="I-D.ietf-ntp-data-minimization"/>
+           for more information.</t>
       </section>
 
       <section title="Avoiding Daemon Restart Attacks">
@@ -999,8 +1010,8 @@
       which are discussed in <xref target="RFC7384"/>.</t>
 
       <t>
-      <xref target="NTSFORNTP"/> is an Internet-Draft that specifies the
-	  Network Time Security (NTS) mechanism and applies it specifically to 
+      <xref target="I-D.ietf-ntp-using-nts-for-ntp"/> specifies the
+	  Network Time Security (NTS) mechanism and applies it to 
 	  NTP.  Readers are encouraged to check the status of the draft, and 
 	  make use of the methods it describes.</t>
     </section>
@@ -1214,100 +1225,18 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
 
 <!-- NTS for NTP I-D -->
 
-      <reference anchor="NTSFORNTP">
-        <front>
-          <title>Using the Network Time Security Specification to Secure the Network Time Protocol</title>
-
-          <author initials='D' surname='Sibold' fullname='Dieter Sibold'>
-            <organization />
-          </author>
-
-          <author initials='S' surname='Roettger' fullname='Stephen Roettger'>
-            <organization />
-          </author>
-
-          <author initials='K' surname='Teichel' fullname='Kristof Teichel'>
-            <organization />
-          </author>
-
-          <date month='November' day='06' year='2018' />
-
-          <abstract><t>This memo specifies Network Time Security (NTS), a 
-		  mechanism for using Transport Layer Security (TLS) and Authenticated
-		  Encryption with Associated Data (AEAD) to provide cryptographic 
-		  security for the Network Time Protocol.</t></abstract>
-
-          </front>
-
-        <seriesInfo name='Internet-Draft' value='draft-ietf-ntp-using-nts-for-ntp-14' />
-        <format type='TXT'
-            target=' https://www.ietf.org/id/draft-ietf-ntp-using-nts-for-ntp-14.txt' />
-      </reference>
-      
+        &NTSFORNTP;
 <!-- NTP MAC -->
 
-      <reference anchor="NTPMAC">
-        <front>
-          <title>Message Authentication Code for the Network Time Protocol</title>
+        &NTPMAC;
+<!-- Control Message Draft --> 
+        &CTRLMSG;
 
-          <author initials='A' surname='Malhotra' fullname='Aanchal Malhotra'>
-            <organization />
-          </author>
-
-          <author initials='S' surname='Goldberg' fullname='Sharon Goldberg'>
-            <organization />
-          </author>
-
-          <date month='March' day='05' year='2018' />
-
-          <abstract><t>   RFC 5905 [RFC5905] states that Network Time Protocol (NTP) packets
-            should be authenticated by appending a 128-bit key to the NTP data,
-            and hashing the result with MD5 to obtain a 128-bit tag.  This
-            document deprecates MD5-based authentication, which is considered to
-            be too weak, and recommends the use of AES-CMAC [RFC4493] as a
-            replacement.</t></abstract>
-
-          </front>
-
-        <seriesInfo name='Internet-Draft' value='draft-ietf-ntp-mac-04' />
-        <format type='TXT'
-            target=' https://www.ietf.org/id/draft-ietf-ntp-mac-04' />
-      </reference>
-
-      <!-- Control Message Draft --> 
-  
-       <reference anchor="CTRLMSG">
-        <front>
-          <title>Control Messages Protocol for Use with Network Time Protocol Version 4</title>
-
-          <author initials='D' surname='Mills' fullname='David Mills'>
-            <organization />
-          </author>
-
-          <author initials='B' surname='Haberman' fullname='Brian Haberman'>
-            <organization />
-          </author>
-
-          <date month='March' day='28' year='2018' />
-
-          <abstract><t>   This document describes the structure of the control messages used
-   with the Network Time Protocol.  These control messages can be used
-   to monitor and control the Network Time Protocol application running
-   on any IP network attached computer.  The information in this
-   document was originally described in Appendix B of RFC 1305.  The
-   goal of this document is to provide a historic description of the
-   control messages as described in RFC 1305 and any additional commands
-   implemented in NTP.</t></abstract>
-
-          </front>
-
-        <seriesInfo name='Internet-Draft' value='draft-ietf-ntp-mode-6-cmds-05' />
-        <format type='TXT'
-            target=' https://www.ietf.org/id/draft-ietf-ntp-mode-6-cmds-05' />
-      </reference>
-
-          &RFC2119;
-          &RFC8174;
+<!-- Data minimization  -->     
+        &DATAMIN;
+      
+        &RFC2119;
+        &RFC8174;
           
 
     </references> 
