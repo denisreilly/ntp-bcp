@@ -200,13 +200,13 @@
       This document is a collection of Best Practices for general operation 
       of NTP servers and clients on the Internet. It includes recommendations 
       for stable, accurate and secure operation of NTP infrastructure. This
-      document is targeted at NTPv4 as described in RFC 5905.</t>
+      document is targeted at NTP version 4 as described in RFC 5905.</t>
     </abstract>
   </front>
 
   <middle>
     <section title="Introduction">
-      <t>NTP Version 4 (NTPv4) has been widely used since its publication as
+      <t>NTP version 4 (NTPv4) has been widely used since its publication as
       <xref target="RFC5905"/>. This documentation is a
       collection of best practices for the operation of NTP clients and
       servers.</t>
@@ -396,9 +396,9 @@
 
       <section anchor="mode67" title="Control Messages">
         <t>Some implementations of NTPv4 provide the NTP Control Messages
-        which originally have been specified in Appendix B of 
-        <xref target="RFC1305"/> which defined NTPv3, but never have been 
-        part of the NTPv4 specification. 
+        that were originally specified in Appendix B of 
+        <xref target="RFC1305"/> which defined NTPv3.  These messages were  
+        never included the NTPv4 specification, but they are still used. 
         Work is being done to formally document the structure of these 
         control messages in <xref target="I-D.ietf-ntp-mode-6-cmds"/>.
         </t>
@@ -530,7 +530,8 @@
         <section anchor="leap_smear" title="Leap Smearing">
           <t>Some NTP installations make use of a technique
           called Leap Smearing.  With this method, instead of introducing
-          an extra second (or eliminating a second), NTP time will be slewed
+          an extra second (or eliminating a second) on a leap second event, 
+          NTP time will be slewed
           in small increments over a comparably large window of time (called
           the smear interval) around the leap second event.  The smear
           interval should be large enough to make the rate that the time is
@@ -539,12 +540,7 @@
           successfully.  During the adjustment window, all the NTP clients'
           times may be offset from UTC by as much as a full second,
           depending on the implementation.  But at least all clients will
-          generally agree on what time they think it is.</t>
-
-          <t>Operators who have legal obligations or other strong requirements
-          to be synchronized with UTC or civil time SHOULD NOT use leap smearing,
-          because the distributed time cannot be guaranteed to be traceable to 
-          UTC during the smear interval.</t>          
+          generally agree on what time they think it is.</t>         
 		  
 	  <t>The purpose of Leap Smearing is to enable systems that don't
           deal with the leap second event properly to function consistently,
@@ -552,6 +548,11 @@
           a standard leap second event, that minute will have 61 (or
           possibly 59) seconds in it, and some applications (and even some
           OS's) are known to have problems with that.</t>
+          
+          <t>Operators who have legal obligations or other strong requirements
+          to be synchronized with UTC or civil time SHOULD NOT use leap smearing,
+          because the distributed time cannot be guaranteed to be traceable to 
+          UTC during the smear interval.</t> 
 
 	  <t>Clients that are connected to leap smearing servers MUST NOT
 	  apply the standard NTP leap second handling.  So these clients must 
@@ -1264,7 +1265,7 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
         target="TimeSources"/> the ntpd implementation provides the 'pool'
         directive. 
         Starting with ntp-4.2.6, this directive will spin up
-        "enough" associations to provide robust time service, and will
+        enough associations to provide robust time service, and will
         disconnect poor servers and add in new servers as-needed.  If you
         have good reason, you may use the 'minclock' and 'maxclock' options
         of the 'tos' command to override the default values of how many
