@@ -915,7 +915,7 @@
         which advises against embedding globally-routable IP addresses in 
         products, and offers several better alternatives.</t>
 
-        <section title="Get a vendor subdomain for pool.ntp.org">
+        <section title="NTP Pool Project Vendor Subdomains">
           <t>The NTP Pool Project offers a program where vendors can obtain
           their own subdomain that is part of the NTP Pool.  This offers
           vendors the ability to safely make use of the time distributed by
