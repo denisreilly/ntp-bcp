@@ -207,7 +207,7 @@
   <middle>
     <section title="Introduction">
       <t>NTP version 4 (NTPv4) has been widely used since its publication as
-      <xref target="RFC5905"/>. This documentation is a
+      <xref target="RFC5905"/>. This document is a
       collection of best practices for the operation of NTP clients and
       servers.</t>
       <t>The recommendations in this document are intended to help
@@ -295,17 +295,11 @@
       operation.  If attackers can spoof the time, they may be able to
       bypass or neutralize other security elements. For example, incorrect
       time can disrupt the ability to reconcile logfile entries on the
-      affected system with events on other systems. An
-      application which is secure today could be insecure tomorrow once an
-      unknown bug (or a known behavior) is exploited in the right way.  Even
-      our definition of what is secure has evolved over the years, so code
-      which was considered secure when it was written may turn out to be
-      insecure after some time. </t>
+      affected system with events on other systems. </t>
       <t>There are multiple versions of the NTP protocol in use, and
       multiple implementations, on many different platforms. The 
       practices in this document are meant to apply generally to any implementation
-      of <xref target="RFC5905"/>. It is
-      RECOMMENDED that that NTP users select an implementation that is 
+      of <xref target="RFC5905"/>. NTP users should select an implementation that is 
       actively maintained. Users should keep up to date on any known 
       attacks on their selected implementation, and deploy updates containing 
       security fixes as soon as practical.</t>
@@ -362,8 +356,8 @@
 	other 2 gave them consistent leap-smeared time. See
 	<xref target="leap_smear"/> for more information.</t>
 
-        <t>Operators SHOULD monitor all of the time sources that are in use.
-        If time sources do not
+        <t>Operators are advised to monitor all of the time sources that are 
+        in use.  If time sources do not
         generally agree, find out the cause and either correct the problems or
         stop using defective servers.  See <xref target="Monitoring"/> for
         more information.</t>
@@ -371,7 +365,7 @@
 
       <section anchor="Diversity" title="Use a diversity of Reference Clocks">
         <t>When using servers with attached hardware reference clocks, it is
-        RECOMMENDED that several different types of reference clocks be
+        suggested that different types of reference clocks be
         used.  Having a diversity of sources with independent implementations 
         means that any one issue is less likely to cause a service interruption.</t>
 
@@ -388,10 +382,10 @@
 
         <t>A systemic problem with time from any satellite navigation
         service is possible and has happened.  Sunspot activity can render
-        satellite or radio-based time source unusable.  If the time on your
-        network has to be correct close to 100% of the time, then even if you
-        are using a satellite-based system, operators need to plan for those rare
-        instances when the system is unavailable (or wrong!).</t>
+        satellite or radio-based time source unusable.  Depending on the 
+        application requirements, operators may need to consider backup 
+        scenarios in the rare circumstance when the satellite system 
+        is faulty or unavailable.</t>
       </section>
 
       <section anchor="mode67" title="Control Messages">
@@ -412,13 +406,13 @@
 
         <t>The ability to use Mode 6 beyond its basic monitoring
         capabilities SHOULD be limited to authenticated sessions that provide a
-        'controlkey'. It MAY also be limited through mechanisms outside of the
+        'controlkey'. It can also be limited through mechanisms outside of the
         NTP specification, such as Access Control Lists, that only allow access 
         from approved IP addresses.</t>
 
         <t>The NTP Control Messages responses are much larger than
         the corresponding queries. Thus, they can be
-        abused in high-bandwidth DDoS attacks. To provide protection for such
+        abused in high-bandwidth DDoS attacks. To provide protection from such
         abuse NTP server operators on large networks SHOULD deploy ingress filtering 
         in accordance with <xref target="RFC2827">BCP 38</xref>.</t>
         
@@ -455,25 +449,25 @@
         <t>It only takes a small amount of bandwidth and system resources to
         synchronize one NTP client, but NTP servers that can service tens of
         thousands of clients take more resources to run.  Users who want to
-        synchronize their computers SHOULD only synchronize to servers that
-        they have permission to use. </t>
+        synchronize their computers are advised to only synchronize to 
+        servers that they have permission to use. </t>
 
         <t>The NTP pool project is a group of volunteers who have donated
         their computing and bandwidth resources to freely distribute time
         from primary time sources to others on the Internet.  The time is
         generally of good quality, but comes with no guarantee whatsoever.
-        If you are interested in using the pool, please review their
+        If you are interested in using the NTP pool, please review their
         instructions at <eref target="http://www.pool.ntp.org/en/use.html">
         http://www.pool.ntp.org/en/use.html</eref>.</t>
 
-	<t>If you are a vendor who wishes to provide time service to your
-	customers or clients, consider joining the pool and providing a
-	"vendor zone" through the pool project.</t>
+	    <t>A vendor who wishes to provide time service to customers might 
+        consider joining the NTP pool and providing a “vendor zone” 
+        through that service.</t>
 
-        <t>If you want to synchronize many computers, consider running your
-        own NTP servers that are synchronized by the pool, and synchronizing
-        your clients to your in-house NTP servers. This reduces the load on
-        the pool.</t>
+        <t>If there is a need to synchronize a large number of computers, 
+        an operator may want to run local NTP servers that are synchronized 
+        to the NTP pool service. NTP users on that operator’s networks can 
+        then be synchronized to local NTP servers.</t>
 
       </section>
 
@@ -488,13 +482,14 @@
         and Reference Systems Service (IERS) in its
 	<eref target="https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html">Bulletin
         C </eref> when necessary to keep UTC and UT1 aligned.</t>
+        
         <t>NTP time is based on the UTC timescale, and the protocol has the
         capability to broadcast leap second information.  Some Global Navigation 
         Satellite Systems (like GPS) or radio transmitters (like DCF77) broadcast leap second
-        information, so if you are synced to an NTP server that is
-        ultimately synced to a source that provides leap second notification
-        you will get advance notification of impending leap seconds
+        information. If an NTP client is synced to an NTP server that provides leap second 
+        notification, the client will get advance notification of impending leap seconds
         automatically.</t>
+        
 	<t>Since the length of the UT1 day
         is <eref target="https://en.wikipedia.org/wiki/Solar_time#Mean_solar_time">
         generally slowly increasing</eref>, all leap seconds that have been
@@ -622,7 +617,7 @@
           information to its own key file.</t>
 
           <t>Some implementations store the key in clear text.  Therefore it
-          SHOULD only be readable by the NTP process.  Different keys are
+          needs to be only be readable by the NTP process.  Different keys are
           added line by line to the key file.</t>
 
           <t>An NTP client establishes a protected association by appending
@@ -662,7 +657,7 @@
       <t>This section lists some general NTP security practices,
       but these issues may (or may not) have been mitigated in particular
       versions of particular implementations. Contact the maintainers of 
-      your implementation for more information.</t>
+      the relevant implementation for more information.</t>
 	<section title="Minimizing Information Leakage">
           <t>The base NTP packet leaks important information (including
            reference ID and reference time) that may be used in attacks
@@ -682,11 +677,11 @@
 		   remote attackers not on the list.  Hosts SHOULD only respond to 
            NTP control queries from authorized parties. </t>
 
-           <t>A host that is not supposed to act as an NTP server that
-           provides timing information to other hosts MAY additionally log
+           <t>A NTP client that does not provide time on the network 
+           can additionally log
            and drop incoming mode 3 timing queries from unexpected sources.
-           Note well that the easiest way to monitor ntpd's status is to
-           send it a mode 3 query.  It is recommended that operators SHOULD
+           Note well that the easiest way to monitor the status of an NTP instance 
+           is to send it a mode 3 query.  It is recommended that operators SHOULD
            filter mode 3 queries at the edge, or make sure mode 3 queries
            are allowed only from trusted systems or networks.</t>
 
@@ -763,7 +758,7 @@
           
           </list></t>
           
-          <t>In addition, implementations SHOULD prevent the NTP daemon from 
+          <t>In addition, implementors SHOULD prevent the NTP daemon from 
           taking time steps that set the clock to a time earlier than the 
           compile date of the NTP daemon.</t>
       </section>
@@ -812,7 +807,7 @@
         be effective.  Some clients ignore the KoD packet entirely, and
         other poorly-implemented clients might unintentionally increase
         their poll rate and simulate a denial of service attack.  Server
-        administrators SHOULD be prepared for this and take measures outside
+        administrators are advised to be prepared for this and take measures outside
         of the NTP protocol to drop packets from misbehaving clients when these
         clients are detected.</t>
         
@@ -881,7 +876,8 @@
 	  traditional deployments.</t>
 
       <section title="Updating Embedded Devices">
-        <t>Vendors of embedded devices MUST pay attention to the current state 
+        <t>Vendors of embedded devices are advised to pay attention to the 
+        current state 
 		of protocol security issues and bugs in their chosen implementation,
         because their customers don't have the ability to update their NTP
         implementation on their own.  Those devices may have a single
@@ -890,9 +886,8 @@
         responsibility of making sure their devices have the latest NTP
         updates applied.</t>
 
-        <t>Vendors of embedded devices SHOULD also include the ability 
-        to update information regarding which NTP server to connect to 
-        on these devices.</t>
+        <t>Vendors of embedded devices SHOULD include the ability to update 
+        the list of NTP servers used by the device.</t>
 
         <t>There is a catalog of NTP server abuse incidents, some of which
 	involve embedded devices, on the Wikipedia page
@@ -901,12 +896,12 @@
       </section>
 
       <section title="Server configuration">
-        <t>Vendors of embedded devices that need time synchronization SHOULD
-        also carefully consider where they get their time from.  There are
+        <t>Vendors of embedded devices with preconfigured NTP servers need 
+        to carefully consider which servers to use. There are
         several public-facing NTP servers available, but they may not be
         prepared to service requests from thousands of new devices on the
-        Internet. Vendors SHOULD only synchronize to servers that
-        they have permission to use.</t>
+        Internet. Vendors SHOULD only preconfigure NTP servers that they have
+        permission to use.</t>
 
         <t>Vendors are encouraged to invest resources into providing their own
         time servers for their devices to connect to.</t>
@@ -1266,9 +1261,9 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
         directive. 
         Starting with ntp-4.2.6, this directive will spin up
         enough associations to provide robust time service, and will
-        disconnect poor servers and add in new servers as-needed.  If you
-        have good reason, you may use the 'minclock' and 'maxclock' options
-        of the 'tos' command to override the default values of how many
+        disconnect poor servers and add in new servers as-needed.  
+        If there is a good reason, the 'minclock' and 'maxclock' options
+        of the 'tos' command may be used to override the default values of how many
         servers are discovered through the 'pool' directive.</t>
        </section>
       	 <section anchor="NTPFacilityMessages" 
@@ -1309,7 +1304,7 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
         <t>restrict default -6 nomodify notrap nopeer noquery</t>
 
         <t>restrict source nomodify notrap noquery <vspace />
-		# nopeer is OK if you don't use the 'pool' directive</t>
+		</t>
       	 </section>
 
        
@@ -1337,9 +1332,9 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
 	     file onto the server, add this line to ntpd.conf to apply and use
 	    the file:</t>
 
-        <t>leapfile "/path/to your/leap-file"</t>
+        <t>leapfile "/path/to/leap-file"</t>
 
-        <t>You may need to restart ntpd to apply this change.</t>
+        <t>There may need to restart ntpd to apply this change.</t>
 
         <t>ntpd servers with a manually configured leap second file will
         ignore leap second information broadcast from upstream NTP servers
