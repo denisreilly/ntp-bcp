@@ -33,7 +33,7 @@ Robert Sparks
 ## Resolution
 We’re revisiting this also for the consistency of application.
 
-#Comment
+# Comment
 
 Section 2.1:
 
@@ -46,7 +46,7 @@ Alissa Cooper
 ## Resolution
 Agree
 
-#Comment
+# Comment
 Section 3.2:
 
 "If time sources do not generally agree, find out the cause and either
@@ -64,7 +64,7 @@ Alissa Cooper
 How about “operators are encouraged to find out why”
 
 
-#Comment
+# Comment
 Section 3.3:
 
 Please fix the sentence highlighted by the Gen-ART reviewer.
@@ -77,7 +77,7 @@ Alissa Cooper
 Change to:
 Depending on the application requirements, operators may need to consider backup scenarios in the rare circumstance when the satellite system is faulty or unavailable.
 
-#Comment
+# Comment
 Section 3.4:
 
 "To provide protection for such abuse NTP server
@@ -95,7 +95,7 @@ Alissa Cooper
 ## Resolution
 Simply because we are using the works “networks” here more broadly than ISP’s. We considered ISP’s to be large networks by definition. We can use the same language here as in Section 2.1: ISPs and large corporate networks.
 
-#Comment
+# Comment
 
 Section 3.6:
 
@@ -109,7 +109,7 @@ Alissa Cooper
 ## Resolution
 We’re revisiting the text one more time to clarify these. 
 
-#Comment
+# Comment
 Section 4.1:
 
 "Therefore, for each association, keys SHOULD be exchanged securely by external
@@ -133,7 +133,7 @@ Alissa Cooper
 We did discuss this, and decided that since there is no formally defined approach to share these keys outside the protocol, that it might be unreasonable to make this a MUST, while leaving the process of how to do this undefined
 
 
-#Comment
+# Comment
 Section 5:
 
 Same comment as Section 3.2. The subject to which the directive is being given
@@ -146,7 +146,7 @@ Alissa Cooper
 ## Resolution
 Change to “Contact the maintainers of the relevant implementation for more information.”
 
-#Comment
+# Comment
 Section 5.2:
 
 "It is likely to become the default behavior in other
@@ -164,7 +164,7 @@ Alissa Cooper
 Agree
 
 
-#Comment
+# Comment
 
 "Operators SHOULD be aware that when operating with the above two
   conditions, the panic threshold offers no protection from attacks."
@@ -178,7 +178,7 @@ Alissa Cooper
 ## Resolution
 DR: I remember thinking about this one in particular. I thought that it as needed to keep this normative to balance the second normative statement in the document. Perhaps I was wrong, though. I can change it to “Operators need to be aware” and keep the second statement of  “operators SHOULD NOT ignore the panic threshold” intact.
 
-#Comment
+# Comment
 Section 6.1:
 
 "Vendors of embedded devices MUST pay attention to the current state
@@ -187,13 +187,13 @@ Section 6.1:
 Same comment as 5.2, it's inappropriate to normatively require paying attention.
 
 
-##Who
+## Who
 Alissa Cooper
 
 ## Resolution
 Will use “are advised to”
 
-#Comment
+# Comment
 Section 6.2.1:
 
 "For more information, visit ..."
@@ -201,14 +201,14 @@ Section 6.2.1:
 Same comment as 3.2 and 5 -- this sentence needs a subject.
 
 
-##Who
+## Who
 Alissa Cooper
 
 ## Resolution
 Will use "Details are available at...."
 
 
-#Comment
+# Comment
 §1:
 
 This document also contains information for protocol implementors who
@@ -217,14 +217,14 @@ want to develop their own RFC 5905 compliant implementations.
 Nit: "RFC-5909-compliant" or "[RFC5909]-compliant".
 
 
-##Who
+## Who
 Adam Roach
 
 ## Resolution
 Agree
 
 
-#Comment
+# Comment
 §2.1:
 
 UDP-based protocols such as NTP are generally more
@@ -237,13 +237,13 @@ The use of "other" implies that NTP is a connection-oriented protocol, which
 doesn't match my understanding. I think you want to simply remove "other".
 
 
-##Who
+## Who
 Adam Roach
 
 ## Resolution
 Agree on both points
 
-#Comment
+# Comment
 §3:
 
 This section provides Best Practices for NTP configuration and
@@ -253,26 +253,26 @@ implementation are compiled in Appendix A.
 Please expand "NTF" on first use.
 
 
-##Who
+## Who
 Adam Roach
 
 ## Resolution
 Agree
 
 
-#Comment
+# Comment
 §4.2:
 
 Maybe cite RFC 5906 here?
 
 
-##Who
+## Who
 Adam Roach
 
 ## Resolution
 We specifically did not want to cite RFC 5906 here as we are advising that people not use it. In retrospect, we will add it as an informative reference.
 
-#Comment
+# Comment
 §5.2:
 
 Some of the mitigations in here seem specific to one implementation of an NTP
@@ -282,14 +282,14 @@ appears to be generic, I propose that these practices either be described in an
 implementation-neutral way; or, if that is not possible, moved to Appendix A.
 
 
-##Who
+## Who
 Adam Roach
 
 ## Resolution
 “Increase the minimum number of servers required before the NTP client adjusts the system clock. This will make the NTP client wait until enough trusted sources of time agree before declaring the time to be correct.”
 
 
-#Comment
+# Comment
 §7:
 
 With anycast, a single IP address is assigned to multiple interfaces,
@@ -302,13 +302,13 @@ If I didn't already know the meaning of "anycast," this description would
 leave me scratching my head.  Perhaps use the term "node" or "server" instead.
 
 
-##Who
+## Who
 Adam Roach
 
 ## Resolution
 Agree -- use "Servers"
 
-#Comment
+# Comment
 §7:
 
 As
@@ -321,7 +321,7 @@ routing tables.  In more extreme cases -- e.g., flapping routes --  this could
 result in clients switching between two different servers rapidly.
 
 
-##Who
+## Who
 Adam Roach
 
 ## Resolution
@@ -329,7 +329,7 @@ Change to:
 As anycast servers enter and leave the network, or the network topology changes, the server a particular client is connected to may change. This may cause a small shift in time from the perspective of the client when the server it is connected to changes.  In extreme cases where the network topology is changing rapidly, this could cause the server connection with a client to rapidly change as well, which can lead to larger time inaccuracies. It is RECOMMENDED that anycast only be deployed in environments where this behavior can be tolerated.
 
 
-#Comment
+# Comment
 §A.7:
 
 (This is easy to do
@@ -341,13 +341,13 @@ difficult to spoof packets [CCR16].
 Nit: This is missing a closing parenthesis.
 
 
-##Who
+## Who
 Adam Roach
 
 ## Resolution
 Agreed
 
-#Comment
+# Comment
 I understand every sentence in this text
 
  Many network security mechanisms rely on time as part of their
@@ -374,13 +374,13 @@ relates to an attack on NTP-provided time. Could you help me understand how
 this is tied together?
 
 
-##Who
+## Who
 Spencer Dawkins
 
 ## Resolution
 After reviewing it, we now think the second part isn’t necessary anymore and we’ll take it out.
 
-#Comment
+# Comment
 Is "users" the right term in
 
 3.6.  Using Pool Servers
@@ -398,13 +398,13 @@ using pool servers, but the explanation about pool servers is in the second
 paragraph.
 
 
-##Who
+## Who
 Spencer Dawkins
 
 ## Resolution
 We will clarify that “Network operators and advanced users who want to synchronize the computers on their networks” really need to pay attention.
 
-#Comment
+# Comment
 Is the choice of lower case "should" in
 
 3.7.1.  Leap Smearing
@@ -421,13 +421,13 @@ intentional? It seemed close enough to some of the SHOULDs in this document
 that I wanted to ask ...
 
 
-##Who
+## Who
 Spencer Dawkins
 
 ## Resolution
 Yes, it’s intentional. Leap smearing is a bit controversial, and the only guidance we wanted to offer is when it should not be used. 
 
-#Comment
+# Comment
 Is it obvious how a system administrator would detect a mixture of smeared and
 non-smeared servers, as in
 
@@ -443,14 +443,14 @@ aren't mixed, but you are using servers you don't control, and the server
 administrator changes the server behavior.
 
 
-##Who
+## Who
 Spencer Dawkins
 
 ## Resolution
 We struggled with this a bit, as there’s no standard way to detect a leap smear. There is some work being done on this, but nothing is far enough along to make a formal recommendation. We recommend not to use leap smear on public facing servers, but we know that people do it anyway. We are taking the point of view that if we inform operators that this may happen, they can ask the questions they need to ask ahead of time (or have a better clue what might be going on if one of their upstream servers disagrees with the others over the leap second.)
 
 
-#Comment
+# Comment
 I don't think
 
  Operators SHOULD be aware that when operating with the above two
@@ -460,13 +460,13 @@ needs BCP14 requirements language. When would operators make an informed
 decision to be unaware?
 
 
-##Who
+## Who
 Spencer Dawkins
 
 ## Resolution
 Changed to "need to be aware"
 
-#Comment
+# Comment
 In this text,
 
  In addition, implementations SHOULD prevent the NTP daemon from
@@ -477,7 +477,7 @@ it would be helpful to me, to explain why this requirement is included. I can
 imagine a couple of reasons, but I'm guessing.
 
 
-##Who
+## Who
 Spencer Dawkins
 
 ## Resolution
@@ -485,13 +485,13 @@ We included it as a simple check against setting the time way too early that pro
 
 
 
-#Comment
+# Comment
 
 I wonder if the SUIT working group has any drafts that are stable enough to be
 used as an informative reference in Section 6.1, "Updating Embedded Devices".
 
 
-##Who
+## Who
 Spencer Dawkins
 
 ## Resolution
