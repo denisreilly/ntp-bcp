@@ -33,6 +33,17 @@ Robert Sparks
 ## Resolution
 We’re revisiting this also for the consistency of application.
 
+# Comment (Discuss)
+
+RFC 2119 and RFC 8174 need to be normative references.
+
+## Who
+Alissa Cooper
+
+## Resolution
+Agree
+
+
 # Comment
 
 Section 2.1:
