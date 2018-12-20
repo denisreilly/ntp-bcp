@@ -6,6 +6,7 @@
      There has to be one entity for each item to be referenced. 
      An alternate method (rfc include) is described in the references. -->
 <!ENTITY RFC5905 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5905.xml">
+<!ENTITY RFC5906 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5906.xml">
 <!ENTITY RFC1305 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.1305.xml">
 <!ENTITY RFC2827 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2827.xml">
 <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
@@ -220,7 +221,7 @@
       configuration. NTP operation in embedded devices is also covered.</t>
       <t>This document also contains 
       information for protocol implementors who want to develop their own
-      RFC 5905 compliant implementations. </t> 
+      implementations that are compliant to RFC 5905. </t> 
        	  
 
       <section title="Requirements Language">     
@@ -233,17 +234,12 @@
       </section>
     </section>
 
- <!--   <section title="Keeping NTP up to date">
+    <section title="Keeping NTP up to date">
       <t>Many network security mechanisms rely on time as part of their
       operation.  If attackers can spoof the time, they may be able to
       bypass or neutralize other security elements. For example, incorrect
       time can disrupt the ability to reconcile logfile entries on the
-      affected system with events on other systems. An
-      application which is secure today could be insecure tomorrow once an
-      unknown bug (or a known behavior) is exploited in the right way.  Even
-      our definition of what is secure has evolved over the years, so code
-      which was considered secure when it was written may turn out to be
-      insecure after some time. </t>
+      affected system with events on other systems.</t>
       <t>There are multiple versions of the NTP protocol in use, and
       multiple implementations, on many different platforms. The 
       practices in this document are meant to apply generally to any implementation
@@ -255,14 +251,14 @@
       
 
     </section>
--->
+
     <section anchor="Sec_Gen" title="General Network Security Best Practices">
 
       <section anchor="bcp38" title="BCP 38">
         <t>Many network attacks rely on modifying the IP source address of a
         packet to point to a different IP address than the computer which
         originated it. UDP-based protocols such as NTP are generally more
-        susceptible to spoofing attacks then other connection-oriented
+        susceptible to spoofing attacks than connection-oriented
         protocols. NTP control messages can generate a lot of data in
         response to a small query, which makes it more attractive as a 
         vector for distributed denial-of-service attacks. (NTP Control 
@@ -274,11 +270,11 @@
         anyone administering NTP.</t>
         
         <t><xref target="RFC2827">BCP 38</xref> was
-        approved in 2000 to address this. BCP
+        published in 2000 to address this. BCP
         38 calls for filtering outgoing and incoming traffic to make
         sure that the source and destination IP addresses are consistent
         with the expected flow of traffic on each network interface. It is
-        RECOMMENDED that large corporate networks (and ISP's of any size)
+        RECOMMENDED that ISP's and large corporate networks
 		implement ingress and egress filtering. More information is
 		available at the
 	<xref target="BCP38INFO">BCP38 Info Web page</xref> .</t>
@@ -287,8 +283,8 @@
 
     <section title="NTP Configuration Best Practices">
     <t>This section provides Best Practices for NTP configuration and 
-    operation.  Best Practices that are specific to the NTF implementation 
-    are compiled in Appendix A.</t>
+    operation.  Best Practices that are specific to the Network Time Foundation
+    implementation are compiled in Appendix A.</t>
     
     <section title="Keeping NTP up to date">
       <t>Many network security mechanisms rely on time as part of their
@@ -357,9 +353,10 @@
 	<xref target="leap_smear"/> for more information.</t>
 
         <t>Operators are advised to monitor all of the time sources that are 
-        in use.  If time sources do not
-        generally agree, find out the cause and either correct the problems or
-        stop using defective servers.  See <xref target="Monitoring"/> for
+        in use.  If time sources do not generally agree, operators are 
+        encouraged to look into the cause of this and either 
+        correct the problems or stop using defective servers.  
+        See <xref target="Monitoring"/> for
         more information.</t>
       </section>
 
@@ -413,8 +410,8 @@
         <t>The NTP Control Messages responses are much larger than
         the corresponding queries. Thus, they can be
         abused in high-bandwidth DDoS attacks. To provide protection from such
-        abuse NTP server operators on large networks SHOULD deploy ingress filtering 
-        in accordance with <xref target="RFC2827">BCP 38</xref>.</t>
+        abuse NTP server operators for ISP's and large corporate networks SHOULD 
+        deploy ingress filtering in accordance with <xref target="RFC2827">BCP 38</xref>.</t>
         
       </section>
 
@@ -448,7 +445,8 @@
       <section title="Using Pool Servers">
         <t>It only takes a small amount of bandwidth and system resources to
         synchronize one NTP client, but NTP servers that can service tens of
-        thousands of clients take more resources to run.  Users who want to
+        thousands of clients take more resources to run.  Network operators
+        and advanced users who want to
         synchronize their computers are advised to only synchronize to 
         servers that they have permission to use. </t>
 
@@ -460,13 +458,13 @@
         instructions at <eref target="http://www.pool.ntp.org/en/use.html">
         http://www.pool.ntp.org/en/use.html</eref>.</t>
 
-	    <t>A vendor who wishes to provide time service to customers might 
-        consider joining the NTP pool and providing a “vendor zone” 
+        <t>A vendor who wishes to provide time service to customers might 
+        consider joining the NTP pool and providing a "vendor zone" 
         through that service.</t>
 
-        <t>If there is a need to synchronize a large number of computers, 
-        an operator may want to run local NTP servers that are synchronized 
-        to the NTP pool service. NTP users on that operator’s networks can 
+        <t>If there is a need to synchronize a large number of computers,
+        an operator may want to run local NTP servers that are synchronized
+        to the NTP pool service. NTP users on that operator's networks can
         then be synchronized to local NTP servers.</t>
 
       </section>
@@ -626,7 +624,8 @@
         </section>
 
         <section title="Autokey">
-          <t>Autokey was specified in 2010 to provide automated key management 
+          <t><xref target="RFC5906"/> specifies the Autokey protocol. 
+          It was published in 2010 to provide automated key management 
 		  and authentication of NTP servers.  However, security researchers
 	      have identified <eref
 	      target="https://lists.ntp.org/pipermail/ntpwg/2011-August/001714.html">
@@ -718,7 +717,8 @@
             traditional init systems with process supervisors, such as
             systemd, which can be configured to automatically restart any
             daemons that quit.  This behavior is the default in CoreOS and
-            Arch Linux.  It is likely to become the default behavior in
+            Arch Linux.  As of the time of this writing, it appears
+            likely to become the default behavior in
             other systems as they migrate legacy init scripts to process
             supervisors such as systemd.)</t>
           
@@ -731,7 +731,7 @@
           when it restarts, it ignores the panic threshold and
           accepts the attacker's large offset.</t>
 
-          <t>Operators SHOULD be aware that when operating with the above 
+          <t>Operators need to be aware that when operating with the above 
           two conditions, the panic threshold offers no protection from attacks.  
           The natural solution is not to run hosts with these
           conditions.  Specifically, operators SHOULD NOT ignore the panic 
@@ -752,9 +752,10 @@
              <t>Configure the ntp client to only ignore the panic threshold in
              a cold start situation.</t>
             
-             <t>Add 'minsane' and 'minclock' parameters to the ntp.conf file
-             so ntpd waits until enough trusted sources of time agree on
-             the correct time.</t>
+             <t>Increase the minimum number of servers required before the NTP 
+             client adjusts the system clock. This will make the NTP client wait 
+             until enough trusted sources of time agree before declaring the 
+             time to be correct.</t>
           
           </list></t>
           
@@ -915,8 +916,8 @@
           their own subdomain that is part of the NTP Pool.  This offers
           vendors the ability to safely make use of the time distributed by
           the Pool for their devices.  Vendors are encouraged to support the
-          pool if they participate.  For more information,
-          visit <eref target="http://www.pool.ntp.org/en/vendors.html">
+          pool if they participate.  Details are available at
+          <eref target="http://www.pool.ntp.org/en/vendors.html">
           http://www.pool.ntp.org/en/vendors.html</eref> .</t>
         </section>
       </section>
@@ -925,8 +926,8 @@
     <section title="NTP over Anycast">
       <t>Anycast is described in <xref target="RFC4786">BCP 126</xref>.
       (Also see <xref target="RFC7094"/>).  With anycast, a
-      single IP address is assigned to multiple interfaces, and routers
-      direct packets to the closest active interface.</t>
+      single IP address is assigned to multiple servers, and routers
+      direct packets to the closest active server.</t>
 
       <t>Anycast is often used for Internet services at known IP addresses,
       such as DNS.  Anycast can also be used in large organizations to
@@ -946,13 +947,15 @@
       analysis will not happen.</t>
 
       <t>If clients are connected to an NTP server via anycast, the client
-      does not know which particular server they are connected to.  As
-      anycast servers may arbitrarily enter and leave the network, the
-      server a particular client is connected to may change.  This may cause
-      a small shift in time from the perspective of the client when the
-      server it is connected to changes.  It is RECOMMENDED that anycast
-      only be deployed in environments where these small shifts can be
-      tolerated.</t>
+      does not know which particular server they are connected to.  As 
+      anycast servers enter and leave the network, or the network topology 
+      changes, the server a particular client is connected to may change. 
+      This may cause a small shift in time from the perspective of the 
+      client when the server it is connected to changes.  In extreme cases 
+      where the network topology is changing rapidly, this could cause 
+      the server seen by a client to rapidly change as well, which can lead 
+      to larger time inaccuracies. It is RECOMMENDED that anycast only be 
+      deployed in environments where this behavior can be tolerated</t>
 
       <t>Configuration of an anycast interface is independent of NTP.
       Clients will always connect to the closest server, even if that server
@@ -1061,6 +1064,8 @@
     &RFC7384;
     
     &RFC1305;
+    
+    &RFC5906;
 	
 	<reference anchor="BCP38INFO" target="http://www.bcp38.info">
   <front>
@@ -1303,8 +1308,7 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
 
         <t>restrict default -6 nomodify notrap nopeer noquery</t>
 
-        <t>restrict source nomodify notrap noquery <vspace />
-		</t>
+        <t>restrict source nomodify notrap noquery</t>
       	 </section>
 
        
@@ -1401,7 +1405,7 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
         timestamp on broadcast mode packets is not validated by the client. By
         contrast, client/server and symmetric modes do require origin timestamp 
         validation, making it more difficult to spoof packets <xref target="CCR16">
-        </xref>.</t> 
+        </xref>).</t> 
       </section>
       
       <!-- end of ntpd appendix -->
