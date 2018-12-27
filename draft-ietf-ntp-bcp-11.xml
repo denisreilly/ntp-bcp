@@ -260,7 +260,7 @@
         originated it. UDP-based protocols such as NTP are generally more
         susceptible to spoofing attacks than connection-oriented
         protocols. NTP control messages can generate a lot of data in
-        response to a small query, which makes it more attractive as a 
+        response to a small query, which makes it attractive as a 
         vector for distributed denial-of-service attacks. (NTP Control 
         messages are discussed further in <xref target="mode67"/>). 
         One documented instance of such an attack can be found <eref 
@@ -270,7 +270,8 @@
         anyone administering NTP.</t>
         
         <t><xref target="RFC2827">BCP 38</xref> was
-        published in 2000 to address this. BCP
+        published in 2000 to to provide some level of
+		remediation against address-spoofing attacks. BCP
         38 calls for filtering outgoing and incoming traffic to make
         sure that the source and destination IP addresses are consistent
         with the expected flow of traffic on each network interface. It is
@@ -344,13 +345,14 @@
     outlined above.</t>
     
 	<t>But even with 4 or more sources of time, systemic problems can
-	happen.  For several hours before and after the June 2015 leap second, 
-    several operators
+	happen. One example involves the leap smearing concept detailed in 
+	<xref target="leap_smear"/>. For several hours before and after the 
+	June 2015 leap second, several operators
 	implemented leap smearing while others did not, and many NTP end
 	nodes could not determine an accurate time source because 2 of their
 	4 sources of time gave them consistent UTC/POSIX time, while the
-	other 2 gave them consistent leap-smeared time. See
-	<xref target="leap_smear"/> for more information.</t>
+	other 2 gave them consistent leap-smeared time. This is just one of 
+	many potential causes of disagreement among time sources.</t>
 
         <t>Operators are advised to monitor all of the time sources that are 
         in use.  If time sources do not generally agree, operators are 
@@ -434,7 +436,7 @@
         server.</t>
 
         <t>If a server's system log shows messages that indicates it is
-        receiving timestamps that are earlier than the current system time,
+        receiving NTP timestamps that are earlier than the current system time,
         then either the system clock is unusually fast or somebody is trying
         to launch a replay attack against that server.</t>
 
