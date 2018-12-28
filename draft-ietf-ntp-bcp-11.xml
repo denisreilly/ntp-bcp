@@ -643,6 +643,15 @@
           <t> Work is in progress on an enhanced replacement for Autokey. Refer to
           <xref target="I-D.ietf-ntp-using-nts-for-ntp"/> for more information. </t>
         </section>
+        
+    <section title="External Security Protocols">
+    	<t>If applicable, external security Protocols such as IPsec and MACsec can be 
+    	applied to enhance integrity and authenticity protection of NTP time 
+    	synchronization packets. Usage of such external security protocols can decrease
+    	time synchronization performance <xref target="RFC7384"/>. Therefore, operators
+    	are adviced to carefully evaluate if the decreased time synchronization 
+    	performance meets their specific timing requirements.</t>
+    </section>
 
 		
 	<!-- DPR: discuss this with Harlan -->

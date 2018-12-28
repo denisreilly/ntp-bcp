@@ -44,6 +44,7 @@ Alissa Cooper
 
 ## Resolution
 Agree
+DS: ok
 
 
 # Comment
@@ -530,6 +531,7 @@ Benjamin Kaduk
 DR: Our original motivation for keeping these as "SHOULD" was that there was no
 formal recommendation we could point users to on how to secure these keys. But we have
 received enough feedback from the reviewers here that we will change these to "MUST"s.
+DS: OK
 
 
 # Comment (Discuss)
@@ -550,6 +552,7 @@ Benjamin Kaduk
 
 ## Resolution
 TBD
+DS: This is a very general comment. I recommend to address this later.
 
 
 # Comment (Discuss)
@@ -563,6 +566,8 @@ Benjamin Kaduk
 
 ## Resolution
 TBD
+DS: This is a good point. We included an addional subsection to Sec. 4.; "4.4 External Security 
+Protocols". 
 
 # Comment
 
