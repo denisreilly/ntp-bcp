@@ -527,7 +527,10 @@ Benjamin Kaduk
 
 ## Resolution
 
-TBD
+DR: Our original motivation for keeping these as "SHOULD" was that there was no
+formal recommendation we could point users to on how to secure these keys. But we have
+received enough feedback from the reviewers here that we will change these to "MUST"s.
+
 
 # Comment (Discuss)
 
@@ -634,8 +637,8 @@ TBD
 DR: Personally, I like the broader recommendation here, as it seems like
 a good idea to emphasize the importance of the BCP. But we can
 move the sentence "Mitigating source address spoofing attacks 
-should be a priority of anyone administering NTP." to appear immediately before
-the recommendation. This will better clarify why the recommendation is there.
+should be a priority of anyone administering NTP." to appear at the start
+of the next paragraph. This will better clarify why the recommendation is there.
 
 # Comment
 
@@ -1013,7 +1016,30 @@ that one should document why they are not.
 Eric Rescorla
 
 ## Resolution
-TBD
+DPR: We worked closely with Sharon Goldberg, one of the authors on the
+referenced paper, when writing this section. While the paper makes the
+recommendations you list, we simply didn't want to include everything, but 
+rather include the things that would have the most immediate impact.
+
+- The advice for not putting INIT in the reference ID on restart might be 
+useful to include after all, as we do give other advice for implementors 
+at the end of the "Avoiding Daemon Restart Attacks" section.
+
+- The paper lists "eliminate NTP's KoD" as one recommendation, but then
+immediately acknowledges that it eliminates a server's ability to deal with
+heavy volumes of traffic. We elected to not recommend the elimination of KoDs,
+in part because there will be many servers deployed who still use them. 
+Perhaps that is a topic for NTP v5, someday.
+
+- The paper suggests that the attack surface for the NTP fragmentation attack 
+is "small but non-negligible". We felt the attack surface was not large enough
+to include directly in this BCP. Since the paper is referenced in multiple 
+places, though, interested readers (such as yourself) would be able to find it.
+
+- The paper mentions Source Port Randomization as a possibility to mitigate the
+fragmentation attack, but then goes on to say that it is not a "sufficient defense".
+
+
 
 # Comment (Discuss)
 
@@ -1039,7 +1065,13 @@ that a mistake or is this intended not to have any normative force?
 Eric Rescorla
 
 ## Resolution
-TBD
+As part of another comment, we've moved the "mitigating source address 
+spoofing attacks" sentence to the next paragraph, to further highlight
+it's relation to BCP38. 
+
+BCP38 would provide some level of protection against spoofing attacks,
+but as you note it's not really effective when applied at the server 
+level. This is why we five the guidance for large ISP's and networks. 
 
 # Comment (Discuss)
 

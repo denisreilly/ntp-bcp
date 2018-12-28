@@ -266,15 +266,16 @@
         One documented instance of such an attack can be found <eref 
         target="https://blog.cloudflare.com/technical-details-behind-a-400gbps-ntp-amplification-ddos-attack/"> 
         here</eref>, and further discussion in <xref target="IMC14"/> and <xref target="NDSS14"/>. 
-        Mitigating source address spoofing attacks should be a priority of 
-        anyone administering NTP.</t>
+        </t>
         
-        <t><xref target="RFC2827">BCP 38</xref> was
+        <t>Mitigating source address spoofing attacks should be a priority of 
+        anyone administering NTP. <xref target="RFC2827">BCP 38</xref> was
         published in 2000 to to provide some level of
 		remediation against address-spoofing attacks. BCP
         38 calls for filtering outgoing and incoming traffic to make
         sure that the source and destination IP addresses are consistent
-        with the expected flow of traffic on each network interface. It is
+        with the expected flow of traffic on each network interface. 
+		It is
         RECOMMENDED that ISP's and large corporate networks
 		implement ingress and egress filtering. More information is
 		available at the
@@ -761,9 +762,20 @@
           
           </list></t>
           
-          <t>In addition, implementors SHOULD prevent the NTP daemon from 
+<!--          <t>In addition, implementors SHOULD prevent the NTP daemon from 
           taking time steps that set the clock to a time earlier than the 
-          compile date of the NTP daemon.</t>
+          compile date of the NTP daemon.</t> -->
+		  
+		  <t>In addition, the following steps SHOULD be taken by those who 
+		  implement the NTP protocol:</t>
+		  <t><list style="symbols">
+			<t>Prevent the NTP daemon from taking time steps that set the 
+			clock to a time earlier than the compile date of the NTP daemon.</t>
+			<t>Prevent the NTP daemon from putting 'INIT' in the reference ID of
+			its NTP packets upon initializing. This will make it more difficult
+			for attackers to know when the daemon reboots.</t>
+		  </list></t>
+		  
       </section>
       
       <section title="Detection of Attacks Through Monitoring">
