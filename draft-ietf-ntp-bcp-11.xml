@@ -1273,7 +1273,7 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
        <section anchor="AppendixNTPD" title="NTP Implementation by the Network 
        Time Foundation">
        
-       <t>The Network Time Foundation (NTF) provides the reference
+       <t>The Network Time Foundation (NTF) provides an
        implementation of NTP, well-known under the name "ntpd". 
        It is actively maintained and developed by
        NTF's NTP Project, with help from volunteers and NTF's

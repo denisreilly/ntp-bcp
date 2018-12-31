@@ -1044,7 +1044,8 @@ places, though, interested readers (such as yourself) would be able to find it.
 - The paper mentions Source Port Randomization as a possibility to mitigate the
 fragmentation attack, but then goes on to say that it is not a "sufficient defense".
 
-
+DS: Denis, I think your answers are appropriate. The advice for implementors not
+to send he INIT code is from my point of view ok.
 
 # Comment (Discuss)
 
@@ -1076,7 +1077,10 @@ it's relation to BCP38.
 
 BCP38 would provide some level of protection against spoofing attacks,
 but as you note it's not really effective when applied at the server 
-level. This is why we five the guidance for large ISP's and networks. 
+level. This is why we give the guidance for large ISP's and networks. 
+
+DS: I agree. Only one point. Should we add a sentence why we not using normative
+language in this sections?
 
 # Comment (Discuss)
 
@@ -1101,6 +1105,13 @@ Eric Rescorla
 
 ## Resolution
 TBD
+DS: The primary goal of Chronos is to provide a NTP client that prevents from
+time shifting (delay) attacks. Chronos applies a very interesting approach to mitigate
+such attacks. However, it is not yet a stable product that can be applied out of the
+box. Currently, there is a draft draft-schiff-ntp-chronos-01 that 
+is considered for adoption in the ntp working group. This draft aims to standardize 
+the main concepts of Chronos so that NTP implementations may benefit from them. 
+But currently usage of Chronos cannot be recommended. 
 
 # Comment (Discuss)
 
@@ -1124,6 +1135,10 @@ Eric Rescorla
 
 ## Resolution
 TBD
+DS: In Sec. 3.2 we give advice on the number of time sources so that NTP's 
+inherent selection mechanisms are enabled to protect against unintentionally 
+false time sources. We don't consider the case in which 
+adversaries are able to manipulte NTP packets. This is done in Sec. 4. 
 
 # Comment (Discuss)
 
@@ -1144,7 +1159,7 @@ they themselves appear in the RFC (as with Opus).
 Eric Rescorla
 
 ## Resolution
-TBD
+DS: We agree and adjusted the language accordingly.
 
 # Comment
 
