@@ -531,7 +531,7 @@ Benjamin Kaduk
 DR: Our original motivation for keeping these as "SHOULD" was that there was no
 formal recommendation we could point users to on how to secure these keys. But we have
 received enough feedback from the reviewers here that we will change these to "MUST"s.
-DS: OK
+DS: OK. Adjusted the draft accordingly.
 
 
 # Comment (Discuss)

@@ -597,8 +597,8 @@
           the MAC, which protects authenticity and integrity of the
           exchanged packets for an association.  NTP does not provide a
           mechanism for the exchange of the keys between the associated
-          nodes.  Therefore, for each association, keys SHOULD be exchanged
-          securely by external means, and they SHOULD be protected from
+          nodes.  Therefore, for each association, keys MUST be exchanged
+          securely by external means, and they MUST be protected from
           disclosure.  It is RECOMMENDED that each
           association be protected by its own unique key. It is RECOMMENDED
           that participants agree to refresh keys periodically. 
