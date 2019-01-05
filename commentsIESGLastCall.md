@@ -554,6 +554,14 @@ Benjamin Kaduk
 TBD
 DS: This is a very general comment. I recommend to address this later.
 
+DR: We could address the two instances that Benjamin makes note of here. 
+First, there is the reference to the "key file". It sounds implementation-specific, 
+because ntpd uses a key file. But so do many other implementations. Perhaps we could
+clarify by calling this "local key storage" in that section only.
+
+Then, perhaps we can add a more specific disclaimer to the Sppendix section, but what 
+would it read? 
+
 
 # Comment (Discuss)
 
@@ -1082,6 +1090,10 @@ level. This is why we give the guidance for large ISP's and networks.
 DS: I agree. Only one point. Should we add a sentence why we not using normative
 language in this sections?
 
+DPR: We do have normative language later in that paragraph now saying that "It is 
+RECOMMENDED that ISP's and large corporate networks implement ingress and egress 
+filtering. Isn't that enough?
+
 # Comment (Discuss)
 
 
@@ -1160,6 +1172,10 @@ Eric Rescorla
 
 ## Resolution
 DS: We agree and adjusted the language accordingly.
+DPR: RFC 5905 directly states that the reference implementation 
+is maintained at ntp.org, and right now ntp.org is tied in with the NTF.
+ Maybe we simply need to clarify that the NTF supports the reference 
+implementation at ntp.org?
 
 # Comment
 
