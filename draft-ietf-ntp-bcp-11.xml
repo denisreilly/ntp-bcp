@@ -16,6 +16,7 @@
 <!ENTITY RFC7094 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7094.xml">
 <!ENTITY RFC4085 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4085.xml">
 <!ENTITY RFC7384 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7384.xml">
+<!ENTITY RFC6151 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6151.xml">
 
 <!ENTITY RFC8174 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml">
 <!ENTITY I-D.narten-iana-considerations-rfc2434bis SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.narten-iana-considerations-rfc2434bis.xml">
@@ -425,11 +426,19 @@
         of the service. Operators SHOULD also monitor system logs for messages so problems and abuse 
         attempts can be quickly identified.</t>
 
-        <t>If a system starts getting unexpected time replies from its time
+<!--        <t>If a system starts getting unexpected time replies from its time
         servers, that can be an indication that the IP address of the system
         is being forged in requests to its time server. The goal of this attack
         is to convince the time server to stop serving time to the system whose
-        address is being forged.</t>
+        address is being forged.</t> -->
+		
+		<t>If a system starts to recieve NTP Reply packets from a time server
+		that do not correspond to any requests sent by the system, that can be
+		an indication that an attacker is forging that system's IP address in
+		requests to the remote time server. The goal of this attack would be to
+		convince the time server to stop serving time to the
+		system whose address is being forged.</t>
+		
 
         <t>If a system is a broadcast client and its system log shows that it
         is receiving early time messages from its server, that is an
@@ -445,7 +454,7 @@
         CVEs, BU paper, bug reports? -->
       </section>
 
-      <section title="Using Pool Servers">
+      <section anchor="Pool" title="Using Pool Servers">
         <t>It only takes a small amount of bandwidth and system resources to
         synchronize one NTP client, but NTP servers that can service tens of
         thousands of clients take more resources to run.  Network operators
@@ -453,21 +462,28 @@
         synchronize their computers are advised to only synchronize to 
         servers that they have permission to use. </t>
 
-        <t>The NTP pool project is a group of volunteers who have donated
+        <t>The NTP Pool Project is a group of volunteers who have donated
         their computing and bandwidth resources to freely distribute time
         from primary time sources to others on the Internet.  The time is
         generally of good quality, but comes with no guarantee whatsoever.
-        If you are interested in using the NTP pool, please review their
+        If you are interested in using this pool, please review their
         instructions at <eref target="http://www.pool.ntp.org/en/use.html">
         http://www.pool.ntp.org/en/use.html</eref>.</t>
 
-        <t>A vendor who wishes to provide time service to customers might 
+        <!--<t>A vendor who wishes to provide time service to customers might 
         consider joining the NTP pool and providing a "vendor zone" 
-        through that service.</t>
+        through that service.</t> -->
+		
+        <t>Vendors can obtain
+        their own subdomain that is part of the NTP Pool Project.  This offers
+        vendors the ability to safely make use of the time distributed by
+        the pool for their devices. Details are available at
+        <eref target="http://www.pool.ntp.org/en/vendors.html">
+        http://www.pool.ntp.org/en/vendors.html</eref> .</t>
 
         <t>If there is a need to synchronize a large number of computers,
         an operator may want to run local NTP servers that are synchronized
-        to the NTP pool service. NTP users on that operator's networks can
+        to the NTP Pool Project. NTP users on that operator's networks can
         then be synchronized to local NTP servers.</t>
 
       </section>
@@ -604,22 +620,21 @@
           that participants agree to refresh keys periodically. 
           However, NTP does not provide a mechanism to assist in doing so.
 		  </t>
-          <t><xref target="RFC5905"/> specifies a hash which
-          must be supported for calculation of the MAC, but other algorithms 
+          <t><xref target="RFC5905"/> specifies using the MD5 hash algorithm
+          for calculation of the MAC, but other algorithms 
           may be supported as well. The MD5 hash is now considered to be too 
-          weak. Implementations will soon be available based on 
-          <xref target="I-D.ietf-ntp-mac">AES-128-CMAC </xref>, and users are encouraged
-          to use that when it is available. </t>
+          weak and unsuitable for cryptgraphic usage. <xref target="RFC6151"/> has more information on the algorithm's weaknesses. Implementations will soon be available based on 
+          <xref target="I-D.ietf-ntp-mac">AES-128-CMAC </xref>, and users SHOULD use that when it is available. </t>
 
           <t>To use this approach the communication partners have to
           exchange the key, which consists of a keyid with a value between 1
           and 65534, inclusive, and a label which indicates the chosen
           digest algorithm.  Each communication partner adds this
-          information to its own key file.</t>
+          information to its own local key storage.</t>
 
           <t>Some implementations store the key in clear text.  Therefore it
           needs to be only be readable by the NTP process.  Different keys are
-          added line by line to the key file.</t>
+          added line by line to the local key storage.</t>
 
           <t>An NTP client establishes a protected association by appending
           the key to the server statement in its configuration file. Note that
@@ -810,7 +825,9 @@
       <section anchor="KoD" title="Kiss-o'-Death Packets">
         <t>The "Kiss-o'-Death" (KoD) packet is a rate limiting mechanism
         where a server can tell a misbehaving client to reduce its query
-        rate.  It is RECOMMENDED that all NTP devices respect these packets
+        rate.  KoD packets in general (and the RATE packet in particular)
+		are defined in Section 7.4 of <xref target="RFC5905"/>.
+		It is RECOMMENDED that all NTP devices respect these packets
         and back off when asked to do so by a server.  It is even more
         important for an embedded device, which may not have an exposed 
         control interface for NTP.</t>
@@ -928,21 +945,14 @@
         permission to use.</t>
 
         <t>Vendors are encouraged to invest resources into providing their own
-        time servers for their devices to connect to.</t>
+        time servers for their devices to connect to. This may be done through
+		the NTP Pool Project, as documented in 
+		<xref target="Pool"/>.</t>
         
         <t>Vendors should read <xref target="RFC4085"/>, 
         which advises against embedding globally-routable IP addresses in 
         products, and offers several better alternatives.</t>
 
-        <section title="NTP Pool Project Vendor Subdomains">
-          <t>The NTP Pool Project offers a program where vendors can obtain
-          their own subdomain that is part of the NTP Pool.  This offers
-          vendors the ability to safely make use of the time distributed by
-          the Pool for their devices.  Vendors are encouraged to support the
-          pool if they participate.  Details are available at
-          <eref target="http://www.pool.ntp.org/en/vendors.html">
-          http://www.pool.ntp.org/en/vendors.html</eref> .</t>
-        </section>
       </section>
     </section>
 
@@ -1073,6 +1083,8 @@
       &RFC2119;
        
       &RFC8174;
+	  
+      &RFC6151;
 
      
 
@@ -1278,8 +1290,10 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
        It is actively maintained and developed by
        NTF's NTP Project, with help from volunteers and NTF's
        supporters. This NTP software can be downloaded
-       from <eref target="http://www.ntp.org/downloads.html"/>
-       </t>
+       from <eref target="http://www.ntp.org/downloads.html"/>. 
+	   This Appendix gives additional information on how to 
+	   implement many of the recommendations in this document using 
+	   ntpd.</t>
       
        <section anchor="AppendixNTPDTimeSources"
        title="Use enough time sources">
@@ -1287,10 +1301,11 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
         <t>In addition to the recommendation given in Section <xref 
         target="TimeSources"/> the ntpd implementation provides the 'pool'
         directive. 
-        Starting with ntp-4.2.6, this directive will spin up
+        Starting with ntp-4.2.6, using this directive in the ntp.conf 
+		file will spin up
         enough associations to provide robust time service, and will
         disconnect poor servers and add in new servers as-needed.  
-        If there is a good reason, the 'minclock' and 'maxclock' options
+        The 'minclock' and 'maxclock' options
         of the 'tos' command may be used to override the default values of how many
         servers are discovered through the 'pool' directive.</t>
        </section>

@@ -573,7 +573,6 @@ where IP acls are discussed in Section 5.1)
 Benjamin Kaduk 
 
 ## Resolution
-TBD
 DS: This is a good point. We included an addional subsection to Sec. 4.; "4.4 External Security 
 Protocols". 
 
@@ -646,7 +645,6 @@ to apply to.
 Benjamin Kaduk
 
 ## Resolution
-TBD
 DR: Personally, I like the broader recommendation here, as it seems like
 a good idea to emphasize the importance of the BCP. But we can
 move the sentence "Mitigating source address spoofing attacks 
@@ -786,7 +784,13 @@ an attacker would do so could be to convince the time server to".
 Benjamin Kaduk
 
 ## Resolution
-TBD
+How about:
+If a system starts to recieve NTP Reply packets from a time server
+that do not correspond to any requests sent by the system, that can be
+an indication that an attacker is forging that system's IP address in
+requests to the remote time server. The goal of this attack would be to
+convince the time server to stop serving time to the
+system whose address is being forged.
 
 # Comment
 
@@ -820,7 +824,9 @@ similar.
 Benjamin Kaduk
 
 ## Resolution
-TBD
+Agreed:
+The MD5 hash is now considered to be too weak and unsuitable for cryptgraphic
+usage.  [RFC6151] has more information on the algorithm's weaknesses.
 
 # Comment
 
@@ -842,6 +848,8 @@ Benjamin Kaduk
 ## Resolution
 TBD
 
+Replace "key file" with "local key storage"?
+
 # Comment
 
    Some implementations store the key in clear text.  Therefore it
@@ -858,6 +866,8 @@ Benjamin Kaduk
 
 ## Resolution
 TBD
+
+Replace "key file" with "local key storage"?
 
 # Comment
 
@@ -887,7 +897,7 @@ that people know what to not use)?
 Benjamin Kaduk
 
 ## Resolution
-TBD
+We've added RFC 5906 as an informative reference.
 
 # Comment
 
@@ -921,7 +931,7 @@ nit: "at the edge" is not a well-defined concept here.
 Benjamin Kaduk
 
 ## Resolution
-TBD
+changed to "from outside their networks"
 
 # Comment
 
@@ -1322,7 +1332,7 @@ why I would think I should use MD5 would help.
 Eric Rescorla
 
 ## Resolution
-TBD
+Modified the text to clarify that MD5 is specifically called out in RFC 5905.
 
 # Comment 
 
@@ -1344,7 +1354,7 @@ than the future tense.
 Eric Rescorla
 
 ## Resolution
-TBD
+We have no problem makign these changes. We did this at first because we weren't sure which would get through the gauntlet first, but it looks like ntp-mac will. I will update the 8174 language, and if ietf-ntp-mac gets published before this we'll include it as an RFC.
 
 # Comment 
 
@@ -1365,7 +1375,7 @@ what the point of this sentence is.
 Eric Rescorla
 
 ## Resolution
-TBD
+Benjamin Kaduk made a similar comment: we will change this to "local key storage". All implementations I am familiar with use a key file, but of course that's not exhaustive.
 
 # Comment 
 
@@ -1384,7 +1394,12 @@ This seems pretty implementation specific.
 Eric Rescorla
 
 ## Resolution
-TBD
+We're comfortable with the first point, as the panic threshold is specified in RFC 5905. But the next draft will have language that makes the second point more general:
+
+Increase the minimum number of servers required before the NTP 
+client adjusts the system clock. This will make the NTP client wait 
+until enough trusted sources of time agree before declaring the 
+time to be correct.
 
 # Comment 
 
@@ -1403,7 +1418,7 @@ What's a RATE packet? It's not defined here or cited.
 Eric Rescorla
 
 ## Resolution
-TBD
+We now include a reference to Section 7.4 of RFC 5905.
 
 # Comment 
 
@@ -1422,7 +1437,9 @@ This seems to kind of duplicate S 4.5.
 Eric Rescorla
 
 ## Resolution
-TBD
+They are different, as the advice in this section is applicable to embedded
+device vendors specifically. The advice in RFC 4085 is specifically applicable
+to embedded devices.
 
 # Comment 
 
@@ -1442,7 +1459,9 @@ This too, duplicates 4.5.
 Eric Rescorla
 
 ## Resolution
-TBD
+This does look like it can be cleaned up a bit: we can move this more 
+descriptive text tp the Pool Servers section, and then reference that section
+from this one.
 
 # Comment 
 
@@ -1470,7 +1489,15 @@ Separately, how many clients *actually* use >1 server.
 Eric Rescorla
 
 ## Resolution
-TBD
+The idea is that all clients can be configured with 1 NTP server IP
+address, but there can be multiple servers servicing those requests, and 
+the network operator can add or remove servers from the Anycast group 
+without having to touch the configuration of each client. 
+
+Even if all servers are managed by the same entity, they can have their
+own errors: there may be servers with redundant GNSS connections, and only
+one antenna is faulty, for instance. The separate unicast addresses are useful
+to have a side-channel way to get to the individual time servers to monitor them.
 
 # Comment 
 
@@ -1490,7 +1517,11 @@ know, but they are the ones who tolerate the shift (or not).
 Eric Rescorla
 
 ## Resolution
-TBD
+The guidance is to the network operators, and ultimately to the users of the 
+NTP service. Utilizing Anycast in this manner may affect the quality of the 
+recovered time. But in some applications, this is prefereble to potentially 
+having to change the configuration of a large number of clients whenever a 
+server is added or removed.
 
 # Comment 
 
@@ -1511,7 +1542,9 @@ many of the recommendations in this document using that software"
 Eric Rescorla
 
 ## Resolution
-TBD
+	   This Appendix gives additional information on how to 
+	   implement many of the recommendations in this document using 
+	   ntpd.
 
 # Comment 
 
@@ -1530,7 +1563,7 @@ Where does this directive go? Some conf file, one assumes.
 Eric Rescorla
 
 ## Resolution
-TBD
+they go in the ntp.conf file, of course. It would be a good thing to mention that.
 
 # Comment 
 
@@ -1549,7 +1582,8 @@ What would those good reasons be?
 Eric Rescorla
 
 ## Resolution
-TBD
+That can probably be removed. If a user is using 'minclock' or 'maxclock', 
+they already have their own good reasons.
 
 # Comment 
 
@@ -1569,7 +1603,7 @@ doesn't mention "nopeer"
 Eric Rescorla
 
 ## Resolution
-TBD
+We've removed the comment.
 
 ###
 
@@ -1584,7 +1618,7 @@ But I don't suppose that's really an problem, so I don't expect action here.
 Ben Campbell 
 
 ## Resolution
-TBD
+N/A
 
 # Comment
 
@@ -1599,7 +1633,8 @@ If the latter, please consider using description language rather than normative 
 Ben Campbell 
 
 ## Resolution
-TBD
+BCP38 / RFC 2827 doesn't use the normative language, so I suppose it's a new 
+normative recommendation from this BCP.
 
 # Comment
 
@@ -1610,7 +1645,8 @@ Are time sources expected to publicize that sort of information?
 Ben Campbell 
 
 ## Resolution
-TBD
+We're calling attention to the fact that having a diversity of timing sources
+is not as simple as having two boxes. 
 
 # Comment
 
@@ -1620,7 +1656,7 @@ TBD
 Ben Campbell 
 
 ## Resolution
-TBD
+Will stick with "NTP Control Messages"
 
 # Comment
 
@@ -1634,7 +1670,8 @@ Why not MUST?
 Ben Campbell 
 
 ## Resolution
-TBD
+I think you're right, in the context of embedded devices we should really 
+forcefully advise vendors to play nice.
 
 # Comment
 
@@ -1643,7 +1680,7 @@ TBD
 Ben Campbell 
 
 ## Resolution
-TBD
+It's been around for quite a while and the members of the working group think it's stable enough to include.
 
 # Comment
 
@@ -1665,7 +1702,8 @@ TBD
 Ben Campbell 
 
 ## Resolution
-TBD
+There is no standard way to detect this at this time. Someone has to ask the
+server administrator.
 
 # Comment
 
@@ -1676,7 +1714,7 @@ Why not MUST (both times)?
 Ben Campbell 
 
 ## Resolution
-TBD
+We're changing these to MUSTs.
 
 # Comment
 
@@ -1687,7 +1725,7 @@ Is that worth a normative requirement?
 Ben Campbell 
 
 ## Resolution
-TBD
+Yes, especially since it seems that draft will emerge first.
 
 # Comment
 - "Some implementations store the key in clear text"
@@ -1697,7 +1735,7 @@ Wouldn't the better practice to be not to do that?
 Ben Campbell 
 
 ## Resolution
-TBD
+Yes, but we need to address the current state of things. 
 
 # Comment
 
@@ -1712,7 +1750,9 @@ incoming mode 3 timing queries from unexpected sources."
 Ben Campbell 
 
 ## Resolution
-TBD
+we changed this to non-normative in the latest draft.
+This section is about minimizing information leakage. One way to do this
+is simply to not respond to packets that it doesn't have to.
 
 # Comment
 
@@ -1724,7 +1764,10 @@ Should there be normative guidance here? (Also, the sentence seems out of place.
 Ben Campbell 
 
 ## Resolution
-TBD
+The normative guidance is at the end now. 
+
+We are pointing out here that while you might want to drop all Mode 3 packets,
+they do have some use for monitoring within your organization.
 
 # Comment
 
@@ -1735,7 +1778,7 @@ Can you recommend something more concrete (and verifiable) than "pay attention"?
 Ben Campbell 
 
 ## Resolution
-TBD
+We've made this non-normative in response to another comment.
 
 # Comment
 
@@ -1747,7 +1790,7 @@ Also, it seems like "other" is not descriptive here, since UDP is not a connecti
 Ben Campbell 
 
 ## Resolution
-TBD
+We removed the "other" in the latest draft.
 
 # Comment
 
@@ -1770,7 +1813,7 @@ at the edge
 Ben Campbell 
 
 ## Resolution
-TBD
+Agreed
 
 # Comment
 
@@ -1779,11 +1822,19 @@ TBD
 Ben Campbell 
 
 ## Resolution
-TBD
+We've clarified this in the latest draft.
 
 # Comment
 
 §11.2: Is there a reason [BCP38INFO] is here and not in the URL references?
+
+## Who
+Ben Campbell
+
+## Resolution
+TBD
+Actually, it's a problem I have been having with the XML2RFC template -- that URL does not render properly on the HTML version of the raft -- perhaps because there is "bcp" in the URL? 
+
 
 ###
 # Comment 
@@ -1803,7 +1854,7 @@ N/A
 Warren Kumari  
 
 ## Resolution
-TBD
+agree
 
 # Comment
 
@@ -1829,7 +1880,7 @@ Section 4.1.  Pre-Shared Key Approach
 Warren Kumari  
 
 ## Resolution
-TBD
+We've included a reference to RFC 6151 with more information.
 
 # Comment
 
@@ -1841,6 +1892,6 @@ and deploy updates containing security fixes as soon as practical."), but this i
 Warren Kumari  
 
 ## Resolution
-TBD
+N/A
 
 
