@@ -235,7 +235,7 @@
       </section>
     </section>
 
-    <section title="Keeping NTP up to date">
+<!--    <section title="Keeping NTP up to date">
       <t>Many network security mechanisms rely on time as part of their
       operation.  If attackers can spoof the time, they may be able to
       bypass or neutralize other security elements. For example, incorrect
@@ -251,7 +251,7 @@
       security fixes as soon as practical.</t>
       
 
-    </section>
+    </section> -->
 
     <section anchor="Sec_Gen" title="General Network Security Best Practices">
 
@@ -280,7 +280,7 @@
         RECOMMENDED that ISP's and large corporate networks
 		implement ingress and egress filtering. More information is
 		available at the
-	<xref target="BCP38INFO">BCP38 Info Web page</xref> .</t>
+	<eref target="http://www.bcp38.info">BCP38 Info Web page</eref> .</t>
       </section>
     </section>
 
@@ -290,11 +290,11 @@
     implementation are compiled in Appendix A.</t>
     
     <section title="Keeping NTP up to date">
-      <t>Many network security mechanisms rely on time as part of their
+      <!--<t>Many network security mechanisms rely on time as part of their
       operation.  If attackers can spoof the time, they may be able to
       bypass or neutralize other security elements. For example, incorrect
       time can disrupt the ability to reconcile logfile entries on the
-      affected system with events on other systems. </t>
+      affected system with events on other systems. </t> -->
       <t>There are multiple versions of the NTP protocol in use, and
       multiple implementations, on many different platforms. The 
       practices in this document are meant to apply generally to any implementation
@@ -349,8 +349,8 @@
 	<t>But even with 4 or more sources of time, systemic problems can
 	happen. One example involves the leap smearing concept detailed in 
 	<xref target="leap_smear"/>. For several hours before and after the 
-	June 2015 leap second, several operators
-	implemented leap smearing while others did not, and many NTP end
+	June 2015 leap second, several operators configured their NTP servers 
+	with leap smearing while others did not. Many NTP end
 	nodes could not determine an accurate time source because 2 of their
 	4 sources of time gave them consistent UTC/POSIX time, while the
 	other 2 gave them consistent leap-smeared time. This is just one of 
@@ -391,10 +391,10 @@
 
       <section anchor="mode67" title="Control Messages">
         <t>Some implementations of NTPv4 provide the NTP Control Messages
-        that were originally specified in Appendix B of 
+        (also known as Mode 6 messages) that were originally specified in Appendix B of 
         <xref target="RFC1305"/> which defined NTPv3.  These messages were  
         never included the NTPv4 specification, but they are still used. 
-        Work is being done to formally document the structure of these 
+        At the time of this writing, work is being done to formally document the structure of these 
         control messages in <xref target="I-D.ietf-ntp-mode-6-cmds"/>.
         </t>
         <t>The NTP Control Messages
@@ -402,10 +402,9 @@
         control of NTP and its configuration.  Used properly, these facilities provide vital
         debugging and performance information and control.  Used improperly,
         these facilities can be an abuse vector. For this reason, it is 
-        RECOMMENDED that publicly-facing NTP servers should block mode 6 
-        queries from outside their organization.</t>
+        RECOMMENDED that publicly-facing NTP servers should block NTP Control Message queries from outside their organization.</t>
 
-        <t>The ability to use Mode 6 beyond its basic monitoring
+        <t>The ability to use NTP Control Messages beyond their basic monitoring
         capabilities SHOULD be limited to authenticated sessions that provide a
         'controlkey'. It can also be limited through mechanisms outside of the
         NTP specification, such as Access Control Lists, that only allow access 
@@ -413,9 +412,14 @@
 
         <t>The NTP Control Messages responses are much larger than
         the corresponding queries. Thus, they can be
-        abused in high-bandwidth DDoS attacks. To provide protection from such
+        abused in high-bandwidth DDoS attacks. <xref target="bcp38"/> gives
+		more information on how to provide protection for this abuse by
+		implementing BCP 38.</t>
+		
+		<!-- <t>To provide protection from such
         abuse NTP server operators for ISP's and large corporate networks SHOULD 
         deploy ingress filtering in accordance with <xref target="RFC2827">BCP 38</xref>.</t>
+		-->
         
       </section>
 
@@ -443,10 +447,12 @@
         <t>If a system is a broadcast client and its system log shows that it
         is receiving early time messages from its server, that is an
         indication that somebody may be forging packets from a broadcast
-        server.</t>
+        server. (Broadcast client and server modes are defined in 
+		Section 3 of <xref target="RFC5905"/>)</t>
 
         <t>If a server's system log shows messages that indicates it is
-        receiving NTP timestamps that are earlier than the current system time,
+        receiving NTP timestamps that are much earlier than the current 
+		system time,
         then either the system clock is unusually fast or somebody is trying
         to launch a replay attack against that server.</t>
 
@@ -522,9 +528,14 @@
         apply it at the end of the current day, it is RECOMMENDED that NTP
         servers wait until the last day of the month before broadcasting
         leap seconds. Doing this will prevent older clients from applying a
-        leap second at the wrong time.  Note well that NTPv4's longest
+        leap second at the wrong time.  When implemeting this recommendation, 
+		operators should ensure that clients are not configured to use 
+		polling intervals
+		greater than 24 hours, so the leap second notification is not missed.
+		</t>
+		<!--<t>Note well that NTPv4's longest
 		polling interval exceeds one day and thus a leap second
-		announcement may be missed.</t>
+		announcement may be missed.</t> -->
 
 <!--        <t>The IETF maintains a 
         <eref target="https://www.ietf.org/timezones/data/leap-seconds.list">leap
@@ -636,9 +647,14 @@
           needs to be only be readable by the NTP process.  Different keys are
           added line by line to the local key storage.</t>
 
-          <t>An NTP client establishes a protected association by appending
+ <!--         <t>An NTP client establishes a protected association by appending
           the key to the server statement in its configuration file. Note that
-          the NTP process has to trust the applied key. </t>
+          the NTP process has to trust the applied key. </t> -->
+		  
+		  <t>An NTP client must be able to link a key to a particular server
+		  in order to establish a protected association. This linkage is
+		  implementation specific. Once applied, a key will be trusted until
+		  the link is removed.</t>
         </section>
 
         <section title="Autokey">
@@ -695,7 +711,8 @@
            reference ID, expected origin timestamp, etc.) that may be used
            in attacks <xref target="CVE-2015-8139"></xref>.  A remote
            attacker can learn this information by sending control queries to
-           a target system and inspecting the response.</t>
+           a target system and inspecting the leaked information in the
+		   response.</t>
 
            <t>As such, mechanisms outside of the NTP protocol, such as 
            Access Control Lists, SHOULD be used to limit the exposure
@@ -706,9 +723,11 @@
            <t>A NTP client that does not provide time on the network 
            can additionally log
            and drop incoming mode 3 timing queries from unexpected sources.
-           Note well that the easiest way to monitor the status of an NTP instance 
-           is to send it a mode 3 query.  It is recommended that operators SHOULD
-           filter mode 3 queries at the edge, or make sure mode 3 queries
+           Note well that the easiest way to monitor the status of an NTP 
+		   instance is to send it a mode 3 query, so it may not be desirable
+		   to drop all mode 3 queries. As an alternative, operators SHOULD
+           either filter mode 3 queries from outside their networks, 
+		   or make sure mode 3 queries
            are allowed only from trusted systems or networks.</t>
 
            <t>A "leaf-node host" is a host that is using NTP solely for the
@@ -719,9 +738,13 @@
            responses from these servers containing timing information.)  To
            minimize information leakage, leaf-node hosts SHOULD drop all
            incoming NTP packets except mode 4 response packets that come
-           from known sources.  Note well that proper monitoring of an
+           from known sources. An exception to this can be made if a 
+		   leaf-node host is being actively monitored, in which case
+		   incoming packets from the monitoring server can be allowed.</t>
+
+		   <!--Note well that proper monitoring of an
            NTP server instance includes checking the time of that NTP server
-           instance.</t>
+           instance.</t> -->
            
            <t>Please refer to <xref target="I-D.ietf-ntp-data-minimization"/>
            for more information.</t>
@@ -924,8 +947,8 @@
         implementation on their own.  Those devices may have a single
         firmware upgrade, provided by the manufacturer, that updates all
         capabilities at once.  This means that the vendor assumes the
-        responsibility of making sure their devices have the latest NTP
-        updates applied.</t>
+        responsibility of making sure their devices have an up-to-date and
+		secure NTP implementation.</t>
 
         <t>Vendors of embedded devices SHOULD include the ability to update 
         the list of NTP servers used by the device.</t>
@@ -941,7 +964,7 @@
         to carefully consider which servers to use. There are
         several public-facing NTP servers available, but they may not be
         prepared to service requests from thousands of new devices on the
-        Internet. Vendors SHOULD only preconfigure NTP servers that they have
+        Internet. Vendors MUST only preconfigure NTP servers that they have
         permission to use.</t>
 
         <t>Vendors are encouraged to invest resources into providing their own
@@ -977,7 +1000,9 @@
       multiple sources of time.  With multiple time sources, a client will
       analyze the various time sources, selecting good ones, and
       disregarding poor ones.  If a single Anycast address is used, this 
-      analysis will not happen.</t>
+      analysis will not happen. This can be mitigated by creating multiple,
+	  separate anycast pools so clients can have multiple sources of time
+	  while still gaining the configuration benefits of the anycast pools.</t>
 
       <t>If clients are connected to an NTP server via anycast, the client
       does not know which particular server they are connected to.  As 
@@ -999,6 +1024,7 @@
       is also RECOMMENDED that each Anycast NTP server have an alternative method
       of access, such as an alternate Unicast IP address, so its performance 
       can be checked independently of the anycast routing scheme.</t>
+	  
 
       <t>One useful application in large networks is to use a hybrid
       unicast/anycast approach.  Stratum 1 NTP servers can be deployed with
@@ -1102,13 +1128,13 @@
     
     &RFC5906;
 	
-	<reference anchor="BCP38INFO" target="http://www.bcp38.info">
+<!--	<reference anchor="BCP38INFO" target="http://www.bcp38.info">
   <front>
     <title>BCP38 Info Page</title>
     <author/>
     <date/>
   </front>
-</reference>
+</reference> -->
 <!-- [MILLS2006] Mills, D. (2006). Computer network time synchronization: the Network Time Protocol: CRC Press. -->
       <reference anchor="MILLS2006">
         <front>

@@ -552,14 +552,12 @@ Benjamin Kaduk
 
 ## Resolution
 TBD
-DS: This is a very general comment. I recommend to address this later.
-
 DR: We could address the two instances that Benjamin makes note of here. 
 First, there is the reference to the "key file". It sounds implementation-specific, 
 because ntpd uses a key file. But so do many other implementations. Perhaps we could
 clarify by calling this "local key storage" in that section only.
 
-Then, perhaps we can add a more specific disclaimer to the Sppendix section, but what 
+Then, perhaps we can add a more specific disclaimer to the Appendix section, but what 
 would it read? 
 
 
@@ -729,7 +727,9 @@ expect to read in a BCP.
 Benjamin Kaduk
 
 ## Resolution
-TBD : is it worth rewriting?
+DR: Meybe it's just a reflection of our writing style, but these do refelct
+questions that we think operators should ask when determining whether their 
+implementations are diverse enough.
 
 # Comment
 
@@ -760,10 +760,8 @@ duplicate it here?
 Benjamin Kaduk
 
 ## Resolution
-TBD
 DR: I think it's important to link the two, as this shows additional rationale for
-implementing BCP38. Maybe it's better, though, to move this section to the BCP38 section
-and cross-reference the Control Messages section from there?
+implementing BCP38. But we do mention NTP Control messages in the BCP38 section; maybe it's better to just reference that section so we don't repeat the recommendation.
 
 # Comment 
 
@@ -846,7 +844,6 @@ concept?)
 Benjamin Kaduk
 
 ## Resolution
-TBD
 
 Replace "key file" with "local key storage"?
 
@@ -865,7 +862,6 @@ process and the rest could, I think, be safely omitted.
 Benjamin Kaduk
 
 ## Resolution
-TBD
 
 Replace "key file" with "local key storage"?
 
@@ -883,7 +879,17 @@ trust" mean?
 Benjamin Kaduk
 
 ## Resolution
-TBD
+By "has to trust", we mean that once the key is applied, it will be be used 
+under all circumstanes and trust can't be revoked unless it is done manually. 
+ 
+We can rewrite to be clearer:
+
+An NTP client must be able to link a key to a particular server
+in order to establish a protected association. This linkage is
+implementation specific. Once applied, a key will be trusted until
+the link is removed.
+
+
 
 # Comment
 
@@ -917,7 +923,7 @@ that query?
 Benjamin Kaduk
 
 ## Resolution
-TBD
+"and inspecting the leaked information in the response."
 
 # Comment
 
@@ -945,7 +951,7 @@ preclude such monitoring [of leaf hosts]?
 Benjamin Kaduk
 
 ## Resolution
-TBD
+"An exception to this can be made if a leaf-node host is being actively monitored, in which case incoming packets from the monitoring server can be allowed."
 
 # Comment
 
@@ -958,7 +964,9 @@ detected (e.g., make an entry in the system log)?
 Benjamin Kaduk
 
 ## Resolution
-TBD
+I don't think so, becasue the monitoring in this section may not be done
+by the NTP implementation itself. If an operator uses an external tool to performance this monitoring, we don't want to impose any requirements on that.
+
 
 # Comment
 
@@ -989,7 +997,7 @@ NTP implementation" rather than "the latest NTP updates applied".
 Benjamin Kaduk
 
 ## Resolution
-TBD
+Agree
 
 # Comment
 
@@ -1003,7 +1011,7 @@ available to compare?
 Benjamin Kaduk
 
 ## Resolution
-TBD
+A good point, we will add it.
 
 # Comment
 Appendix A.*
@@ -1213,7 +1221,7 @@ would be wise to separate these two paragraphs.
 Eric Rescorla
 
 ## Resolution
-TBD
+I think there is some old text here. With the recently improved Security Considerations section, I think we can remove the first paragraph entirely.
 
 # Comment 
 
@@ -1234,7 +1242,8 @@ know the NTP server is wrong because iPhones didn't exist in 2001.
 Eric Rescorla
 
 ## Resolution
-TBD
+Only if the iPhone is smart enough to disqualify the rogue source, in which case
+you're still back to 1 source. I think the advice here still stands.
 
 # Comment 
 
@@ -1272,7 +1281,7 @@ Why would this work? Some sort of rate limit on the server.
 Eric Rescorla
 
 ## Resolution
-TBD
+We've reworded this in the latest draft to make this clearer.
 
 # Comment 
 
@@ -1292,7 +1301,7 @@ server, even if they are just to some section of the NTP spec.
 Eric Rescorla
 
 ## Resolution
-TBD
+OK
 
 # Comment 
 
@@ -1312,7 +1321,7 @@ actually quite common to be seconds off.
 Eric Rescorla
 
 ## Resolution
-TBD
+changed to "much earlier".
 
 # Comment 
 
@@ -1693,7 +1702,10 @@ Is that okay? Is there any action recommended due to this?
 Ben Campbell 
 
 ## Resolution
-TBD
+Changed that to bea bit mroe active:
+When implemeting this recommendation, 
+operators should ensure that clients are not configured to use polling intervals
+greater than 24 hours, so the leap second notification is not missed.
 
 # Comment
 
@@ -1802,7 +1814,7 @@ We removed the "other" in the latest draft.
 Ben Campbell 
 
 ## Resolution
-TBD
+Agree on both points. The last paragraph not directly references the BCP38 section.
 
 # Comment
 
@@ -1832,8 +1844,10 @@ We've clarified this in the latest draft.
 Ben Campbell
 
 ## Resolution
-TBD
-Actually, it's a problem I have been having with the XML2RFC template -- that URL does not render properly on the HTML version of the raft -- perhaps because there is "bcp" in the URL? 
+Actually, this was an attempt to fix how that URL is rendered on the HTML
+view of the document. (See https://tools.ietf.org/html/draft-ietf-ntp-bcp-10 ) I guess since this URL has the text "BCP" in it, it
+doesn't render properly. I will revert it back to a URL reference, but then I
+will need to get some professional help on this.
 
 
 ###
@@ -1868,7 +1882,8 @@ clearer?
 Warren Kumari  
 
 ## Resolution
-TBD
+"Several operators configured their servers with leap smearing while others 
+did not"
 
 # Comment
 
