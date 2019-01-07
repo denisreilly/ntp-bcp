@@ -1189,11 +1189,12 @@ they themselves appear in the RFC (as with Opus).
 Eric Rescorla
 
 ## Resolution
-DS: We agree and adjusted the language accordingly.
-DPR: RFC 5905 directly states that the reference implementation 
-is maintained at ntp.org, and right now ntp.org is tied in with the NTF.
- Maybe we simply need to clarify that the NTF supports the reference 
-implementation at ntp.org?
+RFC 5905 directly states that the reference implementation 
+is maintained at ntp.org, and right now that is maintained with the 
+NTF. But we understand the point that ntpd has made some improvements
+that deviate from 5905 as written. 
+
+We've removed "reference implementation" from the description and tweaked it a bit further. 
 
 # Comment
 

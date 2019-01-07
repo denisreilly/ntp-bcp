@@ -169,7 +169,7 @@
     </author> 
 -->
 
-    <date year="2018"/>
+    <date year="2019"/>
 
     <!-- If the month and year are both specified and are the current ones, xml2rfc will fill 
          in the current day for you. If only the current year is specified, xml2rfc will fill 
@@ -436,7 +436,7 @@
         is to convince the time server to stop serving time to the system whose
         address is being forged.</t> -->
 		
-		<t>If a system starts to recieve NTP Reply packets from a time server
+		<t>If a system starts to receive NTP Reply packets from a time server
 		that do not correspond to any requests sent by the system, that can be
 		an indication that an attacker is forging that system's IP address in
 		requests to the remote time server. The goal of this attack would be to
@@ -1308,18 +1308,16 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
   
     <!-- Appendix with implementation specific stuff -->
        
-       <section anchor="AppendixNTPD" title="NTP Implementation by the Network 
-       Time Foundation">
+       <section anchor="AppendixNTPD" title="Best Practices specific to the Network 
+       Time Foundation implementation">
        
-       <t>The Network Time Foundation (NTF) provides an
-       implementation of NTP, well-known under the name "ntpd". 
-       It is actively maintained and developed by
-       NTF's NTP Project, with help from volunteers and NTF's
-       supporters. This NTP software can be downloaded
-       from <eref target="http://www.ntp.org/downloads.html"/>. 
-	   This Appendix gives additional information on how to 
-	   implement many of the recommendations in this document using 
-	   ntpd.</t>
+       <t>The Network Time Foundation (NTF) provides a widely used
+       implementation of NTP, known as 
+       <eref target="http://www.ntp.org/downloads.html">ntpd</eref>. 
+       It is an evolution of the first NTP implementations developed by 
+       David Mills at the University of Delaware.  This appendix contains
+       additional recommendations specific to this implementation.
+       </t>
       
        <section anchor="AppendixNTPDTimeSources"
        title="Use enough time sources">
