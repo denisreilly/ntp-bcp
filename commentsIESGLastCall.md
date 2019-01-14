@@ -555,7 +555,7 @@ TBD
 DR: We could address the two instances that Benjamin makes note of here. 
 First, there is the reference to the "key file". It sounds implementation-specific, 
 because ntpd uses a key file. But so do many other implementations. Perhaps we could
-clarify by calling this "local key storage" in that section only.
+clarify by calling this "local key storage" throughout the document.
 
 Then, perhaps we can add a more specific disclaimer to the Appendix section, but what 
 would it read? 
@@ -746,8 +746,7 @@ Benjamin Kaduk
 
 ## Resolution
 TBD
-DR: In my primitive mind, and abuse vector and attack vector are the same. 
-Is it worth differentiating here?
+"These facilities can be used as an amplification attack vector when used improperly."
 
 # Comment
 
@@ -984,6 +983,13 @@ Benjamin Kaduk
 
 ## Resolution
 TBD
+change final paragraph of 5.4 to:
+
+   Kiss-o'-Death (KoD) packets can be used in denial of service
+   attacks.  Thus, the observation of even just one KoD packet with a
+   high poll value could be sign that the client is under attack. 
+   And KoD packets are commonly accepted even when not cryptographically 
+   authenticated, which increases the risk of denial of service attacks.
 
 # Comment
 
@@ -1025,6 +1031,7 @@ Benjamin Kaduk
 
 ## Resolution
 TBD
+Check section A.7
 
 ###
 
@@ -1134,10 +1141,10 @@ there is a good reason, that seems like it should be covered here.
 Eric Rescorla
 
 ## Resolution
-TBD
+
 DS: The primary goal of Chronos is to provide a NTP client that prevents from
 time shifting (delay) attacks. Chronos applies a very interesting approach to mitigate
-such attacks. However, it is not yet a stable product that can be applied out of the
+such attacks. However, it is not yet a stable standard that can be applied out of the
 box. Currently, there is a draft draft-schiff-ntp-chronos-01 that 
 is considered for adoption in the ntp working group. This draft aims to standardize 
 the main concepts of Chronos so that NTP implementations may benefit from them. 
@@ -1264,6 +1271,7 @@ Eric Rescorla
 
 ## Resolution
 TBD
+"These facilities can be used as an amplification attack vector when used improperly."
 
 # Comment 
 
