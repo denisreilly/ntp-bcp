@@ -399,9 +399,10 @@
         </t>
         <t>The NTP Control Messages
         are designed to permit monitoring and optionally authenticated 
-        control of NTP and its configuration.  Used properly, these facilities provide vital
-        debugging and performance information and control.  Used improperly,
-        these facilities can be an abuse vector. For this reason, it is 
+        control of NTP and its configuration.  Used properly, these facilities
+		provide vital debugging and performance information and control. 
+		But these facilities can be a vector for amplification attacks when
+		abused.  For this reason, it is 
         RECOMMENDED that publicly-facing NTP servers should block NTP Control Message queries from outside their organization.</t>
 
         <t>The ability to use NTP Control Messages beyond their basic monitoring
@@ -875,10 +876,11 @@
         of the NTP protocol to drop packets from misbehaving clients when these
         clients are detected.</t>
         
-        <t>Also, Kiss-o'-Death (KoD) packets can be used in denial of
-        service attacks.  Thus, the observation of even just one KoD packet
-        with a high poll value could be sign that the client
-        is under attack.</t>
+        <t>Kiss-o'-Death (KoD) packets can be used in denial of service
+        attacks.  Thus, the observation of even just one KoD packet with a
+        high poll value could be sign that the client is under attack. 
+        And KoD packets are commonly accepted even when not cryptographically 
+        authenticated, which increases the risk of denial of service attacks.</t>
       </section>
 
       <section title="Broadcast Mode Should Only Be Used On Trusted Networks">
@@ -1375,7 +1377,7 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
 
        
         <section anchor="AppendixNTPDMonitoring" title="Monitoring">
-        <t>The reference implementation of NTP allows remote monitoring.
+        <t>The ntpd implementation allows remote monitoring.
         Access to this service is generally controlled by the "noquery"
         directive in NTP's configuration file (ntp.conf) via a "restrict"
         statement.  The syntax reads:</t>
@@ -1396,7 +1398,7 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
         <t>The use of leap second
 	     files requires ntpd 4.2.6 or later.  After fetching the leap seconds
 	     file onto the server, add this line to ntpd.conf to apply and use
-	    the file:</t>
+	    the file, substituting the proper path:</t>
 
         <t>leapfile "/path/to/leap-file"</t>
 
@@ -1442,8 +1444,10 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
         information to their key file in the form:</t>
 
           <figure>
-            <artwork><![CDATA[keyid label key]]></artwork>
+            <artwork><![CDATA[keyid type key]]></artwork>
           </figure>
+		  <t>where "keyid" is a number, "type" is the type of key used,
+		  and "key" is the key itself.</t>
           
           <t>An ntpd client establishes a protected association by appending
           the option "key keyid" to the server statement in ntp.conf:</t>
@@ -1451,6 +1455,8 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
           <figure>
             <artwork><![CDATA[server address key keyid]]></artwork>
           </figure>
+		  <t>substituting the server address in the "address" field and the 
+		  numerical keyid to use with that server in the "keyid" field.</t>
           
           <t>A key is deemed trusted when its keyid is added to the list of trusted
 	      keys by the "trustedkey" statement in ntp.conf.</t>
@@ -1458,6 +1464,7 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
           <figure>
             <artwork><![CDATA[trustedkey keyid_1 keyid_2 ... keyid_n]]></artwork>
           </figure>
+		  
           
         <t>Starting with ntp-4.2.8p7 the ntp.keys file accepts an optional 4th 
         column, a comma-separated list of IPs that are allowed to serve time. 

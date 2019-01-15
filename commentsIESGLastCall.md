@@ -745,8 +745,8 @@ itself, as well as an abuse vector.
 Benjamin Kaduk
 
 ## Resolution
-TBD
-"These facilities can be used as an amplification attack vector when used improperly."
+Change to 
+"But these facilities can be a vector for amplification attacks when abused."
 
 # Comment
 
@@ -982,7 +982,9 @@ attacks is better here or in the previous subsection.
 Benjamin Kaduk
 
 ## Resolution
-TBD
+I want to keep the note here. I think it can be made stronger by adding your 
+text.
+
 change final paragraph of 5.4 to:
 
    Kiss-o'-Death (KoD) packets can be used in denial of service
@@ -1030,7 +1032,7 @@ user-replaceable.
 Benjamin Kaduk
 
 ## Resolution
-TBD
+
 Check section A.7
 
 ###
@@ -1171,7 +1173,6 @@ is superior.
 Eric Rescorla
 
 ## Resolution
-TBD
 DS: In Sec. 3.2 we give advice on the number of time sources so that NTP's 
 inherent selection mechanisms are enabled to protect against unintentionally 
 false time sources. We don't consider the case in which 
@@ -1270,8 +1271,9 @@ Why are these facilites an abuse vector
 Eric Rescorla
 
 ## Resolution
-TBD
-"These facilities can be used as an amplification attack vector when used improperly."
+Change to 
+"But these facilities can be a vector for amplification attacks when abused."
+
 
 # Comment 
 
