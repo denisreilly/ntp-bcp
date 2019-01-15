@@ -1449,7 +1449,7 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
           </figure>
 		  <t>where "keyid" is a number between 1 and 65534, inclusive, 
 		  "type" is an ASCII character which defines the key format, 
-		  and "key" id the key itself.</t>
+		  and "key" is the key itself.</t>
           
           <t>An ntpd client establishes a protected association by appending
           the option "key keyid" to the server statement in ntp.conf:</t>
