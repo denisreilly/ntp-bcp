@@ -631,22 +631,23 @@
           association be protected by its own unique key. It is RECOMMENDED
           that participants agree to refresh keys periodically. 
           However, NTP does not provide a mechanism to assist in doing so.
-		  </t>
+		  Each communication partner will need to keep track of its keys in
+		  its own local key storage.</t>
+		  
           <t><xref target="RFC5905"/> specifies using the MD5 hash algorithm
           for calculation of the MAC, but other algorithms 
           may be supported as well. The MD5 hash is now considered to be too 
           weak and unsuitable for cryptgraphic usage. <xref target="RFC6151"/> has more information on the algorithm's weaknesses. Implementations will soon be available based on 
           <xref target="I-D.ietf-ntp-mac">AES-128-CMAC </xref>, and users SHOULD use that when it is available. </t>
 
-          <t>To use this approach the communication partners have to
+          <!--<t>To use this approach the communication partners have to
           exchange the key, which consists of a keyid with a value between 1
           and 65534, inclusive, and a label which indicates the chosen
           digest algorithm.  Each communication partner adds this
-          information to its own local key storage.</t>
+          information to its own local key storage.</t> -->
 
           <t>Some implementations store the key in clear text.  Therefore it
-          needs to be only be readable by the NTP process.  Different keys are
-          added line by line to the local key storage.</t>
+          needs to be only be readable by the NTP process.</t>
 
  <!--         <t>An NTP client establishes a protected association by appending
           the key to the server statement in its configuration file. Note that
@@ -1440,14 +1441,15 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
         </section>
         
       <section anchor="AppendixNTPDPreSharedKeys" title="Pre-Shared Keys"> 
-        <t>Each communication partner must add the keyid
+        <t>Each communication partner must add the key
         information to their key file in the form:</t>
 
           <figure>
             <artwork><![CDATA[keyid type key]]></artwork>
           </figure>
-		  <t>where "keyid" is a number, "type" is the type of key used,
-		  and "key" is the key itself.</t>
+		  <t>where "keyid" is a number between 1 and 65534, inclusive, 
+		  "type" is an ASCII character which defines the key format, 
+		  and "key" id the key itself.</t>
           
           <t>An ntpd client establishes a protected association by appending
           the option "key keyid" to the server statement in ntp.conf:</t>
