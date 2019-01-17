@@ -1113,7 +1113,6 @@
        
       &RFC8174;
 	  
-      &RFC6151;
 
      
 
@@ -1130,6 +1129,8 @@
     &RFC1305;
     
     &RFC5906;
+    
+    &RFC6151;
 	
 <!--	<reference anchor="BCP38INFO" target="http://www.bcp38.info">
   <front>
