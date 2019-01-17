@@ -883,7 +883,7 @@ under all circumstanes and trust can't be revoked unless it is done manually.
  
 We can rewrite to be clearer:
 
-An NTP client must be able to link a key to a particular server
+An NTP client has to be able to link a key to a particular server
 in order to establish a protected association. This linkage is
 implementation specific. Once applied, a key will be trusted until
 the link is removed.
@@ -1396,6 +1396,7 @@ Eric Rescorla
 
 ## Resolution
 Benjamin Kaduk made a similar comment: we will change this to "local key storage". All implementations I am familiar with use a key file, but of course that's not exhaustive.
+Sicne we are strengthening the other language related to keys, we should also strengthen this statement to a MUST.
 
 # Comment 
 
@@ -1690,8 +1691,10 @@ Why not MUST?
 Ben Campbell 
 
 ## Resolution
-I think you're right, in the context of embedded devices we should really 
-forcefully advise vendors to play nice.
+We originally made this SHOULD because we felt that many users don't really have control over which servers they use, and so we couldn't realistically make the guidance that strong. But in response to another comment, we changed this text to "Network operators and advanced users", so with that narrower focus now MUST is more appropriate.
+
+We also changed the similar guidance in the section on embedded devices to MUST.
+
 
 # Comment
 
@@ -1825,7 +1828,7 @@ We removed the "other" in the latest draft.
 Ben Campbell 
 
 ## Resolution
-Agree on both points. The last paragraph not directly references the BCP38 section.
+Agree on both points. The last paragraph now directly references the BCP38 section.
 
 # Comment
 

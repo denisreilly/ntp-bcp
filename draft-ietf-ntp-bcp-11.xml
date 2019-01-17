@@ -356,9 +356,9 @@
 	other 2 gave them consistent leap-smeared time. This is just one of 
 	many potential causes of disagreement among time sources.</t>
 
-        <t>Operators are advised to monitor all of the time sources that are 
+        <t>Operators are advised to monitor all time sources that are 
         in use.  If time sources do not generally agree, operators are 
-        encouraged to look into the cause of this and either 
+        encouraged to investigate the cause of this and either 
         correct the problems or stop using defective servers.  
         See <xref target="Monitoring"/> for
         more information.</t>
@@ -466,13 +466,13 @@
         synchronize one NTP client, but NTP servers that can service tens of
         thousands of clients take more resources to run.  Network operators
         and advanced users who want to
-        synchronize their computers are advised to only synchronize to 
+        synchronize their computers MUST only synchronize to 
         servers that they have permission to use. </t>
 
         <t>The NTP Pool Project is a group of volunteers who have donated
         their computing and bandwidth resources to freely distribute time
         from primary time sources to others on the Internet.  The time is
-        generally of good quality, but comes with no guarantee whatsoever.
+        generally of good quality but comes with no guarantee whatsoever.
         If you are interested in using this pool, please review their
         instructions at <eref target="http://www.pool.ntp.org/en/use.html">
         http://www.pool.ntp.org/en/use.html</eref>.</t>
@@ -488,7 +488,7 @@
         <eref target="http://www.pool.ntp.org/en/vendors.html">
         http://www.pool.ntp.org/en/vendors.html</eref> .</t>
 
-        <t>If there is a need to synchronize a large number of computers,
+        <t>If there is a need to synchronize many computers,
         an operator may want to run local NTP servers that are synchronized
         to the NTP Pool Project. NTP users on that operator's networks can
         then be synchronized to local NTP servers.</t>
@@ -529,7 +529,7 @@
         apply it at the end of the current day, it is RECOMMENDED that NTP
         servers wait until the last day of the month before broadcasting
         leap seconds. Doing this will prevent older clients from applying a
-        leap second at the wrong time.  When implemeting this recommendation, 
+        leap second at the wrong time.  When implementing this recommendation, 
 		operators should ensure that clients are not configured to use 
 		polling intervals
 		greater than 24 hours, so the leap second notification is not missed.
@@ -579,7 +579,7 @@
           UTC during the smear interval.</t> 
 
 	  <t>Clients that are connected to leap smearing servers MUST NOT
-	  apply the standard NTP leap second handling.  So these clients must 
+	  apply the standard NTP leap second handling.  These clients must 
       never have a leap second file loaded, and the smearing servers must 
       never advertise to clients that a leap second is pending.</t>
 		  
@@ -637,7 +637,7 @@
           <t><xref target="RFC5905"/> specifies using the MD5 hash algorithm
           for calculation of the MAC, but other algorithms 
           may be supported as well. The MD5 hash is now considered to be too 
-          weak and unsuitable for cryptgraphic usage. <xref target="RFC6151"/> has more information on the algorithm's weaknesses. Implementations will soon be available based on 
+          weak and unsuitable for cryptographic usage. <xref target="RFC6151"/> has more information on the algorithm's weaknesses. Implementations will soon be available based on 
           <xref target="I-D.ietf-ntp-mac">AES-128-CMAC </xref>, and users SHOULD use that when it is available. </t>
 
           <!--<t>To use this approach the communication partners have to
@@ -647,13 +647,13 @@
           information to its own local key storage.</t> -->
 
           <t>Some implementations store the key in clear text.  Therefore it
-          needs to be only be readable by the NTP process.</t>
+          MUST only be readable by the NTP process.</t>
 
  <!--         <t>An NTP client establishes a protected association by appending
           the key to the server statement in its configuration file. Note that
           the NTP process has to trust the applied key. </t> -->
 		  
-		  <t>An NTP client must be able to link a key to a particular server
+		  <t>An NTP client has to be able to link a key to a particular server
 		  in order to establish a protected association. This linkage is
 		  implementation specific. Once applied, a key will be trusted until
 		  the link is removed.</t>
@@ -682,7 +682,7 @@
     	applied to enhance integrity and authenticity protection of NTP time 
     	synchronization packets. Usage of such external security protocols can decrease
     	time synchronization performance <xref target="RFC7384"/>. Therefore, operators
-    	are adviced to carefully evaluate if the decreased time synchronization 
+    	are advised to carefully evaluate if the decreased time synchronization 
     	performance meets their specific timing requirements.</t>
     </section>
 
@@ -722,7 +722,7 @@
 		   remote attackers not on the list.  Hosts SHOULD only respond to 
            NTP control queries from authorized parties. </t>
 
-           <t>A NTP client that does not provide time on the network 
+           <t>An NTP client that does not provide time on the network 
            can additionally log
            and drop incoming mode 3 timing queries from unexpected sources.
            Note well that the easiest way to monitor the status of an NTP 
@@ -848,7 +848,7 @@
       </section>
 
       <section anchor="KoD" title="Kiss-o'-Death Packets">
-        <t>The "Kiss-o'-Death" (KoD) packet is a rate limiting mechanism
+        <t>The "Kiss-o'-Death" (KoD) packet includes a rate management mechanism
         where a server can tell a misbehaving client to reduce its query
         rate.  KoD packets in general (and the RATE packet in particular)
 		are defined in Section 7.4 of <xref target="RFC5905"/>.
@@ -864,21 +864,21 @@
         should not exceed a poll interval value of 13 (2 hours). The mechanism 
         to determine how much to increase the poll interval value is undefined 
         in <xref target="RFC5905"/>. If the client uses the poll
-        interval value sent by the server in the KoD packet, it MUST NOT simply
+        interval value sent by the server in the RATE packet, it MUST NOT simply
         accept any value. Using large interval values may open a vector for a 
         denial-of-service attack that causes the client to stop querying its 
         server <xref target="NDSS16"/>.</t>
 
-        <t>The KoD mechanism relies on clients behaving properly in order to
-        be effective.  Some clients ignore the KoD packet entirely, and
-        other poorly-implemented clients might unintentionally increase
-        their poll rate and simulate a denial of service attack.  Server
-        administrators are advised to be prepared for this and take measures outside
-        of the NTP protocol to drop packets from misbehaving clients when these
-        clients are detected.</t>
+        <t>The KoD rate management mechanism relies on clients behaving 
+        properly in order to be effective.  Some clients ignore the RATE packet 
+        entirely, and other poorly-implemented clients might unintentionally 
+        increase their poll rate and simulate a denial of service attack.  
+        Server administrators are advised to be prepared for this and take 
+        measures outside of the NTP protocol to drop packets from misbehaving 
+        clients when these clients are detected.</t>
         
         <t>Kiss-o'-Death (KoD) packets can be used in denial of service
-        attacks.  Thus, the observation of even just one KoD packet with a
+        attacks.  Thus, the observation of even just one RATE packet with a
         high poll value could be sign that the client is under attack. 
         And KoD packets are commonly accepted even when not cryptographically 
         authenticated, which increases the risk of denial of service attacks.</t>
@@ -887,7 +887,7 @@
       <section title="Broadcast Mode Should Only Be Used On Trusted Networks">
         <t>Per <xref target="RFC5905"/>, NTP's broadcast mode is
         authenticated using symmetric key cryptography.  The broadcast
-        server and all of its broadcast clients share a symmetric
+        server and all its broadcast clients share a symmetric
         cryptographic key, and the broadcast server uses this key to append
         a message authentication code (MAC) to the broadcast packets it
         sends.</t>
@@ -990,7 +990,7 @@
 
       <t>Anycast is often used for Internet services at known IP addresses,
       such as DNS.  Anycast can also be used in large organizations to
-      simplify configuration of a large number of NTP clients.  Each client
+      simplify configuration of many NTP clients.  Each client
       can be configured with the same NTP server IP address, and a pool of
       anycast servers can be deployed to service those requests.  New
       servers can be added to or taken from the pool, and other than a
@@ -1325,7 +1325,7 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
        <section anchor="AppendixNTPDTimeSources"
        title="Use enough time sources">
       
-        <t>In addition to the recommendation given in Section <xref 
+        <t>In addition to the recommendation given in <xref 
         target="TimeSources"/> the ntpd implementation provides the 'pool'
         directive. 
         Starting with ntp-4.2.6, using this directive in the ntp.conf 
