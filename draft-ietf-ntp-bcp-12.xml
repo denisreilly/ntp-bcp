@@ -678,7 +678,7 @@
         </section>
         
     <section title="External Security Protocols">
-    	<t>If applicable, external security Protocols such as IPsec and MACsec can be 
+    	<t>If applicable, external security protocols such as IPsec and MACsec can be 
     	applied to enhance integrity and authenticity protection of NTP time 
     	synchronization packets. Usage of such external security protocols can decrease
     	time synchronization performance <xref target="RFC7384"/>. Therefore, operators
@@ -686,10 +686,9 @@
     	performance meets their specific timing requirements.</t>
     	
     <t>
-    Note that none of the security measures described <xref target="Sec_Mech"/> can
-    prevent from packet delay attacks [<xref target="RFC7384">cf. Sec 3.2.6, RFC 7384</xref>] on NTP. 
-    Such delay attacks can target time synchronization packets sent as
-    clear-text or even within an encrypted (tunneled) traffic.
+    Note that none of the security measures described in <xref target="Sec_Mech"/> can
+    prevent packet delay manipulation attacks on NTP. Such delay attacks can target time synchronization packets sent as clear-text or even within an encrypted tunnel. 
+    These attacks are described further in Section 3.2.6 of <xref target="RFC7384"/>. 
     </t>
     </section>
 
