@@ -551,7 +551,7 @@ restrict stanzas without an IP version.
 Benjamin Kaduk 
 
 ## Resolution
-TBD
+
 DR: We could address the two instances that Benjamin makes note of here. 
 First, there is the reference to the "key file". It sounds implementation-specific, 
 because ntpd uses a key file. But so do many other implementations. Perhaps we could
@@ -559,6 +559,16 @@ clarify by calling this "local key storage" throughout the document.
 
 Then, perhaps we can add a more specific disclaimer to the Appendix section, but what 
 would it read? 
+
+## Response
+Ben responded with:
+Appendices are not inherently non-normative; RFC 8446 is a handy example.
+The case here is particularly unclear, since Section 3 explicitly says "Best Practices that are specific to the Network Time Foundation implementation are compiled in Appendix A", which is fairly easy to read as including the appendix by reference.  My understanding (which could be
+wrong!) is that a more accurate description would be something like "Application of these best practices that are specific to the Network Time Foundation implementation, including example configuration directives valid at the time of this writing, are compiled in Appendix A."
+
+
+## Resolution
+
 
 
 # Comment (Discuss)
