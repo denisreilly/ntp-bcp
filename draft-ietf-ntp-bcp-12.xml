@@ -149,26 +149,6 @@
       </address>
     </author>
 
-    <!-- Leave Sam as a ghost contributor for the moment  -->
-
-    <!--    <author fullname="Samuel Weiler" initials="H."
-            surname="Weiler">
-      <organization></organization>
-
-      <address>
-        <postal>
-          <street></street>
-          <city></city>
-          <region></region>
-          <code></code>
-          <country>US</country>
-          </postal>
-        <phone></phone>
-        <email>weiler+ietf@watson.org</email>
-      </address>
-    </author> 
--->
-
     <date year="2019"/>
 
     <!-- If the month and year are both specified and are the current ones, xml2rfc will fill 
@@ -235,24 +215,6 @@
       </section>
     </section>
 
-<!--    <section title="Keeping NTP up to date">
-      <t>Many network security mechanisms rely on time as part of their
-      operation.  If attackers can spoof the time, they may be able to
-      bypass or neutralize other security elements. For example, incorrect
-      time can disrupt the ability to reconcile logfile entries on the
-      affected system with events on other systems.</t>
-      <t>There are multiple versions of the NTP protocol in use, and
-      multiple implementations, on many different platforms. The 
-      practices in this document are meant to apply generally to any implementation
-      of <xref target="RFC5905"/>. It is
-      RECOMMENDED that that NTP users select an implementation that is 
-      actively maintained. Users should keep up to date on any known 
-      attacks on their selected implementation, and deploy updates containing 
-      security fixes as soon as practical.</t>
-      
-
-    </section> -->
-
     <section anchor="Sec_Gen" title="General Network Security Best Practices">
 
       <section anchor="bcp38" title="BCP 38">
@@ -292,11 +254,6 @@
     compiled in Appendix A.</t>
     
     <section title="Keeping NTP up to date">
-      <!--<t>Many network security mechanisms rely on time as part of their
-      operation.  If attackers can spoof the time, they may be able to
-      bypass or neutralize other security elements. For example, incorrect
-      time can disrupt the ability to reconcile logfile entries on the
-      affected system with events on other systems. </t> -->
       <t>There are multiple versions of the NTP protocol in use, and
       multiple implementations, on many different platforms. The 
       practices in this document are meant to apply generally to any implementation
@@ -418,11 +375,6 @@
         abused in high-bandwidth DDoS attacks. <xref target="bcp38"/> gives
 		more information on how to provide protection for this abuse by
 		implementing BCP 38.</t>
-		
-		<!-- <t>To provide protection from such
-        abuse NTP server operators for ISP's and large corporate networks SHOULD 
-        deploy ingress filtering in accordance with <xref target="RFC2827">BCP 38</xref>.</t>
-		-->
         
       </section>
 
@@ -432,12 +384,6 @@
         quickly identify servers which are out of sync, and ensure correctness
         of the service. Operators SHOULD also monitor system logs for messages so problems and abuse 
         attempts can be quickly identified.</t>
-
-<!--        <t>If a system starts getting unexpected time replies from its time
-        servers, that can be an indication that the IP address of the system
-        is being forged in requests to its time server. The goal of this attack
-        is to convince the time server to stop serving time to the system whose
-        address is being forged.</t> -->
 		
 		<t>If a system starts to receive NTP Reply packets from a time server
 		that do not correspond to any requests sent by the system, that can be
@@ -459,8 +405,6 @@
         then either the system clock is unusually fast or somebody is trying
         to launch a replay attack against that server.</t>
 
-        <!-- Cite
-        CVEs, BU paper, bug reports? -->
       </section>
 
       <section anchor="Pool" title="Using Pool Servers">
@@ -478,10 +422,6 @@
         If you are interested in using this pool, please review their
         instructions at <eref target="http://www.pool.ntp.org/en/use.html">
         http://www.pool.ntp.org/en/use.html</eref>.</t>
-
-        <!--<t>A vendor who wishes to provide time service to customers might 
-        consider joining the NTP pool and providing a "vendor zone" 
-        through that service.</t> -->
 		
         <t>Vendors can obtain
         their own subdomain that is part of the NTP Pool Project.  This offers
@@ -536,9 +476,6 @@
 		polling intervals
 		greater than 24 hours, so the leap second notification is not missed.
 		</t>
-		<!--<t>Note well that NTPv4's longest
-		polling interval exceeds one day and thus a leap second
-		announcement may be missed.</t> -->
 
 <!--        <t>The IETF maintains a 
         <eref target="https://www.ietf.org/timezones/data/leap-seconds.list">leap
@@ -642,18 +579,8 @@
           weak and unsuitable for cryptographic usage. <xref target="RFC6151"/> has more information on the algorithm's weaknesses. Implementations will soon be available based on 
           <xref target="I-D.ietf-ntp-mac">AES-128-CMAC </xref>, and users SHOULD use that when it is available. </t>
 
-          <!--<t>To use this approach the communication partners have to
-          exchange the key, which consists of a keyid with a value between 1
-          and 65534, inclusive, and a label which indicates the chosen
-          digest algorithm.  Each communication partner adds this
-          information to its own local key storage.</t> -->
-
           <t>Some implementations store the key in clear text.  Therefore it
           MUST only be readable by the NTP process.</t>
-
- <!--         <t>An NTP client establishes a protected association by appending
-          the key to the server statement in its configuration file. Note that
-          the NTP process has to trust the applied key. </t> -->
 		  
 		  <t>An NTP client has to be able to link a key to a particular server
 		  in order to establish a protected association. This linkage is
@@ -693,20 +620,9 @@
     These attacks are described further in Section 3.2.6 of <xref target="RFC7384"/>. 
     </t>
     </section>
+  </section>
 
-
-		
-	<!-- DPR: discuss this with Harlan -->
-	<!--
-	<section title="Extended Information">
-	  <t>One of the use-cases for Autokey is that it provides the
-	  UTC/TAI offset.  The proposed "Extended Information Extension
-	  Field" will provide a better way to get this data.</t>
-        </section>
-	-->
-      </section>
-
-      <section anchor="Sec_Bcp" title="NTP Security Best Practices">
+  <section anchor="Sec_Bcp" title="NTP Security Best Practices">
       <t>This section lists some general NTP security practices,
       but these issues may (or may not) have been mitigated in particular
       versions of particular implementations. Contact the maintainers of 
@@ -752,10 +668,6 @@
            from known sources. An exception to this can be made if a 
 		   leaf-node host is being actively monitored, in which case
 		   incoming packets from the monitoring server can be allowed.</t>
-
-		   <!--Note well that proper monitoring of an
-           NTP server instance includes checking the time of that NTP server
-           instance.</t> -->
            
            <t>Please refer to <xref target="I-D.ietf-ntp-data-minimization"/>
            for more information.</t>
@@ -819,10 +731,6 @@
              time to be correct.</t>
           
           </list></t>
-          
-<!--          <t>In addition, implementors SHOULD prevent the NTP daemon from 
-          taking time steps that set the clock to a time earlier than the 
-          compile date of the NTP daemon.</t> -->
 		  
 		  <t>In addition, the following steps SHOULD be taken by those who 
 		  implement the NTP protocol:</t>
@@ -930,13 +838,6 @@
         a host SHOULD require each of its symmetric passive association to be
         cryptographically authenticated.  Each symmetric passive association
         SHOULD be authenticated under a different cryptographic key.</t>
-
-	<!-- <t>The use of a different cryptographic key per peer prevents a
-	Sybil attack, where a single malicious peer uses the same
-	cryptographic key to set up multiple symmetric associations with a
-	target, and thus bias the results of the target's Byzantine fault
-	tolerant peer selection algorithms.</t> -->
-
 
       </section>
     </section>
@@ -1371,11 +1272,6 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
 
         <t>restrict ... nomodify</t>
 
-        <!-- Should we talk about notrap ? -->
-
-        <!-- the following ntp.conf fragment examples are version-specific.
-             Which versions should we show examples for? -->
-
         <t>Users can prevent their NTP servers from considering
         query/configuration traffic by default by adding the following to
         their ntp.conf file:</t>
@@ -1401,9 +1297,7 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
         <t>If a system is using broadcast mode and is running ntp-4.2.8p6 or
         later, use the 4th field of the ntp.keys file to specify the IPs of
         machines that are allowed to serve time to the group.</t>
-
-        <!-- Cite
-        CVEs, BU paper, bug reports? -->
+        
       </section>
       
       <section anchor="AppendixNTPDLeapFile" title="Leap Second File">      
@@ -1514,6 +1408,7 @@ v08 2018-11-12  DPR: resolved several comments from outside reviewers
 v09             DPR: strengthened and clarified requirements language
 v10 2018-12-13  DPR: fixed minor nits regarding URL's, and citation of informative and obsolete RFC's
 v11             DPR: changes made due to IESG feedback
+v12 2019-01-25  DPR: IESG Feedback
        -->
   </back>
 </rfc>
