@@ -286,8 +286,10 @@
 
     <section title="NTP Configuration Best Practices">
     <t>This section provides Best Practices for NTP configuration and 
-    operation.  Best Practices that are specific to the Network Time Foundation
-    implementation are compiled in Appendix A.</t>
+    operation.  Application of these best practices that are specific 
+    to the Network Time Foundation implementation, including example 
+    configuration directives valid at the time of this writing, are 
+    compiled in Appendix A.</t>
     
     <section title="Keeping NTP up to date">
       <!--<t>Many network security mechanisms rely on time as part of their
@@ -1327,7 +1329,8 @@ http://www.talosintel.com/reports/TALOS-2016-0078/
        <eref target="http://www.ntp.org/downloads.html">ntpd</eref>. 
        It is an evolution of the first NTP implementations developed by 
        David Mills at the University of Delaware.  This appendix contains
-       additional recommendations specific to this implementation.
+       additional recommendations specific to this implementation that are 
+       valid at the time of this writing.
        </t>
       
        <section anchor="AppendixNTPDTimeSources"
