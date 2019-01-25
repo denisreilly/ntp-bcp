@@ -684,7 +684,15 @@
     	time synchronization performance <xref target="RFC7384"/>. Therefore, operators
     	are advised to carefully evaluate if the decreased time synchronization 
     	performance meets their specific timing requirements.</t>
+    	
+    <t>
+    Note that none of the security measures described <xref target="Sec_Mech"/> can
+    prevent from packet delay attacks [<xref target="RFC7384">cf. Sec 3.2.6, RFC 7384</xref>] on NTP. 
+    Such delay attacks can target time synchronization packets sent as
+    clear-text or even within an encrypted (tunneled) traffic.
+    </t>
     </section>
+
 
 		
 	<!-- DPR: discuss this with Harlan -->
