@@ -31,6 +31,7 @@ But these aren't things that the *server* can do, really. So, I don't understand
 ## Response
 
 DS: We may write "Mitigating source address spoofing attacks should be a priority of network administrators." or we could delete it altogether. 
+DR: Maybe the sentence is not necessary, since we give normative RECOMMENDED guidance later in the paragraph.
 
 # Comment
 
@@ -55,6 +56,15 @@ Then you need to state that this isn't intended to deal with this threat model.
 
 DS: Perhaps we could write "Operators SHOULD monitor all of the time source in use for correct time". That should make clear that we don't consider an attack by an MITM in this section.
 
+DR: No, I think his objection is more direct -- he sees a problem in that we assume that all time servers are honest.
+
+How about adding this text after the list:
+
+This analysis assumes that a majority of the servers used in the solution 
+are honest, even if they may be inaccurate.  Operators should be aware of 
+the possibility that in the event of an active attack, the time coming from 
+all servers could be compromised. 
+
 # Comment
 
 S 3.2.
@@ -77,6 +87,11 @@ The problem here is the statement that it is "impossible". That is clearly false
 
 ## Response
 DS: Perhaps we may write: "An if the two sources don't agree, then without external means it's impossible to know wich ...". This would acknowledge Eric example. However, it may cause other issues? 
+
+DR: I think when we wrote "simply", we meant "without external information". And maybe "impossible" is overdoing it.
+How about:
+"And if the two sources don't agree, it will be difficult to know which one is correct without making use of external information".
+
 
 # Comment
 S 3.5.
@@ -104,7 +119,15 @@ I think you need to state that the time server will potentially throttle in resp
 
 ## Response
 
-TBD
+DR: We propose clarifying the last sentence:
+
+If a system starts to receive NTP Reply packets from a time server
+that do not correspond to any requests sent by the system, that can be
+an indication that an attacker is forging that system's IP address in
+requests to the remote time server. *Based on these forged packets, the 
+remote time server might decide to throttle or rate limit packets, or 
+even stop sending packets to the forged system entirely, affecting the 
+availabilityof the NTP service to the forged system.*
 
 # Comment
 
@@ -128,4 +151,6 @@ How do the clients know whether anycast is in use?
 
 ## Response
 
-TBD
+DR: The clients have no way of knowing whether anycast is in use. so it's up to whoever is setting up the Anycast-based time transfer network to come to the determination that any small shifts can be tolerated. I guess there is an assumption here that the network operators know what the use case of their users are. 
+
+So perhaps we can change to "It is RECOMMENDED that network operators only deploy anycast NTP in environments where operators know these small shifts can be tolerated in the applications being synchronized by their anycast NTP servers.
