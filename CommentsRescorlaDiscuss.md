@@ -30,7 +30,7 @@ But these aren't things that the *server* can do, really. So, I don't understand
 
 ## Response
 
-TBD
+DS: We may write "Mitigating source address spoofing attacks should be a priority of network administrators." or we could delete it altogether. 
 
 # Comment
 
@@ -53,7 +53,7 @@ Then you need to state that this isn't intended to deal with this threat model.
 
 ## Response
 
-TBD
+DS: Perhaps we could write "Operators SHOULD monitor all of the time source in use for correct time". That should make clear that we don't consider an attack by an MITM in this section.
 
 # Comment
 
@@ -76,7 +76,7 @@ The problem here is the statement that it is "impossible". That is clearly false
 
 
 ## Response
-TBD
+DS: Perhaps we may write: "An if the two sources don't agree, then without external means it's impossible to know wich ...". This would acknowledge Eric example. However, it may cause other issues? 
 
 # Comment
 S 3.5.
