@@ -32,7 +32,9 @@ But these aren't things that the *server* can do, really. So, I don't understand
 
 DS: We may write "Mitigating source address spoofing attacks should be a priority of network administrators." or we could delete it altogether. 
 DR: Maybe the sentence is not necessary, since we give normative RECOMMENDED guidance later in the paragraph.
-
+  DS: Yes, I thought the same. So we delete it?
+  
+  
 # Comment
 
 S 3.2.
@@ -65,6 +67,11 @@ are honest, even if they may be inaccurate.  Operators should be aware of
 the possibility that in the event of an active attack, the time coming from 
 all servers could be compromised. 
 
+DS: Oh, okay. I didn't was aware of that. But that explains his concerns better. From 
+my point of view the additional paragraph is ok.
+
+
+
 # Comment
 
 S 3.2.
@@ -91,7 +98,7 @@ DS: Perhaps we may write: "An if the two sources don't agree, then without exter
 DR: I think when we wrote "simply", we meant "without external information". And maybe "impossible" is overdoing it.
 How about:
 "And if the two sources don't agree, it will be difficult to know which one is correct without making use of external information".
-
+DS: Yes, this reads better and is more unambiguous than the sentence from me.
 
 # Comment
 S 3.5.
@@ -129,6 +136,8 @@ remote time server might decide to throttle or rate limit packets, or
 even stop sending packets to the forged system entirely, affecting the 
 availabilityof the NTP service to the forged system.*
 
+DS: Yes, agree.
+
 # Comment
 
 S 7.
@@ -154,3 +163,6 @@ How do the clients know whether anycast is in use?
 DR: The clients have no way of knowing whether anycast is in use. so it's up to whoever is setting up the Anycast-based time transfer network to come to the determination that any small shifts can be tolerated. I guess there is an assumption here that the network operators know what the use case of their users are. 
 
 So perhaps we can change to "It is RECOMMENDED that network operators only deploy anycast NTP in environments where operators know these small shifts can be tolerated in the applications being synchronized by their anycast NTP servers.
+
+
+DS: I don't now much of anycast. But from what I deduce your reply should acknowledge Eric's concerns.
