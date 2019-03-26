@@ -231,8 +231,7 @@
         here</eref>, and further discussion in <xref target="IMC14"/> and <xref target="NDSS14"/>. 
         </t>
         
-        <t>Mitigating source address spoofing attacks should be a priority of 
-        anyone administering NTP. <xref target="RFC2827">BCP 38</xref> was
+        <t><xref target="RFC2827">BCP 38</xref> was
         published in 2000 to to provide some level of
 		remediation against address-spoofing attacks. BCP
         38 calls for filtering outgoing and incoming traffic to make
@@ -284,9 +283,9 @@
           <t>If there are 2 sources of time and they agree well enough,
           then the best time can be calculated easily. But if one source 
           fails, then the solution degrades to the single-source solution 
-          outlined above. And if the two sources don't agree, then it's 
-          impossible to know which one is correct by simply looking at the 
-          time.</t>
+          outlined above. And if the two sources don't agree, it will be 
+          difficult to know which one is correct without making use of 
+          information from outside the protocol.</t>
 			 
           <t>If there are 3 sources of time, there is more data available to 
           converge on the best calculated time, and this time is more likely to be 
@@ -298,6 +297,11 @@
           <xref target="Diversity"> diverse</xref>. If one of these sources
           develops a problem there are still at least 3 other time sources.</t>
         </list></t>
+        
+    <t>This analysis assumes that a majority of the servers used in the 
+    solution are honest, even if some may be inaccurate.  Operators should 
+    be aware of the possibility that if an attacker is in control of the 
+    network, the time coming from all servers could be compromised.</t>
 		
     <t>Operators who are concerned with maintaining accurate time SHOULD use
     at least 4 independent, diverse sources of time. Four sources will 
@@ -385,12 +389,14 @@
         of the service. Operators SHOULD also monitor system logs for messages so problems and abuse 
         attempts can be quickly identified.</t>
 		
-		<t>If a system starts to receive NTP Reply packets from a time server
+		<t>If a system starts to receive NTP Reply packets from a remote time server
 		that do not correspond to any requests sent by the system, that can be
 		an indication that an attacker is forging that system's IP address in
-		requests to the remote time server. The goal of this attack would be to
-		convince the time server to stop serving time to the
-		system whose address is being forged.</t>
+		requests to the remote time server. The goal of this attack is to 
+        adversely impact the availability of time to the targeted system whose 
+        address is being forged. Based on these forged packets, the 
+        remote time server might decide to throttle or rate limit packets, or 
+        even stop sending packets to the targeted system.</t>
 		
 
         <t>If a system is a broadcast client and its system log shows that it
@@ -925,8 +931,10 @@
       client when the server it is connected to changes.  In extreme cases 
       where the network topology is changing rapidly, this could cause 
       the server seen by a client to rapidly change as well, which can lead 
-      to larger time inaccuracies. It is RECOMMENDED that anycast only be 
-      deployed in environments where this behavior can be tolerated</t>
+      to larger time inaccuracies. It is RECOMMENDED that network operators 
+      only deploy anycast NTP in environments where operators know these 
+      small shifts can be tolerated by the applications running on the clients 
+      being synchronized in this manner.</t>
 
       <t>Configuration of an anycast interface is independent of NTP.
       Clients will always connect to the closest server, even if that server

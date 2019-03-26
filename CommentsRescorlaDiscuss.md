@@ -64,11 +64,17 @@ How about adding this text after the list:
 
 This analysis assumes that a majority of the servers used in the solution 
 are honest, even if they may be inaccurate.  Operators should be aware of 
-the possibility that in the event of an active attack, the time coming from 
+the possibility that if an attacker is in control of their network, the time coming from 
 all servers could be compromised. 
 
 DS: Oh, okay. I didn't was aware of that. But that explains his concerns better. From 
 my point of view the additional paragraph is ok.
+
+DR: I changed the wording a bit:
+This analysis assumes that a majority of the servers used in the 
+    solution are honest, even if some may be inaccurate.  Operators should 
+    be aware of the possibility that if an attacker is in control of the 
+    network, the time coming from all servers could be compromised.
 
 
 
@@ -99,6 +105,11 @@ DR: I think when we wrote "simply", we meant "without external information". And
 How about:
 "And if the two sources don't agree, it will be difficult to know which one is correct without making use of external information".
 DS: Yes, this reads better and is more unambiguous than the sentence from me.
+
+DR: Changed wording to:
+And if the two sources don't agree, it will be 
+          difficult to know which one is correct without making use of 
+          information from outside the protocol.
 
 # Comment
 S 3.5.
@@ -133,10 +144,20 @@ that do not correspond to any requests sent by the system, that can be
 an indication that an attacker is forging that system's IP address in
 requests to the remote time server. *Based on these forged packets, the 
 remote time server might decide to throttle or rate limit packets, or 
-even stop sending packets to the forged system entirely, affecting the 
-availabilityof the NTP service to the forged system.*
+even stop sending packets to the forged system entirely, adversely 
+impacting the availability of the NTP service to the forged system.*
 
 DS: Yes, agree.
+
+DR:Changed wording to:
+If a system starts to receive NTP Reply packets from a remote time server
+that do not correspond to any requests sent by the system, that can be
+an indication that an attacker is forging that system's IP address in
+requests to the remote time server. The goal of this attack is to 
+adversely impact the availability of time to the targeted system whose 
+address is being forged. Based on these forged packets, the 
+remote time server might decide to throttle or rate limit packets, or 
+even stop sending packets to the targeted system.
 
 # Comment
 
@@ -166,3 +187,10 @@ So perhaps we can change to "It is RECOMMENDED that network operators only deplo
 
 
 DS: I don't now much of anycast. But from what I deduce your reply should acknowledge Eric's concerns.
+
+DR:
+Changed the workding to:
+It is RECOMMENDED that network operators 
+only deploy anycast NTP in environments where operators know these 
+small shifts can be tolerated by the applications running on the clients 
+being synchronized in this manner.
