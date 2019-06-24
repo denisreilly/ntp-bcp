@@ -166,11 +166,16 @@ Is there a style guide that details why these changes are made?
 In particular, I note that "time synchronization" appears several 
 times in RFC7384 with no hyphen.
 
-This is not a big deal, I just eant to amke sure we are consistent with other RFC's.
+This is not a big deal, I just want to make sure we are consistent with other RFC's.
+
+6/24: I talked with our Tech Writer, she said that the hyphenation should appear
+the word combination is used as an adjective. (For instance, "leap second" vs. 
+"leap-second file".) I now think it is OK, and not worth mentioning.
+
 
 # Comment from Denis Reilly
-I see that the NTPMAC document is very close to being released as RFC8573 -- 
-it has recently finished AUTH48. Woudl it be possible to replace this reference 
+I see that the NTPMAC document has been released as RFC8573 -- 
+Would it be possible to replace this reference 
 with RFC8573 before publishing this document?
 
 
