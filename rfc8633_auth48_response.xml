@@ -420,7 +420,7 @@ Original:
 Perhaps:
    UTC is kept in agreement with Universal Time (UT1) [SOLAR] to within ...
    
-   [authors] There are different versions auf Universal Time (UTC, UT1,
+   [authors] There are different versions of Universal Time (UTC, UT1,
 UT0, UT2, ...). Hence, if UT1 should be expanded it would be correct to write 
 "Universal Time No. 1" which from our point of view sounds strange.
 Our suggestion: ... UTC is kept in agreement with the Universal Time UT1 [SOLAR] to
@@ -428,7 +428,7 @@ within ...
 -->
       <section title="Leap-Second Handling">
         <t>UTC is kept in agreement with the Universal Time UT1 <xref
-	    target="SOLAR">(UT1)</xref>
+	    target="SOLAR"/>
         to within +/- 0.9 seconds by the insertion (or possibly deletion)
         of a leap second.  UTC is an atomic time scale, whereas UT1 is based
         on the rotational rate of the earth.  Leap seconds are not
