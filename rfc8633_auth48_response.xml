@@ -783,10 +783,10 @@ Original:
    3.  A packet with an invalid cryptographic MAC [CCR16].
    
 [authors]: we feel this wording is OK, as the concept of checking the integrity of a MAC
-is well understood.
+is well understood, but the citation is no longer helpful here and should be removed.
 -->
 
-          <t>A packet with an invalid cryptographic MAC <xref target="CCR16"/>.</t>
+          <t>A packet with an invalid cryptographic MAC.</t>
         </list></t>
 
         <t>The observation of many such packets could indicate that the client 
