@@ -50,6 +50,12 @@ How about:
    Appendix B of [RFC1305], which defined NTPv3, but were not included in 
    [RFC 5905], which obsoleted [RFC1305].
 
+## RFCEd Response:
+   These messages do
+   not appear in the NTPv4 specification [RFC5905], which obsoletes the
+   NTPv3 specification [RFC1305], but they are still used.
+
+
 
 # Comment
 3) <!-- [rfced] Should UT1 be expanded to "Universal Time" or left as is?
@@ -98,6 +104,27 @@ possibility that a negative leap second might happen in the future, in which
 case time would have to be sped up.
 
 However, I like the change from "slewed small" to "slewed at a low rate".
+
+## RFCEd Response:
+
+For our understanding, would you please point to the definition of "slew" that is in use? We see that "slewed" is used in RFC 1305 and a few other RFCs, but we aren't finding a relevant definition.
+
+### Response
+DR -- I've heard the term many times in the control systems and network timing industry, with the meaning "to adjust" or "to change". "slew rate" is a common term in control theory meaning rate of change. Our intent behind using "slew" here is to make small adjustments to a property (like the time) in order to eventually bring it in line with what is expected.
+
+Our main objection to "slowed" vs. "slewed" is that "slowed" implies adjustment in a single direction, and we don't want that restriction. Perhaps "adjusted" is less ambiguous than "slewed":
+
+   Some NTP installations make use of a technique called leap smearing.
+   With this method, instead of introducing an extra second (or
+   eliminating a second) in a leap-second event, NTP time is adjusted in
+   small increments over a comparably large window of time (called the
+   smear interval) around the leap-second event.  The smear interval
+   should be large enough for the time to be adjusted at a low rate, so
+   that clients will follow the smeared time without objecting.
+
+
+
+
 
 
 # Comment
